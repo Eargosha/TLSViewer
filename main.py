@@ -53,24 +53,40 @@ def capture_traffic(interface="Ethernet"):
     )
 
     for packet in capture.sniff_continuously():
-        try:
-            if 'TLS' in packet and packet.ip and packet.tcp:
-                print("\n--- Новый TLS-пакет ---")
+        if 'TLS' in packet and hasattr(packet, 'ip'):
+            print("\n--- Новый TLS-пакет ---")
 
-                if packet.tls.handshake_extensions_server_name:
-                    print(f"SNI: {packet.tls.handshake_extensions_server_name}")
+            # Безопасная проверка наличия SNI
+            try:
+                sni = packet.tls.get('handshake_extensions_server_name')
+                if sni:
+                    print(f"SNI: {sni}")
+            except AttributeError:
+                print("SNI не найден в пакете")
 
-                if packet.tls.record_version:
-                    print(f"Версия TLS: {packet.tls.record_version}")
-                    print(f"TLS Record Version: {packet.tls.record_version}")
+            # Безопасная проверка других полей
+            try:
+                tls_version = packet.tls.get('record_version')
+                if tls_version:
+                    print(f"Версия TLS: {tls_version}")
+            except AttributeError:
+                pass
 
-                if packet.tls.content_type:
-                    print(f"TLS Content Type: {packet.tls.content_type}")
+            try:
+                content_type = packet.tls.get('content_type')
+                if content_type:
+                    print(f"TLS Content Type: {content_type}")
+            except AttributeError:
+                pass
 
-                print(f"Источник: {packet.ip.src}:{packet.tcp.srcport} -> {packet.ip.dst}:{packet.tcp.dstport}")
-
-        except AttributeError:
-            continue
+            try:
+                src_ip = packet.ip.src
+                dst_ip = packet.ip.dst
+                src_port = packet.tcp.srcport
+                dst_port = packet.tcp.dstport
+                print(f"Источник: {src_ip}:{src_port} -> {dst_ip}:{dst_port}")
+            except AttributeError:
+                pass
 
 
 def main():
