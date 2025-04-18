@@ -15,6 +15,7 @@ TARGET_IP = "178.248.237.68"  # IP-адрес для фильтрации
 
 # !!! Перед запуском mitmproxy нужно установить сертификат mitmproxy-ca-cert.pem
 # !!! Сделать проверку PING перед использованием кода
+# !!! Использовать tshark.exe
 def start_mitmproxy():
     """Запуск mitmproxy в фоновом режиме с SSLKEYLOGFILE"""
     os.environ["SSLKEYLOGFILE"] = SSL_KEY_LOG_FILE
@@ -24,7 +25,13 @@ def start_mitmproxy():
         "--set", f"sslkeylogfile={SSL_KEY_LOG_FILE}",
         "--listen-port", str(MITMPROXY_PORT)
     ]
-    return subprocess.Popen(command)
+    # Подавление вывода mitmproxy
+    with open("mitmproxy.log", "w") as log_file:
+        return subprocess.Popen(
+            command,
+            stdout=log_file,  # Логи записываются в файл
+            stderr=log_file
+        )
 
 
 def configure_browser():
@@ -44,49 +51,18 @@ def capture_traffic(interface="Ethernet"):
     """Захват и анализ TLS-трафика с использованием PyShark"""
     capture = pyshark.LiveCapture(
         interface=interface,
-        display_filter="tls",
-        use_json=True,
-        include_raw=True,
-        override_prefs={
-            "tls.keylog_file": SSL_KEY_LOG_FILE  # Указываем путь к файлу с ключами
-        }
+        override_prefs={'tls.keylog_file': os.path.abspath(SSL_KEY_LOG_FILE)},
+        debug=True,
+        tshark_path="C:\\Program Files\\Wireshark\\tshark.exe"
     )
 
     for packet in capture.sniff_continuously():
-        if 'TLS' in packet and hasattr(packet, 'ip'):
-            print("\n--- Новый TLS-пакет ---")
 
-            # Безопасная проверка наличия SNI
-            try:
-                sni = packet.tls.get('handshake_extensions_server_name')
-                if sni:
-                    print(f"SNI: {sni}")
-            except AttributeError:
-                print("SNI не найден в пакете")
-
-            # Безопасная проверка других полей
-            try:
-                tls_version = packet.tls.get('record_version')
-                if tls_version:
-                    print(f"Версия TLS: {tls_version}")
-            except AttributeError:
-                pass
-
-            try:
-                content_type = packet.tls.get('content_type')
-                if content_type:
-                    print(f"TLS Content Type: {content_type}")
-            except AttributeError:
-                pass
-
-            try:
-                src_ip = packet.ip.src
-                dst_ip = packet.ip.dst
-                src_port = packet.tcp.srcport
-                dst_port = packet.tcp.dstport
-                print(f"Источник: {src_ip}:{src_port} -> {dst_ip}:{dst_port}")
-            except AttributeError:
-                pass
+        if 'tls' in packet and (packet.ip.src == TARGET_IP or packet.ip.dst == TARGET_IP):
+            print(packet.tls.pretty_print())
+            print("IPISHNIKI:==========")
+            print(packet.ip.src)
+            print(packet.ip.dst)
 
 
 def main():
@@ -98,7 +74,7 @@ def main():
         # Запуск браузера
         driver = configure_browser()
         driver.get(WEBSITE_URL)
-        time.sleep(10)  # Время для работы с сайтом
+        time.sleep(5)  # Время для работы с сайтом
 
         # Захват трафика (запускается в отдельном потоке)
         capture_traffic()
