@@ -2,53 +2,41 @@ Layer TLS
 :	TLSv1.2 Record Layer: Application Data Protocol: Hypertext Transfer Protocol
 	Content Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
-	Length: 34
-	Encrypted Application Data: 2d10ebdb79ae28463fd2af9d68e03fce8fa6232a966831c49c8f9e08bebbf54bae49
+	Length: 196
+	Encrypted Application Data: 69b5d342516af879e889032a2dc3732744cb7b44d3a088b6d105abd3dc16c626a7eb67fd…
 	Application Data Protocol: Hypertext Transfer Protocol
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.2 Record Layer: Application Data Protocol: Hypertext Transfer Protocol
+	TLSv1.2 Record Layer: Application Data Protocol: Hypertext Transfer Protocol
 	Content Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
-	Length: 19
-	Encrypted Application Data: 870f91858bf27bdedb29205ca60e0459dc1977
+	Length: 105
+	Encrypted Application Data: 83dff3a23a76dd6c7b4237cea177905e769a565df1f9b5922c2dbe151c9eb4c8541fcb04…
 	Application Data Protocol: Hypertext Transfer Protocol
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
 Layer TLS
 :	TLSv1 Record Layer: Handshake Protocol: Client Hello
 	Content Type: Handshake (22)
 	Version: TLS 1.0 (0x0301)
-	Length: 328
+	Length: 319
 	Handshake Protocol: Client Hello
 	Handshake Type: Client Hello (1)
-	Length: 324
+	Length: 315
 	Version: TLS 1.2 (0x0303)
-	Expert Info (Chat/Deprecated): This legacy_version field MUST be ignored. The supported_versions extension is present and MUST be used instead.
-	This legacy_version field MUST be ignored. The supported_versions extension is present and MUST be used instead.
-	Severity level: Chat
-	Group: Deprecated
-	Random: ec3c64f5d90aedef6285c4e642fb24f43f10c1225eb900ec1222e3679fe1261a
-	GMT Unix Time: Aug  5, 2095 20:09:41.000000000 Забайкальское стандартное время
-	Random Bytes: d90aedef6285c4e642fb24f43f10c1225eb900ec1222e3679fe1261a
+	Random: 35519e9283472e9edb3985aa224a3d0bb7ea0ad02c98ea96c53dda80752d1591
+	GMT Unix Time: May  7, 1998 20:44:18.000000000 RTZ 8 (зима)
+	Random Bytes: 83472e9edb3985aa224a3d0bb7ea0ad02c98ea96c53dda80752d1591
 	Session ID Length: 32
-	Session ID: e93067dd7401504b3df3273b679383a218cfec84f059f6478fbc7a4a3874fe67
-	Cipher Suites Length: 56
-	Cipher Suites (28 suites)
+	Session ID: 706ab1502284a8c5447d8e5e9447a18605bc4d92fbc7f82c6071cd551ba0dd96
+	Cipher Suites Length: 58
+	Cipher Suites (29 suites)
 	Cipher Suite: TLS_AES_256_GCM_SHA384 (0x1302)
 	Compression Methods Length: 1
 	Compression Methods (1 method)
 	Compression Method: null (0)
-	Extensions Length: 195
-	Extension: renegotiation_info (len=1)
-	Type: renegotiation_info (65281)
-	Length: 1
-	Renegotiation info extension length: 0
+	Extensions Length: 184
+	Extension: server_name (len=13)
+	Type: server_name (0)
+	Length: 13
 	Server Name list length: 11
 	Server Name Type: host_name (0)
 	Server Name length: 8
@@ -59,13 +47,13 @@ Layer TLS
 	Supported Groups List Length: 20
 	Supported Groups (10 groups)
 	Supported Group: x25519 (0x001d)
-	Session Ticket: <MISSING>
+	Data (0 bytes)
 	ALPN Extension Length: 12
 	ALPN Protocol
 	ALPN string length: 2
 	ALPN Next Protocol: h2
-	Signature Hash Algorithms Length: 46
-	Signature Hash Algorithms (23 algorithms)
+	Signature Hash Algorithms Length: 40
+	Signature Hash Algorithms (20 algorithms)
 	Signature Algorithm: ecdsa_secp256r1_sha256 (0x0403)
 	Signature Hash Algorithm Hash: SHA256 (4)
 	Signature Hash Algorithm Signature: ECDSA (3)
@@ -76,11 +64,9 @@ Layer TLS
 	Client Key Share Length: 36
 	Group: x25519 (29)
 	Key Exchange Length: 32
-	Key Exchange: 2376cf51fad0f285f1b36ef07c203a1e879f1977356f30c6a274162318f80621
-	JA4: t13d2812h2_a01be8c064b6_ef4b9b248d72
-	JA4_r […]: t13d2812h2_002f,0035,003c,003d,0067,006b,009c,009d,009e,009f,1301,1302,1303,c009,c00a,c013,c014,c023,c024,c027,c028,c02b,c02c,c02f,c030,cca8,cca9,ccaa_000a,000b,000d,0016,0017,0023,002b,002d,0033,ff01_0403,0503,0603,0807,0808,
-	JA3 Fullstring: 771,4866-4867-4865-49195-49199-49196-49200-52393-52392-158-159-52394-49187-49191-49161-49171-49188-49192-49162-49172-103-107-156-157-60-61-47-53,65281-0-11-10-35-16-22-23-13-43-45-51,29-23-30-25-24-256-257-258-259-260,0-1-2
-	JA3: 135b770c875c319c3564deacfe0bcc39
+	Key Exchange: 00acf36eecffcd68778b1e1b2aeeb9703a74b16c455d24c89913ee2dcf753c4f
+	JA3 Fullstring: 771,4866-4867-4865-49195-49199-49196-49200-52393-52392-158-159-52394-49187-49191-49161-49171-49188-49192-49162-49172-103-107-156-157-60-61-47-53-255,0-11-10-35-16-22-23-13-43-45-51,29-23-30-25-24-256-257-258-259-260,0-1-2
+	JA3: 1fc1c530fdab845a0a2b05d0b5335bcb
 	Cipher Suite: TLS_CHACHA20_POLY1305_SHA256 (0x1303)
 	Cipher Suite: TLS_AES_128_GCM_SHA256 (0x1301)
 	Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 (0xc02b)
@@ -108,8 +94,7 @@ Layer TLS
 	Cipher Suite: TLS_RSA_WITH_AES_256_CBC_SHA256 (0x003d)
 	Cipher Suite: TLS_RSA_WITH_AES_128_CBC_SHA (0x002f)
 	Cipher Suite: TLS_RSA_WITH_AES_256_CBC_SHA (0x0035)
-	Renegotiation Info extension
-	Extension: server_name (len=13) name=habr.com
+	Cipher Suite: TLS_EMPTY_RENEGOTIATION_INFO_SCSV (0x00ff)
 	Server Name Indication extension
 	Extension: ec_point_formats (len=4)
 	Extension: supported_groups (len=22)
@@ -117,13 +102,12 @@ Layer TLS
 	Extension: application_layer_protocol_negotiation (len=14)
 	Extension: encrypt_then_mac (len=0)
 	Extension: extended_master_secret (len=0)
-	Extension: signature_algorithms (len=48)
-	Extension: supported_versions (len=5) TLS 1.3, TLS 1.2
+	Extension: signature_algorithms (len=42)
+	Extension: supported_versions (len=5)
 	Extension: psk_key_exchange_modes (len=2)
-	Extension: key_share (len=38) x25519
+	Extension: key_share (len=38)
 	Key Share extension
 	Key Share Entry: Group: x25519, Key Exchange length: 32
-	Type: server_name (0)
 	Type: ec_point_formats (11)
 	Type: supported_groups (10)
 	Type: session_ticket (35)
@@ -134,14 +118,13 @@ Layer TLS
 	Type: supported_versions (43)
 	Type: psk_key_exchange_modes (45)
 	Type: key_share (51)
-	Length: 13
 	Length: 4
 	Length: 22
 	Length: 0
 	Length: 14
 	Length: 0
 	Length: 0
-	Length: 48
+	Length: 42
 	Length: 5
 	Length: 2
 	Length: 38
@@ -162,9 +145,6 @@ Layer TLS
 	Signature Algorithm: ecdsa_secp521r1_sha512 (0x0603)
 	Signature Algorithm: ed25519 (0x0807)
 	Signature Algorithm: ed448 (0x0808)
-	Signature Algorithm: ecdsa_brainpoolP256r1tls13_sha256 (0x081a)
-	Signature Algorithm: ecdsa_brainpoolP384r1tls13_sha384 (0x081b)
-	Signature Algorithm: ecdsa_brainpoolP512r1tls13_sha512 (0x081c)
 	Signature Algorithm: rsa_pss_pss_sha256 (0x0809)
 	Signature Algorithm: rsa_pss_pss_sha384 (0x080a)
 	Signature Algorithm: rsa_pss_pss_sha512 (0x080b)
@@ -190,9 +170,6 @@ Layer TLS
 	Signature Hash Algorithm Hash: Unknown (8)
 	Signature Hash Algorithm Hash: Unknown (8)
 	Signature Hash Algorithm Hash: Unknown (8)
-	Signature Hash Algorithm Hash: Unknown (8)
-	Signature Hash Algorithm Hash: Unknown (8)
-	Signature Hash Algorithm Hash: Unknown (8)
 	Signature Hash Algorithm Hash: SHA256 (4)
 	Signature Hash Algorithm Hash: SHA384 (5)
 	Signature Hash Algorithm Hash: SHA512 (6)
@@ -206,13 +183,10 @@ Layer TLS
 	Signature Hash Algorithm Signature: ECDSA (3)
 	Signature Hash Algorithm Signature: Unknown (7)
 	Signature Hash Algorithm Signature: Unknown (8)
-	Signature Hash Algorithm Signature: Unknown (26)
-	Signature Hash Algorithm Signature: Unknown (27)
-	Signature Hash Algorithm Signature: Unknown (28)
 	Signature Hash Algorithm Signature: Unknown (9)
 	Signature Hash Algorithm Signature: Unknown (10)
 	Signature Hash Algorithm Signature: Unknown (11)
-	Signature Hash Algorithm Signature: Unknown (4)
+	Signature Hash Algorithm Signature: SM2 (4)
 	Signature Hash Algorithm Signature: Unknown (5)
 	Signature Hash Algorithm Signature: Unknown (6)
 	Signature Hash Algorithm Signature: RSA (1)
@@ -225,10 +199,8 @@ Layer TLS
 	Signature Hash Algorithm Signature: DSA (2)
 	Signature Hash Algorithm Signature: DSA (2)
 	Supported Version: TLS 1.2 (0x0303)
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
 Layer TLS
 :	TLSv1.2 Record Layer: Handshake Protocol: Server Hello
 	Content Type: Handshake (22)
@@ -238,23 +210,19 @@ Layer TLS
 	Handshake Type: Server Hello (2)
 	Length: 118
 	Version: TLS 1.2 (0x0303)
-	Expert Info (Chat/Deprecated): This legacy_version field MUST be ignored. The supported_versions extension is present and MUST be used instead.
-	This legacy_version field MUST be ignored. The supported_versions extension is present and MUST be used instead.
-	Severity level: Chat
-	Group: Deprecated
-	Random: 2864bfd2229367d862745f88e3771eb2b2470beb938a7c79f6e7522739eaeaf9
+	Random: 39737db3dac832106dcf707aead13665ad647e686acdf3ae0a90b61e530abe0c
 	Session ID Length: 32
-	Session ID: e93067dd7401504b3df3273b679383a218cfec84f059f6478fbc7a4a3874fe67
+	Session ID: 706ab1502284a8c5447d8e5e9447a18605bc4d92fbc7f82c6071cd551ba0dd96
 	Cipher Suite: TLS_AES_128_GCM_SHA256 (0x1301)
 	Compression Method: null (0)
 	Extensions Length: 46
-	Extension: supported_versions (len=2) TLS 1.3
+	Extension: supported_versions (len=2)
 	Type: supported_versions (43)
 	Length: 2
 	Supported Version: TLS 1.3 (0x0304)
 	Group: x25519 (29)
 	Key Exchange Length: 32
-	Key Exchange: c26306b7137b89cd89a8586a4ddfa4f107a4769ca03d00a8d66edc182fc7a90f
+	Key Exchange: 6364566e0b9fc451f0320a2b73e5358a52f2e4f34fc638a2d78b12f3547e6c71
 	JA3S Fullstring: 771,4865,43-51
 	JA3S: f4febc55ea12b31ae17cfb7e614afda8
 	Change Cipher Spec Message
@@ -263,7 +231,6 @@ Layer TLS
 	ALPN Protocol
 	ALPN string length: 2
 	ALPN Next Protocol: h2
-	TLS segment data (1226 bytes)
 	TLSv1.3 Record Layer: Change Cipher Spec Protocol: Change Cipher Spec
 	TLSv1.3 Record Layer: Handshake Protocol: Encrypted Extensions
 	Content Type: Change Cipher Spec (20)
@@ -276,7 +243,7 @@ Layer TLS
 	Handshake Type: Encrypted Extensions (8)
 	Length: 15
 	Extensions Length: 13
-	Extension: key_share (len=36) x25519
+	Extension: key_share (len=36)
 	Key Share extension
 	Key Share Entry: Group: x25519, Key Exchange length: 32
 	Extension: server_name (len=0)
@@ -287,10 +254,8 @@ Layer TLS
 	Length: 36
 	Length: 0
 	Length: 5
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Handshake Protocol: Certificate
 	Opaque Type: Application Data (23)
@@ -304,7 +269,7 @@ Layer TLS
 	Certificates Length: 3120
 	Certificates (3120 bytes)
 	Certificate Length: 1182
-	Certificate […]: 3082049a30820441a0030201020210662a7635c8f344fc8cb0c75cffaada64300a06082a8648ce3d04030230818f310b3009060355040613024742311b30190603550408131247726561746572204d616e636865737465723110300e0603550407130753616c666f726431183016
+	Certificate: 3082049a30820441a0030201020210662a7635c8f344fc8cb0c75cffaada64300a06082a… (id-at-commonName=*.habr.com)
 	signedCertificate
 	version: v3 (2)
 	serialNumber: 0x662a7635c8f344fc8cb0c75cffaada64
@@ -330,7 +295,7 @@ Layer TLS
 	ECParameters: namedCurve (1)
 	namedCurve: 1.2.840.10045.3.1.7 (secp256r1)
 	Padding: 0
-	subjectPublicKey: 04080effb15414fc5c3760892d9a8927c6a31736cfe11b65f6b487c67c429144e67d0f1cac3188abde9dbfcbdb787cd4b2b108391ab2bbfe720c2bc0214fe022f8
+	subjectPublicKey: 04080effb15414fc5c3760892d9a8927c6a31736cfe11b65f6b487c67c429144e67d0f1c…
 	extensions: 9 items
 	Extension (id-ce-authorityKeyIdentifier)
 	Extension Id: 2.5.29.35 (id-ce-authorityKeyIdentifier)
@@ -367,7 +332,7 @@ Layer TLS
 	GeneralName: dNSName (2)
 	dNSName: *.habr.com
 	Serialized SCT List Length: 360
-	Signed Certificate Timestamp (Google 'Xenon2026h1' log)
+	Signed Certificate Timestamp (Unknown Log)
 	Serialized SCT Length: 117
 	SCT Version: 0
 	Log ID: 969764bf555897adf743876837084277e9f03ad5f6a4f3366e46a43f0fcaa9c6
@@ -377,9 +342,9 @@ Layer TLS
 	Signature Hash Algorithm Hash: SHA256 (4)
 	Signature Hash Algorithm Signature: ECDSA (3)
 	Signature Length: 70
-	Signature: 3044022048e77d789e0db9bc2a0d4a359754c5eaba64082f629ca7283543ea1c0142e32802204ac73b3952230336e2349ae51190cfe8d6c5331d65fb1fb898d22c9cbbf61325
+	Signature: 3044022048e77d789e0db9bc2a0d4a359754c5eaba64082f629ca7283543ea1c0142e328…
 	algorithmIdentifier (ecdsa-with-SHA256)
-	encrypted: 3044022060b93281f904750036d315d7ac4e93533ad0aa0d247e98133ae8f0416abb8fed02206e2308f3c1173ccddc5230e57280aea71defd1547b90d6c425bd5fc7ea0556e0
+	encrypted: 3044022060b93281f904750036d315d7ac4e93533ad0aa0d247e98133ae8f0416abb8fed…
 	Extensions Length: 0
 	cA: True
 	pathLenConstraint: 0
@@ -389,8 +354,8 @@ Layer TLS
 	fullName: 1 item
 	Certificate Length: 940
 	Certificate Length: 983
-	Certificate […]: 308203a83082032ea003020102021100f3644e6b6e0050237e0946bd7be1f51d300a06082a8648ce3d040303308188310b3009060355040613025553311330110603550408130a4e6577204a6572736579311430120603550407130b4a65727365792043697479311e301c060355
-	Certificate […]: 308203d3308202bba003020102021056671d04ea4f994c6f10814759d27594300d06092a864886f70d01010c0500307b310b3009060355040613024742311b301906035504080c1247726561746572204d616e636865737465723110300e06035504070c0753616c666f7264311a
+	Certificate: 308203a83082032ea003020102021100f3644e6b6e0050237e0946bd7be1f51d300a0608… (id-at-commonName=Sectigo ECC Domain Validation Secure Server CA,id-at-organizationName=Sectigo Limited,id-at-localityName=Salford,id-at-stateOrProvin
+	Certificate: 308203d3308202bba003020102021056671d04ea4f994c6f10814759d27594300d06092a… (id-at-commonName=USERTrust ECC Certification Authority,id-at-organizationName=The USERTRUST Network,id-at-localityName=Jersey City,id-at-stateOrProvi
 	signedCertificate
 	signedCertificate
 	version: v3 (2)
@@ -560,8 +525,8 @@ Layer TLS
 	Padding: 0
 	Padding: 1
 	Padding: 0
-	subjectPublicKey: 04791893ca9f6d9e6c57002305370b5f0f585ac4de7f55a3e91ed6d9250a88a0204a1d7a4f05308a6349138c64210795fd3a35e14ace90f018f73daf68a6fbd448
-	subjectPublicKey: 041aac545aa9f96823e77ad5246f53c65ad84babc6d5b6d1e67371aedd9cd60c61fddba08903b80514ec57ceee5d3fe221b3cef7d48a79e0a3837e2d97d061c4f199dc259163ab7f30a3b470e2c7a1339cf3bf2e5c53b15fb37d327f8a34e37979
+	subjectPublicKey: 04791893ca9f6d9e6c57002305370b5f0f585ac4de7f55a3e91ed6d9250a88a0204a1d7a…
+	subjectPublicKey: 041aac545aa9f96823e77ad5246f53c65ad84babc6d5b6d1e67371aedd9cd60c61fddba0…
 	extensions: 8 items
 	extensions: 7 items
 	Extension (id-ce-subjectKeyIdentifier)
@@ -681,8 +646,8 @@ Layer TLS
 	GeneralName: uniformResourceIdentifier (6)
 	GeneralName: uniformResourceIdentifier (6)
 	dNSName: habr.com
-	Signed Certificate Timestamp (Let's Encrypt 'Oak2026h1')
-	Signed Certificate Timestamp (Cloudflare 'Nimbus2026')
+	Signed Certificate Timestamp (Unknown Log)
+	Signed Certificate Timestamp (Unknown Log)
 	Serialized SCT Length: 119
 	Serialized SCT Length: 118
 	SCT Version: 0
@@ -701,12 +666,12 @@ Layer TLS
 	Signature Hash Algorithm Signature: ECDSA (3)
 	Signature Length: 72
 	Signature Length: 71
-	Signature: 30460221009c070b8bd0d7407872b2b030180d39086bb7f36c6012ec7895a219478965d499022100d71f85f25144ad431b899927dd6e9557ae81980d5432565dcdba29f70e266485
-	Signature: 304502202f8554a8e309e18f379fb830d8175c4f6548cae947a6b9669a6e2d8657ff73d7022100dd331573bfca0fd2546c869c67964e998dbb5cda573a21e0bdfd4290689eaa6e
+	Signature: 30460221009c070b8bd0d7407872b2b030180d39086bb7f36c6012ec7895a219478965d4…
+	Signature: 304502202f8554a8e309e18f379fb830d8175c4f6548cae947a6b9669a6e2d8657ff73d7…
 	algorithmIdentifier (ecdsa-with-SHA384)
 	algorithmIdentifier (sha384WithRSAEncryption)
-	encrypted: 306502304be7c7715cb15c096d9a42605f73e9f0d626d4b551546c712d1c85604d28f14da6f0ca76b74a45efa8024af68d4fae6e023100e0e1792af65e1700ee8cfd1e679d19d32196b77de13a0a15b665fbf3a7145cea9ef3a17231ef0a510211070a99cf1f98
-	encrypted […]: 19eceb9d892c200b04801d18de429972991632bd0e9c755b2c15e229406deeff72dbdbab901f8c95f28a3d087242895007e239156c0187d9161af5c0752bc5e6561107dfd898bc7c9f1939df8bca006473bc46109b93238dbe16c32e08829c863374763b284c8d034285b3e2b22342
+	encrypted: 306502304be7c7715cb15c096d9a42605f73e9f0d626d4b551546c712d1c85604d28f14d…
+	encrypted: 19eceb9d892c200b04801d18de429972991632bd0e9c755b2c15e229406deeff72dbdbab…
 	Extensions Length: 0
 	Extensions Length: 0
 	cA: True
@@ -714,10 +679,8 @@ Layer TLS
 	DistributionPoint
 	distributionPoint: fullName (0)
 	fullName: 1 item
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Change Cipher Spec Protocol: Change Cipher Spec
 	Content Type: Change Cipher Spec (20)
@@ -733,10 +696,8 @@ Layer TLS
 	Content Type: Handshake (22)
 	Version: TLS 1.2 (0x0303)
 	Length: 53
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
 Layer TLS
 :	TLSv1.3 Record Layer: Handshake Protocol: New Session Ticket
 	Opaque Type: Application Data (23)
@@ -748,35 +709,31 @@ Layer TLS
 	Length: 245
 	TLS Session Ticket
 	Session Ticket Lifetime Hint: 600 seconds (10 minutes)
-	Session Ticket Age Add: 3455359640
+	Session Ticket Age Add: 2629210123
 	Session Ticket Nonce Length: 8
 	Session Ticket Nonce: 0000000000000000
 	Session Ticket Length: 224
-	Session Ticket […]: 99f88eda264c5e2559a0c35a8d889c4ebb3f7824def351c4d1e11155a8f0661e03166f12790636495e154136faeef980416c5b1a7860c623bcf1b926740bae340fa03db09af1275ea5b415a7558992aa9fd6c994898269062156875f1ce676cb5a3bd19cdc86aa9cf99f855d4
+	Session Ticket: f42fbd99e934eb29221ac7a08765bfc74ade00e23af782db75168f92c4b52df749711364…
 	Extensions Length: 0
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
-	Length: 105
+	Length: 92
 	Content Type: Application Data (23)
-	Encrypted Application Data: 7731ee6f012f2087983240b3d72c7d4cdb9030b62b5150026c43d9d4cacf3750cdcb2405e26cbb916be7d1104509835f54f735ccf444a07aded901a3990c7b1e3dc66a35285e99ef5535a77a830de290c19cf88248213874dca6696757144edb1a31f44b88afffa08f
+	Encrypted Application Data: e46a95b95037548ef3e5ae530e87b619e64ab29ca46048b4c55703978b450e9063a64827…
 	Application Data Protocol: HyperText Transfer Protocol 2
 	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
-	Length: 760
+	Length: 729
 	Content Type: Application Data (23)
-	Encrypted Application Data […]: 9c506d5156982dae1d2dd1a18e7ddc69bf6fc1e40374572958b07f9bcfc9b8f7b8fb2ce7508f498cc7dbbfb383542a80827e0064ae8d8a120ff3f6656776531b332d74d5d6e202fe2a156bc9c37f86b2b56955853a8d4b6175208a5f5e4298efd5ccc0ca40b4f
+	Encrypted Application Data: 9127de804b06f3233f44d5e5210151c98ae8a50cb5818bedd3ea005d8160902a46f27bbf…
 	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
 Layer TLS
 :	TLSv1.3 Record Layer: Handshake Protocol: New Session Ticket
 	Opaque Type: Application Data (23)
@@ -788,171 +745,256 @@ Layer TLS
 	Length: 245
 	TLS Session Ticket
 	Session Ticket Lifetime Hint: 600 seconds (10 minutes)
-	Session Ticket Age Add: 195656589
+	Session Ticket Age Add: 1535951039
 	Session Ticket Nonce Length: 8
 	Session Ticket Nonce: 0000000000000001
 	Session Ticket Length: 224
-	Session Ticket […]: 99f88eda264c5e2559a0c35a8d889c4e03af95739e089128acd4095ecc3829301df1414eb9d27102b6ba0ebbdcf09fab6e99f00761e7d900d2c2a92b138b5b82fe943cb8f99afa19ea96b634b2b812ccace257dd8ccf6795af036df808ec2f88ba6a3ca81468c326b3a0f560b
+	Session Ticket: f42fbd99e934eb29221ac7a08765bfc70f763da98e367671b8fff9e703f5fc5b1f8bef56…
 	Extensions Length: 0
-	Encrypted Application Data: b3036a07dffe9a771df205a9ce9d484062e1595d9ccefc2950768a8e1b3bb8dd3de0ac6c842736f76f1ca05f64b168c83598cc7861604d8daf
+	Encrypted Application Data: 1101898a32a4f47116a5cb2ae267f08723547d366afcf0440e642df9c280a82bba073d80…
 	Application Data Protocol: HyperText Transfer Protocol 2
 	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
 	Length: 57
 	Content Type: Application Data (23)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
 	Length: 26
 	Content Type: Application Data (23)
-	Encrypted Application Data: 775944a84f9da6b4bd3e394bdbf59c85ea3ff47438401b938711
+	Encrypted Application Data: 49f156adb9c3f4ff57d8f0ba0e5c3ac6ac3b664f2cda9bfa0dc0
 	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
 	Length: 26
 	Content Type: Application Data (23)
-	Encrypted Application Data: 4a59e354372b1b35617aab99a72d04f26f6167c9bca109eb85af
+	Encrypted Application Data: 2197308414e15893bc8f3edffe60ae1093d2829470972d6a252c
 	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
 Layer TLS
-:	TLS segment data (1400 bytes)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+:====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
-	Length: 16201
+	Length: 16200
 	Content Type: Application Data (23)
-	Encrypted Application Data […]: fd2e4ba0617564c7990dca4f9afa27b92d82b26ee4840459da83de8208806a10fc394978f949cdb15e5836e05104cae13f1122e651081ca00f06cd94df7f6bba16549449386b99b9d0224b239861ce9fc8dcc05bc42ad419320676f07d57f039d9ef8cc754a45
+	Encrypted Application Data: 294152b15005c5d093b67c6a469e2c325702af99fae8d10e9013436482bfa3635e3c5455…
 	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
 	Length: 16401
 	Content Type: Application Data (23)
-	Encrypted Application Data […]: fb6214402ad7f585943dee5732ae26ba7a9507ed941957502d977e80c3b23f264e1e2871e4fd96c866a30a6735a2caf3b48dcd442019cc55a8f8dbd7e9e2b75eb7e7eb8004c664e6cbe1df6a0652a480ffb385c025a530211eef796a629f2827ce04a6043776d
+	Encrypted Application Data: 335659e0a0854c8cacbfd6f2c3004be7c6ae86e273ac4bcc3ccaeaf859865113ba89522e…
 	Application Data Protocol: HyperText Transfer Protocol 2
 	TLS segment data (8183 bytes)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
 	Length: 16401
 	Content Type: Application Data (23)
-	Encrypted Application Data […]: 9eb1ef386b942b4c65433d185c4b6d9b7fb49d12a9083bd46ccd760f10ddf21646f4cf25da70394c586cea9c562a4fe204b1a10b71b167f0ec4ebbef46ace9b32e468d6709334f3eb8d51f8f1d359e32f1b7d2c2a5dee807a42f281522cb220a508d80a192d16
+	Encrypted Application Data: 68eb0bc1a951ce21aba8a2c48f18aab04018a43f49a8bb59272c01cadb2106e5f7649450…
 	Application Data Protocol: HyperText Transfer Protocol 2
 	TLS segment data (8183 bytes)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
-	Length: 11466
+	Length: 15991
 	Content Type: Application Data (23)
-	Encrypted Application Data […]: a302aa8ca5e9ede5f5ec62e60acf200923899d0d044577199474165e2f4820754f11b5da9445bc59d3701bff33d171ca4acb8035d0cc59391e7c99bfc2d68cd413f07adda6706e749dadb6378af56b0b02eb348f960f62374e80ede37f6624d8b8df9e930fa3f
+	Encrypted Application Data: 66283a7044d5b5044690d98bc97703edebf395754a3f2e48a7a47165bbd18db3af2d4ba4…
 	Application Data Protocol: HyperText Transfer Protocol 2
-	TLS segment data (11449 bytes)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+	TLS segment data (15974 bytes)
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
-	Length: 203
+	Length: 30
 	Content Type: Application Data (23)
-	Encrypted Application Data […]: 324646b3fa41b2ec8bf5ffa772ca57bbe100395c9fb6a8dfe4cc8be8855201e514e5984167a7f622c8accc2856c1a2150637e731b0d0818f3d02b493dd0f3b1239012e175dfd604adc7df0db50063a3883a5bdf6ad54428dac965b235356e896b39f1df91010c
+	Encrypted Application Data: 2d97d2c188a5b6e2cc2dcb3a42dcd5a54dce10c93d1fda70b7f2e535d3af
 	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 183
+	Content Type: Application Data (23)
+	Encrypted Application Data: d7011e82f671230f60b150147b86f1abc99428e6cfd151aa028543908d560ddeecb58076…
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
+Layer TLS
+:====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 16208
+	Content Type: Application Data (23)
+	Encrypted Application Data: 78863ad629e7bd5d431914ae8364381c936cbe805de2dbec8a248f134fd46dea252ce457…
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 16401
+	Content Type: Application Data (23)
+	Encrypted Application Data: ef60d0535a7e96103051ded9e546f097d44c407a1368526f465bb257ed155cdf1dcc8ea0…
+	Application Data Protocol: HyperText Transfer Protocol 2
+	TLS segment data (8183 bytes)
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 30
+	Content Type: Application Data (23)
+	Encrypted Application Data: 98c7f255d93ba3056a82c51fee25c1997d49fe8ba6d2873e20d293bdb5ef
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
+Layer TLS
+:====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 136
+	Content Type: Application Data (23)
+	Encrypted Application Data: cb95eedf17a9aad530ad7cc9130a2f03ffe93ce18ea93622bda334c47a4389504cb98f0a…
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 9241
+	Content Type: Application Data (23)
+	Encrypted Application Data: 9cb20d52ea6d021c3be853706f7fd40ba68cc590f4254f1067c95e3775a16a3ab3f3d98a…
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
 	Length: 70
 	Content Type: Application Data (23)
-	Encrypted Application Data: ed0cf2764ddb4ee4392e562f8fb171ae4d725bc7db6c51869a3cf55db86d5d639a0f937f4f7397adf6b89db94473720a84aeaec5152f964348b9a26421f0404944ded1525335
+	Encrypted Application Data: 3ae28716f88b3f23df70bae15960b77b9ad8e42663983887bbc8c554258f83544737c484…
 	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 30
+	Content Type: Application Data (23)
+	Encrypted Application Data: 6b66cf2f91a93fa2360bbd4ba3fd2a8a046428a23e7b4bddceb7df580805
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
+Layer TLS
+:====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 16401
+	Content Type: Application Data (23)
+	Encrypted Application Data: f169e357d552a0c34d2366d6f30137844f68a8b725c979ebe5154b86f64d804825533a05…
+	Application Data Protocol: HyperText Transfer Protocol 2
+	TLS segment data (8183 bytes)
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 3835
+	Content Type: Application Data (23)
+	Encrypted Application Data: 64987f4c4e25cf3207cb5b3a6f094c4406304453238fb29019d5aa16c7cc4f81406e3f66…
+	Application Data Protocol: HyperText Transfer Protocol 2
+	TLS segment data (3818 bytes)
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 30
+	Content Type: Application Data (23)
+	Encrypted Application Data: ad35c41f4bdaf8b1d8068af72f47ae24453a1b6561c65d5146b67322d998
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
 	Length: 290
 	Content Type: Application Data (23)
-	Encrypted Application Data […]: 928bb0954e80815f1a6c20f42f9b6f2ffeafa37856b70228e141769e1491c5cb7cc71729f121718de75754d00d9527079c01e1fb3a80dbb81b839177291f3fc66eaaadd37664673b829f59d405124594759da833f4cf624db89483d8078cdf5164844453f1359
+	Encrypted Application Data: 35cc1a3fe6e72e3ebdab510eec213dbaaa1923ef6915a68850eb963768f1b05765b60048…
 	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
 	Length: 290
 	Content Type: Application Data (23)
-	Encrypted Application Data […]: 0f6fdb7a8c972bf1922bcbfb47f3fe37ba8a92bdb1ccbcc48ef41bcf6419025ecae883699df802cd6d1bd94eac8047270d65cdeb0433d82427fb5b9f06ac04a86a30e9cfc51d0d8a74ce9d8c8f2e9fa6b501141db5117625977d231dad66da6e8646dd7f76f90
+	Encrypted Application Data: 40d35083c61e873e91c8d5c4b464d4bd9b9c08003c927d1dad5fd06d0287fbf2fa95dc4a…
 	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
-	Length: 211
+	Length: 195
 	Content Type: Application Data (23)
-	Encrypted Application Data […]: 7e00c21b00d86ceae2622714da12b3e45dcccb1458d3b04d7605a4ee23271f1cc2976fb535ae8b0105ac90cdaeea597287b04e39deb57c0e7ee1ca69c2f0aef4be4cbaa105bbf6878365a6506f69da2ecd290f0e0ae49271c2dcadc92c00d97a765d0c66b86d4
+	Encrypted Application Data: 312c37667bf072fc8dc6f668014f962a9acf56f0b7d6d0290e6729b17041ce24e0492b2b…
 	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
-	Length: 149
+	Length: 117
 	Content Type: Application Data (23)
-	Encrypted Application Data […]: 893331d947aa9edd1be0a9a1142c4432a063c1f55a448b7b6dfac2ecb089139f73001150bf77eb12a670ad8bacc21b5fd9eb5c420734d0136887747cb9ef70d9fc82d81e462943a7cd622f5ff8957933f0da33f170c6f75c375a90bca2e4a163a9a9a1c7898a7
+	Encrypted Application Data: 5ebf526cdaf3ce5d4ff890cc0ff39eaa1dae104406842998f081cf203afd682024df9761…
 	Application Data Protocol: HyperText Transfer Protocol 2
 	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
@@ -960,347 +1002,115 @@ Layer TLS
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
 	Version: TLS 1.2 (0x0303)
-	Length: 106
+	Length: 437
+	Length: 76
+	Content Type: Application Data (23)
+	Content Type: Application Data (23)
+	Encrypted Application Data: a1eff50cd8f3b0a04b26b938c79443f6323b0962cfa66d75636e2ef3e78b42b643c38311…
+	Encrypted Application Data: 5dfa6efd83de6e19b8f94dd18a7c63b2dad298f8e3a86bcb6a12a8a96d66aebb86a11bf1…
+	Application Data Protocol: HyperText Transfer Protocol 2
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 569
+	Content Type: Application Data (23)
+	Encrypted Application Data: bb2504dd6931a014d7c1e6f7e9fbe21950d7a43948348d5f0a5c05fa9fc1d7048f3ec72b…
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
+Layer TLS
+:====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 3889
+	Content Type: Application Data (23)
+	Encrypted Application Data: 5fa2bd023b9cd91e1bd4000cb9f1c44d4226dc05efa6e0ce7f9083119746b6dbdec07bdb…
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 1123
+	Content Type: Application Data (23)
+	Encrypted Application Data: a28ccba21e31517cd223087e379bad8ea22720a199db40696042ff61fb59b971a993c491…
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 530
+	Content Type: Application Data (23)
+	Encrypted Application Data: adc1aba3147a683c712cbad1814a98d1b629a86d40e9cda46cffb1c356f6d28d11917b6c…
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
+	Length: 112
+	Content Type: Application Data (23)
+	Encrypted Application Data: 8cc852c1c448327874441f87e86a2b2fd58116e3aed6a65f8e885da48d247c821497ab0d…
+	Application Data Protocol: HyperText Transfer Protocol 2
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
+Layer TLS
+:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
+	Opaque Type: Application Data (23)
+	Version: TLS 1.2 (0x0303)
 	Length: 107
 	Content Type: Application Data (23)
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: ec24eb85ab119ca41a1c34e8da928755710a589ebe9345eb7024bcd0c8bafb6477e75eca58d1c96a002f1a489b3b6c1f16e9054af6652b6e8323cb70319dd1a6fe72b521f62c3277b177c01e71c2b636dd0217a5e194f586d5dd0e4fdf3cd698a75ad3da2016d
-	Encrypted Application Data […]: 8ba2187106f12aaa4bb821c94a9ce270f2ab4f56f37533584b7767568d6936c4ffc9c9a853515cb27f6d03f32683fc214172f18086dd56bc76201ac7d8a13f34f7b6340baad0635dc66be82657487339196727d812f00c5c718892040535c716d94a2c5943442
+	Encrypted Application Data: ac77898095f17e7b84b5265fd2caf6ea98e7ea9ba24edfab4b2467c385e40171d03e1aea…
 	Application Data Protocol: HyperText Transfer Protocol 2
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
+====== [TLS Packet] ====== None
+Source: 10.104.223.71 --> Destination: 178.248.237.68
+Layer TLS
+:====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
-	Length: 570
+	Length: 1734
 	Content Type: Application Data (23)
-	Encrypted Application Data […]: 6d9a1528428bb4233666c47c2a90b088bd9ae3a19f44213b84a92d50b410a86f406b7aa912b31549ed1993468229191b2e27068f06d1255ab03ec736f2772e3731a1a7d377c5bb112963c8d5e16e3f859e04298bf73b666b9e8f1c54e540275b57d720f535dd6
+	Encrypted Application Data: 5a62b88071788b56b023ee900e98e34a5c02efba96092076d30951f2f70c911f8754abd9…
 	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
-:	TLS segment data (1400 bytes)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+:====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
-	Length: 3815
+	Length: 12751
 	Content Type: Application Data (23)
-	Encrypted Application Data […]: be4e5bbd93f72631354bb1e69105c5e22920ab485b7e5a5b87751cb40413a917f82a2cf751e141b10220dc68e3876cfd09b9f299ee0443d7d2870422bbe6dd262e117f12c4977ebd49f2fa738c5e88613c8c8d3f63b6f9c5c575c841198eb40b7945583bc892d
+	Encrypted Application Data: 94518153857c3b54b638d1400c5d40d8c28e80fb53ffcf700bdc093b6e62adaa33229dfc…
 	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 529
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 3e3c4672835485da64f55bbc7f0bb438af3640970a291a757bb1db26670facf769cf8380e9d634a5fab89941c30817caf9625e07218c642e97fa66d1a70b13d3f9d0d31930fd4e1680f687aaf2205cfd1111314f73a970e2819aaca61f46b3c0ba781d515bb8e
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 404
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 28c6dce5b6d85b1548a68c8883031b0cfbd354c971b2dd5099c1ff4684eeaf5e83e82d81b0853b53eae850a39da1e523d9a9880956e47e3a25df7bedf938096ded8bfcbc0f70c549102e6ab3ddf618b9403816ffe32732994199477f1cc01b41d401e1245fda0
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 222
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 656603a5d8155e49a262c128dbb100dd8f999ad8f0d6aee71412703b1e6c9ac23377313516b536cca883402a93f2e3408f0e2eab95e1346d6b3c375a03041f9638fe6118c9004abd4db33bab249cd20e8ae3c59f8431dd1081562411ed6a1665b702b70b077d2
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 315
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 2e45e64dac7945aa6f8a090f1b646dcc0656fcf2381b011a78784cea138d168e01e236150ff1dee4898f38759ca1e3db67afd9d8517df8aa2ae38cc6bc6f3f5d1c269b46363e465c6f5a6762914e0475497e09d0dabe09f7b17beac76ab3a04947416cf9477aa
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 84
-	Content Type: Application Data (23)
-	Encrypted Application Data: 50380adfe78c7aec32f26dc5428d40bb9b55954a6cbdb47c8f9fc7a9769a6a81c3f47a924166448bcb86d802d170c6fdd9b52c14089a1fcdecd60fc9103c5405fc4a2d90e0bd7fb40fbc6c36cd8789027ba8151e
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
-Layer TLS
-:	TLS segment data (1400 bytes)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 16198
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 54b19642e1f8044443def1ac9dd1ee1dca49a2ff34dbd4235c0b5e683ca506896f72f6bfa41f928230e4c07c8c797e621ed04e17a1e03342bae0de291b50227660251338325dfb38ee25a0e8048aeeee7b1c8cb887a24377e660e4b4c680f52a2deae6a5af9b8
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 16401
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: fc8e23ca8231e667a32b8fda42ae695b5bd4f6d910dd662bba58d436382102b47562157b78ed3ff133a905258c754d8edf3ce5aff224fde010a1c4f38a3b348f614eb2947ff49b85a11514dde3ae564629a69a45eb56a434ca2c3397d450bb852ce366eebc38f
-	Application Data Protocol: HyperText Transfer Protocol 2
-	TLS segment data (8183 bytes)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLS segment data (1400 bytes)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 16401
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 3c2b04f992a1b70360560c04ab4cadda8fc8e47a6775027fdd34d2c625f7dac0d83843aeb7fb93e231aee93bf1f35b28042a87bdf997c657439b2624e4f9055a8ef08da8570eca3e9747edeadadbb880c2153597ef5271242575e0d90d1c55548b6e86a9059fb
-	Application Data Protocol: HyperText Transfer Protocol 2
-	TLS segment data (8183 bytes)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 14039
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 13f88149a2c35355af6e541207e2c3eacb6e1d97c4d2ac9300eba2ae1a0fc3a67ec301f5e8608dd9a818e2b1c85b4c55d7120bd5a2dfd145fdb6cd8bf028e2d6b959d45bda1d6bc9cc0e3cb9cd7bd30905e70c93b7751d08b95f795b8778d073ec9882cd6f821
-	Application Data Protocol: HyperText Transfer Protocol 2
-	TLS segment data (14022 bytes)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 77
-	Content Type: Application Data (23)
-	Encrypted Application Data: 284dc1c9836eda43b8fe5b3666cec28dbe0a4acaf81f83f0a018c5e4c6aca9d2ea27978d92ce595a787cacacfcf65c35c43027e0b1d5b683c505e43bdacf69e07b9db6ec9ccd7a3479fb3319fd
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 149
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 6f7618a14c3dc7c4a845c1ffc9254f0de9c1cfe02459ceb5e2f635e65196c1ff581dbbc316ecd49e83e07699c114cf49fa833439366fe9617dffd627401c2cc606413bd0d450344ce4c70c7813ec37548635d061f05b32f396306bc33fc8951a9e54e60fb8b0b
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 290
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: d28a32a72aacca58adf8641f1ccecd4df2bfef047cdecd0d271be46d6515829a5d4c89623ffcc74ada7b6136eb8e2d532e72ee78c6a13cf6bd84d0ba1fdcf2d2d31fd248446725ef0561ac3a36c811e4457cc6a526d78e15af3b959bfdb731035c418088acb39
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 290
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 6296a788e47e8118c22aab341429816cbdc0a1e14287d8a15f1e929de31617c35c0c99e964ca3e043a2ae057a5c3392ecae677a132c8766157b8c75c5ead03eea995509f1ac2e4314b327353c0e89ab776867c9c3d9b70071172d4d62d39a044e6d38c9ccae86
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 122
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 522724784b0806106220eea044757e7f28781553f215bd1f91dd64b89b60d8008724da1e78b9eb89dae52b4cb2488c8bd2048d77c51ab95525a51cb48064f0cf83a259a9973b6258dc2d2bd5b8715777987231b29a1ad7943a693ad9f1b487bab7c7c381b65a1
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 168
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: a83bdd31c3855cb65a8b6346c1e31f9b8bee87aca357276bbad150678722c9acd99f5e8913b30408e8925b86c9f17afd9f7cf92bfa2e74e3cbfac56134b8e7f09eb17b83a7152f42191aa83339e19e80d610019b9f37c5929a250a496b540430d9341bd427734
-	Application Data Protocol: HyperText Transfer Protocol 2
-	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Version: TLS 1.2 (0x0303)
-	Length: 51
-	Length: 80
-	Content Type: Application Data (23)
-	Content Type: Application Data (23)
-	Encrypted Application Data: 3c8c2b45599b320fc4653e0ec7a1c6c1fd02ad64e5802deafb75fbb0a647860ba595d5a01f123b2c9f9ae6a3c87e0746ddd723
-	Encrypted Application Data: b99e48e9e004d1057ec403c6c9770e1ef63087041957db9a6d595f42e4398862bfba83cc8f6115e6c18a1ebedf63914374fedb186eab58c4e3e828546cc9d2d0d2ccb0a3f3ea440bcebd0dba8d5ae50f
-	Application Data Protocol: HyperText Transfer Protocol 2
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 570
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 8a2f3d5e9411c8ed660e8af52146b276426587b7929ed499a66518f5c430aab99039b817bf5d886d50b97eebbb0519311534e69f42b906d054fe4ee1afbaf0f4ac6d60277b435a13c82d95b26577f855efc0e3cfb1445fafb5e4489ead0395b77f13f905c72f1
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 404
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 6d6e9740d9f64609e8525a682bfd9299aa71f8e5f97c1f46504145f3d6cbd967a9caed002e4f3abd14983a35ddfbce2d91c40c6f7ebb0b8e6d75880c604eac443a412850db83edecf4b7926a421a8aad6babd0e78747d79ac677364fc51a6a0314b4903343294
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLS segment data (1400 bytes)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 3815
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: 680d1878374c93aedc35b9ed7d1469614da15392736a579fbe958fc4a7ab3ddc9fd6869fefe87091d2330c34adbd2c310dc8e8dadc2123be6344ba8c1783959400df87bd5a9d46b7d9240dbcd82308fb08044869345462edb3ff5830c5b3dee59663ccf069262
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 403
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: a2e389382c0d2fa74e26577dc02e1f785c2b50354cd6d981f1a4ddbc8fe75bb2934131745ebc9b06492b5240b9e0dc3245ca7658681c410b4596c82462b86136ad6715b2cc5a4491a53c02b323d0ad7b91904622b26b280f008ed2ba549a84d80a1f62ff5573e
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 78
-	Content Type: Application Data (23)
-	Encrypted Application Data: e1d1d6fa2f2ed33cb5eb5c2530e08b83b929f89f39e6fb9e34b32f80c712be0eba468770f7bdc7457f66ef11eb168878be50dca9046f01f912ecc6052e8db1e7241cd78ac73332dff12efb979f95
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-192.168.0.8
-178.248.237.68
-Layer TLS
-:	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
-	Opaque Type: Application Data (23)
-	Version: TLS 1.2 (0x0303)
-	Length: 316
-	Content Type: Application Data (23)
-	Encrypted Application Data […]: e8f215eda060303dc48052e4d01cac27218a22d976a6f9788e04a5cad8debacf9395f44c94602fe9845f51f9d59c57f1824886c7cfb59edbc6342c44fd95bc4b002ecf5deac5cce7fc0e85d086e605f84ee706bcf775c15ba31ea601c0beabf66dadcda3ff453
-	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Application Data Protocol: HyperText Transfer Protocol 2
 	Opaque Type: Application Data (23)
 	Version: TLS 1.2 (0x0303)
 	Length: 34
 	Content Type: Application Data (23)
-	Encrypted Application Data: df048700830c0420449c9f14761f5da8d325ee6143737fb1a81f5ac72f7a37ce5d61
+	Encrypted Application Data: e1793531b7d80f5289297457e28b4055fd7f5fdf36728f1e96eec95866f64557b10b
 	Application Data Protocol: HyperText Transfer Protocol 2
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
 Layer TLS
 :	TLSv1.3 Record Layer: Alert (Level: Warning, Description: Close Notify)
 	Opaque Type: Application Data (23)
@@ -1310,7 +1120,5 @@ Layer TLS
 	Alert Message
 	Level: Warning (1)
 	Description: Close Notify (0)
-None
-IPISHNIKI:==========
-178.248.237.68
-192.168.0.8
+====== [TLS Packet] ====== None
+Source: 178.248.237.68 --> Destination: 10.104.223.71
