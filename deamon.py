@@ -1,4 +1,5 @@
 import time
+import threading
 
 from tls_monitor.config import Config
 from tls_monitor.mitm_manager import MitmProxyManager
@@ -40,24 +41,25 @@ def main():
     sniffer = TrafficSniffer(selected_iface)
 
     try:
-        # Запуск компонентов
         print("[+] Старт MitmProxy")
         mitm.start()
         time.sleep(2)
+
+        print("[+] Start of sniffing")
+        sniffer.start_capture()  # Запуск в отдельном потоке с event loop
+
         print("[+] Старт DebugBrowser")
         driver = browser.start()
-        print("[+] Get site")
         driver.get(Config.WEBSITE_URL)
-        # Нужно ли время на загрузку давать? Нврн, нет
-        time.sleep(1)
 
-        # Начать захват трафика в отдельном потоке
-        print("[+] Start of sniffing")
-        sniffer.start_capture()
+        # Бесконечный цикл для ожидания
+        while True:
+            time.sleep(1)
 
     except KeyboardInterrupt:
         print("Прервано пользователем")
     finally:
+        sniffer.stop_capture()  # Добавить остановку сниффера
         browser.stop()
         mitm.stop()
 

@@ -1,38 +1,101 @@
 # Захват трафика
-
 import pyshark
+import asyncio
+import threading
 from tls_monitor.config import Config
+from datetime import datetime
+from tls_parser.parser import TlsRecordParser
+from tls_parser.exceptions import NotEnoughData, UnknownTypeByte
 
 
 class TrafficSniffer:
     def __init__(self, interface):
         self.interface = interface
-        self.log_file = open("tls_packets.log", "a")  # Открытие файла для записи
+        self.log_file = open("tls_packets.log", "w")
+        self._stop_event = threading.Event()
+        self._capture = None
+        self._thread = None
+
+    def _parse_tls_record(self, raw_bytes):
+        """Парсинг TLS записи с помощью tls-parser"""
+        try:
+            record, len_consumed = TlsRecordParser.parse_bytes(raw_bytes)
+            return str(record)
+        except (NotEnoughData, UnknownTypeByte) as e:
+            return f"[-] TLS parsing error: {str(e)}"
+
+    def _process_packet(self, packet):
+        """Обработка отдельного пакета"""
+        if 'tls' in packet and (packet.ip.src == Config.TARGET_IP or packet.ip.dst == Config.TARGET_IP):
+            current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+            log_entry = f"====== [TLS Packet - {current_time}] ======\n"
+
+            # Обработка TLS Handshake
+            if hasattr(packet.tls, 'handshake_type'):
+                try:
+                    log_entry += "TLS Handshake Detected:\n"
+                    log_entry += f"Handshake Type: {packet.tls.handshake_type}\n"
+                    if hasattr(packet.tls, 'handshake_version'):
+                        log_entry += f"Version: {packet.tls.handshake_version}\n"
+                    if hasattr(packet.tls, 'handshake_ciphersuite'):
+                        log_entry += f"Cipher Suite: {packet.tls.handshake_ciphersuite}\n"
+                except Exception as e:
+                    log_entry += f"Handshake parsing failed: {str(e)}\n"
+
+            # Логирование полей TLS
+            tls_layer = packet.tls
+            for field in tls_layer.field_names:
+                try:
+                    log_entry += f"{field}: {getattr(tls_layer, field)}\n"
+                except AttributeError:
+                    continue
+
+            log_entry += f"Source: {packet.ip.src} --> Destination: {packet.ip.dst}\n\n"
+
+            # Потокобезопасная запись в лог
+            self.log_file.write(log_entry)
+            self.log_file.flush()
+            print(log_entry)
+
+    def _capture_loop(self):
+        """Основной цикл захвата пакетов"""
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        try:
+            self._capture = pyshark.LiveCapture(
+                interface=self.interface,
+                override_prefs={
+                    'tls.keylog_file': Config.SSL_KEY_LOG_FILE,
+                },
+                tshark_path=Config.TSHARK_PATH,
+                debug=False,
+                custom_parameters=['-o', 'tls.keylog_file:' + Config.SSL_KEY_LOG_FILE]
+            )
+
+            for packet in self._capture.sniff_continuously():
+                if self._stop_event.is_set():
+                    break
+                self._process_packet(packet)
+        except Exception as e:
+            print(f"Capture error: {str(e)}")
+        finally:
+            if hasattr(self, '_capture'):
+                self._capture.close()
+            loop.close()
+            self.log_file.close()
 
     def start_capture(self):
-        capture = pyshark.LiveCapture(
-            interface=self.interface,
-            override_prefs={'tls.keylog_file': Config.SSL_KEY_LOG_FILE},
-            tshark_path=Config.TSHARK_PATH,
-            debug=True,
-        )
+        """Запуск захвата в отдельном потоке"""
+        if not self._thread or not self._thread.is_alive():
+            self._stop_event.clear()
+            self._thread = threading.Thread(target=self._capture_loop, daemon=True)
+            self._thread.start()
 
-        for packet in capture.sniff_continuously():
-            if 'tls' in packet and (packet.ip.src == Config.TARGET_IP or packet.ip.dst == Config.TARGET_IP):
-                # Проверяем, есть ли данные в слое TLS
-                tls_layer = packet.tls
-                if hasattr(tls_layer, 'pretty_print') and tls_layer.pretty_print():
-                    log_entry = f"====== [TLS Packet] ====== {tls_layer.pretty_print()}\n"
-                else:
-                    # Если pretty_print недоступен, логируем доступные поля вручную
-                    log_entry = f"====== [TLS Packet] ======\n"
-                    for field in tls_layer.field_names:
-                        try:
-                            log_entry += f"{field}: {getattr(tls_layer, field)}\n"
-                        except AttributeError:
-                            log_entry += f"{field}: <not available>\n"
-
-                log_entry += f"Source: {packet.ip.src} --> Destination: {packet.ip.dst}\n\n"
-                self.log_file.write(log_entry)
-                self.log_file.flush()  # Обеспечиваем немедленную запись
-
+    def stop_capture(self):
+        """Корректная остановка захвата"""
+        self._stop_event.set()
+        if self._thread and self._thread.is_alive():
+            self._thread.join(timeout=5)
+        if hasattr(self, '_capture') and self._capture:
+            self._capture.close()

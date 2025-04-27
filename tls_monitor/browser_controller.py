@@ -15,6 +15,11 @@ class BrowserController:
         chrome_options.add_argument("--ignore-certificate-errors")
         chrome_options.add_argument(f"--ssl-key-log-file={Config.SSL_KEY_LOG_FILE}")
 
+        # Контроль версии TLS:
+        chrome_options.add_argument("--ssl-version-min=tls1.2")
+        chrome_options.add_argument("--ssl-version-max=tls1.2")
+
+
         service = Service(Config.CHROMEDRIVER_PATH)
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
         return self.driver
