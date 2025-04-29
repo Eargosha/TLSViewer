@@ -10,8 +10,16 @@
 
 <body>
     <h1>TLS Packet Monitor</h1>
-    <div id="log-container"></div>
-
+    <div class="container-wrapper">
+        <div class="log-section">
+            <h2>All Packets</h2>
+            <div id="log-container"></div>
+        </div>
+        <div class="log-section">
+            <h2>Handshake Packets</h2>
+            <div id="handshake-container"></div>
+        </div>
+    </div>
     <div id="server-stats"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>

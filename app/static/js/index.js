@@ -1,66 +1,14 @@
-
 const logContainer = document.getElementById('log-container');
+const handshakeContainer = document.getElementById('handshake-container');
 
 // Подключение к WebSocket серверу
 const socket = io();
 
-// // Обработка новых данных из лога
-// socket.on('log_update', function (data) {
-//     if (data && data.data) {
-//         // Разделяем пакеты по двойным переносам строк (если каждый пакет отделен пустой строкой)
-//         if (data.new_session && data.new_session == 1) {
-//             logContainer.innerHTML = "";
-//         }
-
-//         const packets = data.data.split(/\n\s*\n/).filter(p => p.trim().length > 0);
-
-//         packets.forEach(packet => {
-//             const packetDiv = document.createElement('div');
-//             packetDiv.className = 'tls-packet';
-
-//             // Проверяем, является ли пакет ошибкой
-//             if (packet.includes('ERROR') || packet.includes('error') || packet.includes('failed')) {
-//                 packetDiv.classList.add('error');
-//             }
-
-//             console.log(packet)
-
-//             packetDiv.textContent = packet;
-//             logContainer.appendChild(packetDiv);
-//         });
-
-//         // Автоскролл к новым сообщениям
-//         // logContainer.scrollTop = logContainer.scrollHeight;
-//     }
-// });
-
-
-// Обработка системных сообщений
-socket.on('system_message', function (data) {
-    const sysDiv = document.createElement('div');
-    sysDiv.className = `system-message ${data.type}`;
-    sysDiv.innerHTML = `
-        <span class="sys-timestamp">${new Date(data.timestamp).toLocaleTimeString()}</span>
-        <span class="sys-text">${data.message}</span>
-    `;
-    logContainer.appendChild(sysDiv);
-    logContainer.scrollTop = logContainer.scrollHeight;
-});
-
-// Обработка статистики сервера
-socket.on('server_stats', function (data) {
-    console.log('Server stats:', data);
-    // Можно выводить в специальный блок в интерфейсе
-    document.getElementById('server-stats').innerHTML = ` Clients: ${data.clients_connected} | Log size: ${(data.log_size / 1024).toFixed(2)} KB | Monitoring: ${data.monitoring_active ? 'ACTIVE' : 'INACTIVE'}`;
-});
-
-socket.on('log_update', function (data) {
-    if (!data) return;
-
+// Функция для создания элемента пакета
+function createPacketElement(data) {
     const isHandshake = data.is_handshake;
     const parsed = data.parsed_data;
 
-    // Создаем элемент для пакета
     const packetDiv = document.createElement('div');
     packetDiv.className = `tls-packet ${isHandshake ? 'handshake' : ''} ${parsed.errors.length ? 'error' : ''}`;
 
@@ -115,14 +63,56 @@ socket.on('log_update', function (data) {
     content.appendChild(networkInfo);
 
     packetDiv.appendChild(content);
+    return packetDiv;
+}
+
+// Функция автоскролла
+function autoScroll(element) {
+    if (element.scrollTop > element.scrollHeight - element.clientHeight - 100) {
+        element.scrollTop = element.scrollHeight;
+    }
+}
+
+// Обработка новых данных из лога
+socket.on('log_update', function (data) {
+    if (!data) return;
+
+    const isHandshake = data.is_handshake;
+    const parsed = data.parsed_data;
+
+    // Создаем элемент для основного лога
+    const packetDiv = createPacketElement(data);
     logContainer.appendChild(packetDiv);
 
-    // // Автоскролл
-    // if (logContainer.scrollTop > logContainer.scrollHeight - logContainer.clientHeight - 100) {
-    //     logContainer.scrollTop = logContainer.scrollHeight;
-    // }
+    // Дублируем handshake-пакеты в специальный контейнер
+    if (isHandshake) {
+        const handshakePacketDiv = createPacketElement(data);
+        handshakeContainer.appendChild(handshakePacketDiv);
+    }
+
+    // Автоскролл
+    autoScroll(logContainer);
+    if (isHandshake) autoScroll(handshakeContainer);
 });
 
+// Обработка системных сообщений
+socket.on('system_message', function (data) {
+    const sysDiv = document.createElement('div');
+    sysDiv.className = `system-message ${data.type}`;
+    sysDiv.innerHTML = `
+        <span class="sys-timestamp">${new Date(data.timestamp).toLocaleTimeString()}</span>
+        <span class="sys-text">${data.message}</span>
+    `;
+    logContainer.appendChild(sysDiv);
+    logContainer.scrollTop = logContainer.scrollHeight;
+});
+
+// Обработка статистики сервера
+socket.on('server_stats', function (data) {
+    console.log('Server stats:', data);
+    // Можно выводить в специальный блок в интерфейсе
+    document.getElementById('server-stats').innerHTML = ` Clients: ${data.clients_connected} | Log size: ${(data.log_size / 1024).toFixed(2)} KB | Monitoring: ${data.monitoring_active ? 'ACTIVE' : 'INACTIVE'}`;
+});
 
 // Обработка ошибок соединения
 socket.on('connect_error', function (err) {
