@@ -11,7 +11,7 @@ from tls_parser.exceptions import NotEnoughData, UnknownTypeByte
 class TrafficSniffer:
     def __init__(self, interface):
         self.interface = interface
-        self.log_file = open("tls_packets.log", "w")
+        self.log_file = open(Config.TLS_PACKETS_LOG, "w", encoding='utf-8')
         self._stop_event = threading.Event()
         self._capture = None
         self._thread = None
@@ -29,8 +29,18 @@ class TrafficSniffer:
         if 'tls' in packet and (packet.ip.src == Config.TARGET_IP or packet.ip.dst == Config.TARGET_IP):
             current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
             log_entry = f"====== [TLS Packet - {current_time}] ======\n"
+            parsed_record = None
 
-            # Обработка TLS Handshake
+            # Попытка парсинга TLS-записи
+            try:
+                if hasattr(packet.tls, 'record'):
+                    raw_data = bytes.fromhex(packet.tls.record.replace(':', ''))
+                    parsed_record = self._parse_tls_record(raw_data)
+            except Exception as e:
+                log_entry += f"[-] Ошибка парсинга TLS: {str(e)}\n"
+
+            # Обработка Handshake
+            handshake_success = False
             if hasattr(packet.tls, 'handshake_type'):
                 try:
                     log_entry += "TLS Handshake Detected:\n"
@@ -39,8 +49,23 @@ class TrafficSniffer:
                         log_entry += f"Version: {packet.tls.handshake_version}\n"
                     if hasattr(packet.tls, 'handshake_ciphersuite'):
                         log_entry += f"Cipher Suite: {packet.tls.handshake_ciphersuite}\n"
+                    handshake_success = True
                 except Exception as e:
-                    log_entry += f"Handshake parsing failed: {str(e)}\n"
+                    log_entry += f"[-] Ошибка обработки Handshake: {str(e)}\n"
+
+            # Обработка Application Data
+            app_data_success = False
+            if parsed_record and "APPLICATION" in parsed_record:
+                try:
+                    log_entry += "TLS Application Data Detected:\n"
+                    log_entry += f"Parsed Data: {parsed_record}\n"
+                    app_data_success = True
+                except Exception as e:
+                    log_entry += f"[-] Ошибка обработки AppData: {str(e)}\n"
+
+            # Логирование ошибок, если не удалось обработать
+            if not handshake_success and not app_data_success:
+                log_entry += "[!] Не удалось обработать TLS-запись (ни Handshake, ни AppData)\n"
 
             # Логирование полей TLS
             tls_layer = packet.tls

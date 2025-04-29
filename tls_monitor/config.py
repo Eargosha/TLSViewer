@@ -10,3 +10,4 @@ class Config:
     TARGET_IP = "178.248.237.68"
     TSHARK_PATH = "C:\\Program Files\\Wireshark\\tshark.exe"
     CHROMEDRIVER_PATH = "chromedriver.exe"
+    TLS_PACKETS_LOG = "tls_packets.log"
