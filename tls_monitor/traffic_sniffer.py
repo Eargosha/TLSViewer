@@ -16,6 +16,15 @@ class TrafficSniffer:
         self._capture = None
         self._thread = None
 
+    def _write_session_header(self):
+        """Записывает заголовок новой сессии в начало файла (с очисткой файла)"""
+        session_header = f"==== NEW SESSION ====\n\n"
+
+        # Просто открываем файл в режиме записи (перезаписываем)
+        self.log_file.write(session_header)
+        self.log_file.flush()
+        self._session_started = True
+
     def _parse_tls_record(self, raw_bytes):
         """Парсинг TLS записи с помощью tls-parser"""
         try:
@@ -97,6 +106,8 @@ class TrafficSniffer:
                 debug=False,
                 custom_parameters=['-o', 'tls.keylog_file:' + Config.SSL_KEY_LOG_FILE]
             )
+
+            self._write_session_header()
 
             for packet in self._capture.sniff_continuously():
                 if self._stop_event.is_set():
