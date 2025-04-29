@@ -1,45 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TLS Packet Monitor</title>
-    <style>
-        body {
-            font-family: monospace;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        #log-container {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 15px;
-            height: 80vh;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        .header {
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .tls-packet {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-left: 3px solid #4CAF50;
-            background-color: #f9f9f9;
-        }
-        .error {
-            border-left-color: #f44336;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/css/index.css">
 </head>
+
 <body>
     <h1>TLS Packet Monitor</h1>
     <div id="log-container"></div>
-    
+
+    <div id="server-stats"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    <script src="../static/script.js"></script>
+    <script src="../static/js/index.js"></script>
 </body>
+
 </html>

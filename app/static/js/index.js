@@ -35,15 +35,30 @@ const socket = io();
 // });
 
 
+// Обработка системных сообщений
+socket.on('system_message', function (data) {
+    const sysDiv = document.createElement('div');
+    sysDiv.className = `system-message ${data.type}`;
+    sysDiv.innerHTML = `
+        <span class="sys-timestamp">${new Date(data.timestamp).toLocaleTimeString()}</span>
+        <span class="sys-text">${data.message}</span>
+    `;
+    logContainer.appendChild(sysDiv);
+    logContainer.scrollTop = logContainer.scrollHeight;
+});
+
+// Обработка статистики сервера
+socket.on('server_stats', function (data) {
+    console.log('Server stats:', data);
+    // Можно выводить в специальный блок в интерфейсе
+    document.getElementById('server-stats').innerHTML = ` Clients: ${data.clients_connected} | Log size: ${(data.log_size / 1024).toFixed(2)} KB | Monitoring: ${data.monitoring_active ? 'ACTIVE' : 'INACTIVE'}`;
+});
+
 socket.on('log_update', function (data) {
     if (!data) return;
 
     const isHandshake = data.is_handshake;
     const parsed = data.parsed_data;
-
-    if (data.new_session && data.new_session == 1) {
-        logContainer.innerHTML = "";
-    }
 
     // Создаем элемент для пакета
     const packetDiv = document.createElement('div');
@@ -94,7 +109,7 @@ socket.on('log_update', function (data) {
     const networkInfo = document.createElement('div');
     networkInfo.className = 'network-info';
     networkInfo.innerHTML = `
-        <span class="source">${parsed.source}</span> → 
+        <span class="source">${parsed.source}</span> →
         <span class="destination">${parsed.destination}</span>
     `;
     content.appendChild(networkInfo);
