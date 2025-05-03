@@ -16,7 +16,7 @@ class MitmProxyManager:
             "--set", f"sslkeylogfile={Config.SSL_KEY_LOG_FILE}",
             "--listen-port", str(Config.MITMPROXY_PORT)
         ]
-        with open("mitmproxy.log", "w") as log_file:
+        with open(Config.MITMPROXY_LOG, "w") as log_file:
             self.process = subprocess.Popen(
                 command,
                 stdout=log_file,

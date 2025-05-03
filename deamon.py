@@ -30,6 +30,11 @@ def main():
 
     print("[+] Интерфейс выбран")
 
+    open(Config.SSL_KEY_LOG_FILE, 'w')
+    open(Config.TLS_PACKETS_LOG, 'w')
+    open(Config.MITMPROXY_LOG, 'w')
+    print("[+] LOG файлы очищены")
+
     # Инициализация компонентов
     print("[+] Инициализация MitmProxy")
     mitm = MitmProxyManager()

@@ -1,476 +1,584 @@
-[21:33:51.657] HTTP(S) proxy listening at *:8080.
-[21:33:53.369][[::1]:52785] client connect
-[21:33:53.405][[::1]:52786] client connect
-[21:33:53.524][[::1]:52785] server connect clients2.google.com:80 (64.233.165.100:80)
-[21:33:53.580][[::1]:52786] server connect accounts.google.com:443 (142.251.173.84:443)
-[21:33:53.621][[::1]:52792] client connect
-[21:33:53.627][[::1]:52794] client connect
-[::1]:52785: GET http://clients2.google.com/time/1/current?cup2key=8:sIU…
-          << 200 OK 106b
-[21:33:53.666][[::1]:52785] client disconnect
-[21:33:53.667][[::1]:52785] server disconnect clients2.google.com:80 (64.233.165.100:80)
-[21:33:53.668][[::1]:52792] client disconnect
-[21:33:53.669][[::1]:52792] error establishing server connection: client disconnected
-[21:33:53.671][[::1]:52794] client disconnect
-[21:33:53.672][[::1]:52796] client connect
-[21:33:53.672][[::1]:52794] error establishing server connection: client disconnected
-[21:33:53.673][[::1]:52797] client connect
-[21:33:53.755][[::1]:52796] server connect habr.com:443 (178.248.237.68:443)
-[21:33:53.757][[::1]:52786] client disconnect
-[21:33:53.757][[::1]:52786] server disconnect accounts.google.com:443 (142.251.173.84:443)
-[21:33:53.807][[::1]:52797] server connect accounts.google.com:443 (142.251.173.84:443)
-[::1]:52796: GET https://habr.com/ru/articles/ HTTP/2.0
- << HTTP/2.0 200 OK 31.1k
-[21:33:54.190][[::1]:52801] client connect
-[21:33:54.191][[::1]:52802] client connect
-[21:33:54.192][[::1]:52803] client connect
-[21:33:54.193][[::1]:52804] client connect
-[21:33:54.195][[::1]:52805] client connect
-[21:33:54.197][[::1]:52806] client connect
-[21:33:54.200][[::1]:52807] client connect
-[::1]:52797: POST https://accounts.google.com/ListAccounts?gpsia=1&source… HTTP/2.0
+[22:02:54.339] HTTP(S) proxy listening at *:8080.
+[22:02:56.104][[::1]:56753] client connect
+[22:02:56.141][[::1]:56755] client connect
+[22:02:56.245][[::1]:56753] server connect clients2.google.com:80 (142.250.185.110:80)
+[22:02:56.269][[::1]:56755] server connect accounts.google.com:443 (74.125.133.84:443)
+[22:02:56.370][[::1]:56760] client connect
+[22:02:56.376][[::1]:56762] client connect
+[::1]:56753: GET http://clients2.google.com/time/1/current?cup2key=8:r7x…
+          << 200 OK 108b
+[22:02:56.388][[::1]:56753] client disconnect
+[22:02:56.389][[::1]:56753] server disconnect clients2.google.com:80 (142.250.185.110:80)
+[22:02:56.390][[::1]:56760] client disconnect
+[22:02:56.391][[::1]:56760] error establishing server connection: client disconnected
+[22:02:56.393][[::1]:56762] client disconnect
+[22:02:56.394][[::1]:56762] error establishing server connection: client disconnected
+[22:02:56.395][[::1]:56764] client connect
+[22:02:56.396][[::1]:56765] client connect
+[22:02:56.425][[::1]:56755] client disconnect
+[22:02:56.426][[::1]:56755] server disconnect accounts.google.com:443 (74.125.133.84:443)
+[22:02:56.485][[::1]:56764] server connect habr.com:443 (178.248.237.68:443)
+[22:02:56.533][[::1]:56765] server connect accounts.google.com:443 (74.125.133.84:443)
+[::1]:56764: GET https://habr.com/ru/articles/ HTTP/2.0
+ << HTTP/2.0 200 OK 43.6k
+[::1]:56765: POST https://accounts.google.com/ListAccounts?gpsia=1&source… HTTP/2.0
  << HTTP/2.0 200 OK 43b
-[21:33:54.348][[::1]:52802] server connect unpkg.com:443 (104.17.247.203:443)
-[21:33:54.383][[::1]:52806] server connect assets.habr.com:443 (95.47.236.28:443)
-[21:33:54.386][[::1]:52801] server connect assets.habr.com:443 (95.47.236.28:443)
-[21:33:54.388][[::1]:52807] server connect assets.habr.com:443 (95.47.236.28:443)
-[21:33:54.390][[::1]:52805] server connect assets.habr.com:443 (95.47.236.28:443)
-[21:33:54.393][[::1]:52803] server connect assets.habr.com:443 (95.47.236.28:443)
-[21:33:54.396][[::1]:52804] server connect assets.habr.com:443 (95.47.236.28:443)
-[21:33:54.510][[::1]:52801] Client TLS handshake failed. The client disconnected during the handshake. If this happens consistently for assets.habr.com, this may indicate that the client does not trust the proxy's certificate.
-[21:33:54.527][[::1]:52801] client disconnect
-[21:33:54.528][[::1]:52801] server disconnect assets.habr.com:443 (95.47.236.28:443)
-[21:33:54.529][[::1]:52807] client disconnect
-[21:33:54.530][[::1]:52803] client disconnect
-[21:33:54.531][[::1]:52807] server disconnect assets.habr.com:443 (95.47.236.28:443)
-[21:33:54.531][[::1]:52805] client disconnect
-[21:33:54.532][[::1]:52803] server disconnect assets.habr.com:443 (95.47.236.28:443)
-[21:33:54.533][[::1]:52805] server disconnect assets.habr.com:443 (95.47.236.28:443)
-[21:33:54.534][[::1]:52804] client disconnect
-[21:33:54.535][[::1]:52804] server disconnect assets.habr.com:443 (95.47.236.28:443)
-[::1]:52806: GET https://assets.habr.com/habr-web/css/theme/dark-v1.css HTTP/2.0
+[22:02:57.003][[::1]:56769] client connect
+[22:02:57.004][[::1]:56770] client connect
+[22:02:57.005][[::1]:56771] client connect
+[22:02:57.006][[::1]:56772] client connect
+[22:02:57.007][[::1]:56773] client connect
+[22:02:57.010][[::1]:56774] client connect
+[22:02:57.013][[::1]:56775] client connect
+[22:02:57.015][[::1]:56776] client connect
+[22:02:57.018][[::1]:56777] client connect
+[22:02:57.119][[::1]:56771] server connect assets.habr.com:443 (95.47.236.28:443)
+[22:02:57.122][[::1]:56769] server connect assets.habr.com:443 (95.47.236.28:443)
+[22:02:57.123][[::1]:56774] server connect assets.habr.com:443 (95.47.236.28:443)
+[22:02:57.124][[::1]:56772] server connect assets.habr.com:443 (95.47.236.28:443)
+[22:02:57.125][[::1]:56775] server connect assets.habr.com:443 (95.47.236.28:443)
+[22:02:57.129][[::1]:56773] server connect assets.habr.com:443 (95.47.236.28:443)
+[22:02:57.170][[::1]:56770] server connect unpkg.com:443 (188.114.99.224:443)
+[22:02:57.233][[::1]:56777] server connect habrastorage.org:443 (95.47.173.35:443)
+[22:02:57.247][[::1]:56776] server connect habrastorage.org:443 (95.47.173.35:443)
+[22:02:57.261][[::1]:56769] Client TLS handshake failed. The client disconnected during the handshake. If this happens consistently for assets.habr.com, this may indicate that the client does not trust the proxy's certificate.
+[22:02:57.274][[::1]:56769] client disconnect
+[22:02:57.275][[::1]:56769] server disconnect assets.habr.com:443 (95.47.236.28:443)
+[22:02:57.276][[::1]:56771] client disconnect
+[22:02:57.276][[::1]:56775] client disconnect
+[22:02:57.278][[::1]:56771] server disconnect assets.habr.com:443 (95.47.236.28:443)
+[22:02:57.278][[::1]:56775] server disconnect assets.habr.com:443 (95.47.236.28:443)
+[22:02:57.278][[::1]:56772] client disconnect
+[22:02:57.279][[::1]:56773] client disconnect
+[22:02:57.280][[::1]:56772] server disconnect assets.habr.com:443 (95.47.236.28:443)
+[22:02:57.281][[::1]:56773] server disconnect assets.habr.com:443 (95.47.236.28:443)
+[22:02:57.386][[::1]:56776] client disconnect
+[22:02:57.386][[::1]:56776] server disconnect habrastorage.org:443 (95.47.173.35:443)
+[::1]:56774: GET https://assets.habr.com/habr-web/css/theme/dark-v1.css HTTP/2.0
  << HTTP/2.0 200 OK 1.5k
-[21:33:54.735][[::1]:52815] client connect
-[21:33:54.736][[::1]:52816] client connect
-[21:33:54.737][[::1]:52817] client connect
-[21:33:54.738][[::1]:52818] client connect
-[21:33:54.740][[::1]:52819] client connect
-[21:33:54.742][[::1]:52820] client connect
-[21:33:54.745][[::1]:52821] client connect
-[21:33:54.752][[::1]:52822] client connect
-[::1]:52802: GET https://unpkg.com/pwacompat HTTP/2.0
- << HTTP/2.0 302 Found 49b
-[21:33:54.857][[::1]:52815] server connect yandex.ru:443 (5.255.255.77:443)
-[21:33:54.899][[::1]:52822] server connect www.googletagmanager.com:443 (173.194.221.97:443)
-[21:33:54.912][[::1]:52821] server connect habrastorage.org:443 (65.109.153.168:443)
-[21:33:54.916][[::1]:52819] server connect habrastorage.org:443 (65.109.153.168:443)
-[21:33:54.917][[::1]:52817] server connect habrastorage.org:443 (65.109.153.168:443)
-[21:33:54.923][[::1]:52816] server connect habrastorage.org:443 (65.109.153.168:443)
-[21:33:54.924][[::1]:52820] server connect habrastorage.org:443 (65.109.153.168:443)
-[21:33:54.927][[::1]:52818] server connect habrastorage.org:443 (65.109.153.168:443)
-[::1]:52806: GET https://assets.habr.com/habr-web/css/app.8599692f.css HTTP/2.0
- << HTTP/2.0 200 OK 41.0k
-[::1]:52806: GET https://assets.habr.com/habr-web/css/chunk-vendors.0446… HTTP/2.0
+[::1]:56774: GET https://assets.habr.com/habr-web/css/chunk-vendors.0446… HTTP/2.0
  << HTTP/2.0 200 OK 4.6k
-[::1]:52806: GET https://assets.habr.com/habr-web/css/page-flows.e8a99b3… HTTP/2.0
+[22:02:57.435][[::1]:56787] client connect
+[22:02:57.451][[::1]:56788] client connect
+[22:02:57.614][[::1]:56788] server connect www.googletagmanager.com:443 (74.125.205.97:443)
+[::1]:56770: GET https://unpkg.com/pwacompat HTTP/2.0
+ << HTTP/2.0 302 Found 49b
+[::1]:56770: GET https://unpkg.com/pwacompat@2.0.17/pwacompat.min.js HTTP/2.0
  << HTTP/2.0 200 OK 2.9k
-[::1]:52802: GET https://unpkg.com/pwacompat@2.0.17/pwacompat.min.js HTTP/2.0
- << HTTP/2.0 200 OK 2.9k
-[::1]:52796: GET https://habr.com/js/i18n/ru-compiled.635b6c39236ebd33fa… HTTP/2.0
- << HTTP/2.0 200 OK 60.2k
-[21:33:55.029][[::1]:52831] client connect
-[21:33:55.030][[::1]:52832] client connect
-[21:33:55.050][[::1]:52819] Client TLS handshake failed. The client disconnected during the handshake. If this happens consistently for habrastorage.org, this may indicate that the client does not trust the proxy's certificate.
-[21:33:55.057][[::1]:52819] client disconnect
-[21:33:55.059][[::1]:52819] server disconnect habrastorage.org:443 (65.109.153.168:443)
-[21:33:55.065][[::1]:52817] client disconnect
-[21:33:55.067][[::1]:52817] server disconnect habrastorage.org:443 (65.109.153.168:443)
-[21:33:55.073][[::1]:52816] client disconnect
-[::1]:52796: GET https://habr.com/img/new-social-icons-sprite.svg HTTP/2.0
- << HTTP/2.0 200 OK 900b
-[21:33:55.075][[::1]:52816] server disconnect habrastorage.org:443 (65.109.153.168:443)
-[::1]:52796: GET https://habr.com/img/habr-logo-ru.svg HTTP/2.0
- << HTTP/2.0 200 OK 722b
-[21:33:55.077][[::1]:52820] client disconnect
-[21:33:55.079][[::1]:52820] server disconnect habrastorage.org:443 (65.109.153.168:443)
-[21:33:55.081][[::1]:52818] client disconnect
-[21:33:55.082][[::1]:52818] server disconnect habrastorage.org:443 (65.109.153.168:443)
-[21:33:55.174][[::1]:52831] server connect fonts.gstatic.com:443 (209.85.233.94:443)
-[21:33:55.176][[::1]:52832] server connect fonts.gstatic.com:443 (209.85.233.94:443)
-[::1]:52796: GET https://habr.com/img/megazord-v28.7909a852..svg HTTP/2.0
- << HTTP/2.0 200 OK 20.4k
-[21:33:55.287][[::1]:52832] Client TLS handshake failed. The client disconnected during the handshake. If this happens consistently for fonts.gstatic.com, this may indicate that the client does not trust the proxy's certificate.
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/154/… HTTP/2.0
- << HTTP/2.0 200 OK 6.3k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/ae5/… HTTP/2.0
- << HTTP/2.0 200 OK 3.3k
-[21:33:55.294][[::1]:52832] client disconnect
-[21:33:55.296][[::1]:52832] server disconnect fonts.gstatic.com:443 (209.85.233.94:443)
-[::1]:52815: GET https://yandex.ru/ads/system/context.js HTTP/2.0
- << HTTP/2.0 200 OK 108k
-[21:33:55.389][[::1]:52835] client connect
-[21:33:55.390][[::1]:52836] client connect
-[21:33:55.392][[::1]:52837] client connect
-[21:33:55.394][[::1]:52838] client connect
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/ba1/… HTTP/2.0
- << HTTP/2.0 200 OK 2.0k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/d5b/… HTTP/2.0
- << HTTP/2.0 200 OK 1.5k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/3be/… HTTP/2.0
- << HTTP/2.0 200 OK 2.3k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/80a/… HTTP/2.0
- << HTTP/2.0 200 OK 5.7k
-[::1]:52806: GET https://assets.habr.com/habr-web/js/page-flows.75fb39c0… HTTP/2.0
- << HTTP/2.0 200 OK 6.4k
-[::1]:52806: GET https://assets.habr.com/habr-web/img/avatars/041.png HTTP/2.0
- << HTTP/2.0 200 OK 5.8k
-[::1]:52806: GET https://assets.habr.com/habr-web/img/avatars/042.png HTTP/2.0
- << HTTP/2.0 200 OK 4.2k
-[::1]:52806: GET https://assets.habr.com/habr-web/img/avatars/183.png HTTP/2.0
- << HTTP/2.0 200 OK 5.8k
-[::1]:52806: GET https://assets.habr.com/habr-web/img/avatars/132.png HTTP/2.0
- << HTTP/2.0 200 OK 5.9k
-[::1]:52806: GET https://assets.habr.com/habr-web/img/avatars/078.png HTTP/2.0
- << HTTP/2.0 200 OK 5.5k
-[::1]:52806: GET https://assets.habr.com/habr-web/css/theme/light-v1.css HTTP/2.0
- << HTTP/2.0 200 OK 862b
-[::1]:52822: GET https://www.googletagmanager.com/gtag/js?id=G-S28W1WC23… HTTP/2.0
+[::1]:56788: GET https://www.googletagmanager.com/gtag/js?id=G-S28W1WC23… HTTP/2.0
  << HTTP/2.0 200 OK 137k
-[::1]:52831: GET https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWf… HTTP/2.0
+[::1]:56764: GET https://habr.com/js/i18n/ru-compiled.635b6c39236ebd33fa… HTTP/2.0
+ << HTTP/2.0 200 OK 60.2k
+[::1]:56764: GET https://habr.com/img/habr-logo-ru.svg HTTP/2.0
+ << HTTP/2.0 200 OK 722b
+[::1]:56764: GET https://habr.com/img/new-social-icons-sprite.svg HTTP/2.0
+ << HTTP/2.0 200 OK 900b
+[::1]:56764: GET https://habr.com/img/megazord-v28.7909a852..svg HTTP/2.0
+ << HTTP/2.0 200 OK 20.4k
+[::1]:56774: GET https://assets.habr.com/habr-web/css/app.8599692f.css HTTP/2.0
+ << HTTP/2.0 200 OK 41.0k
+[::1]:56774: GET https://assets.habr.com/habr-web/css/page-flows.e8a99b3… HTTP/2.0
+ << HTTP/2.0 200 OK 2.9k
+[22:02:58.483][[::1]:56791] client connect
+[22:02:58.484][[::1]:56792] client connect
+[22:02:58.576][[::1]:56787] server connect yandex.ru:443 (77.88.55.88:443)
+[22:02:58.636][[::1]:56791] server connect fonts.gstatic.com:443 (64.233.164.94:443)
+[22:02:58.639][[::1]:56792] server connect fonts.gstatic.com:443 (64.233.164.94:443)
+[22:02:58.751][[::1]:56791] Client TLS handshake failed. The client disconnected during the handshake. If this happens consistently for fonts.gstatic.com, this may indicate that the client does not trust the proxy's certificate.
+[22:02:58.755][[::1]:56791] client disconnect
+[22:02:58.756][[::1]:56791] server disconnect fonts.gstatic.com:443 (64.233.164.94:443)
+[::1]:56792: GET https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWf… HTTP/2.0
  << HTTP/2.0 200 OK 7.0k
-[::1]:52806: GET https://assets.habr.com/habr-web/js/chunk-vendors.9fa0c… HTTP/2.0
- << HTTP/2.0 200 OK 205k
-[21:33:55.530][[::1]:52837] server connect mc.yandex.ru:443 (87.250.251.119:443)
-[21:33:55.532][[::1]:52838] server connect ads.adfox.ru:443 (77.88.21.179:443)
-[21:33:55.533][[::1]:52836] server connect avatars.mds.yandex.net:443 (87.250.247.182:443)
-[::1]:52831: GET https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWf… HTTP/2.0
+[::1]:56777: GET https://habrastorage.org/r/w1560/getpro/habr/upload_fil… HTTP/2.0
+ << HTTP/2.0 200 OK 73.2k
+[::1]:56792: GET https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWf… HTTP/2.0
  << HTTP/2.0 200 OK 17.3k
-[::1]:52806: GET https://assets.habr.com/habr-web/js/app.bbb355a5.js HTTP/2.0
- << HTTP/2.0 200 OK 238k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/fe2/… HTTP/2.0
- << HTTP/2.0 200 OK 2.3k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/684/… HTTP/2.0
- << HTTP/2.0 200 OK 3.5k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/588/… HTTP/2.0
- << HTTP/2.0 200 OK 2.1k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/4b1/… HTTP/2.0
- << HTTP/2.0 200 OK 7.7k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/f4e/… HTTP/2.0
- << HTTP/2.0 200 OK 2.6k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/72a/… HTTP/2.0
- << HTTP/2.0 200 OK 3.3k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/bee/… HTTP/2.0
- << HTTP/2.0 200 OK 9.1k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/319/… HTTP/2.0
- << HTTP/2.0 200 OK 3.5k
-[::1]:52821: GET https://habrastorage.org/r/w64/getpro/habr/avatars/ba7/… HTTP/2.0
- << HTTP/2.0 200 OK 1.6k
-[21:33:55.898][[::1]:52843] client connect
-[21:33:55.905][[::1]:52845] client connect
-[21:33:55.937][[::1]:52846] client connect
-[21:33:55.981][[::1]:52843] server connect sentry.srv.habr.com:443 (178.248.233.33:443)
-[21:33:56.031][[::1]:52845] server connect an.yandex.ru:443 (77.88.21.90:443)
-[::1]:52837: GET https://mc.yandex.ru/metrika/tag.js HTTP/2.0
- << HTTP/2.0 200 OK 79.8k
-[::1]:52843: POST https://sentry.srv.habr.com/api/13/envelope/?sentry_key… HTTP/2.0
- << HTTP/2.0 405 Method Not Allowed 552b
-[21:33:56.278][[::1]:52849] client connect
-[21:33:56.279][[::1]:52850] client connect
-[::1]:52845: HEAD https://an.yandex.ru/system/context.js HTTP/2.0
- << HTTP/2.0 200 OK 0b
-[21:33:57.363][[::1]:52850] server connect yastatic.net:443 (37.9.64.225:443)
-[21:34:03.263][[::1]:52853] client connect
-[21:34:03.442][[::1]:52853] server connect optimizationguide-pa.googleapis.com:443 (142.250.184.202:443)
-[::1]:52853: POST https://optimizationguide-pa.googleapis.com/v1:GetModel… HTTP/2.0
- << HTTP/2.0 200 OK 2.1k
-[21:34:10.143][[::1]:52846] client disconnect
-[21:34:10.144][[::1]:52849] client disconnect
-[21:34:10.145][[::1]:52846] error establishing server connection: client disconnected
-[21:34:10.146][[::1]:52849] error establishing server connection: client disconnected
-[::1]:52850: GET https://yastatic.net/s3/home/fonts/ys/3/text-variable-f… HTTP/2.0
- << peer closed connection
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/98370… HTTP/2.0
- << peer closed connection
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/07f45… HTTP/2.0
- << peer closed connection
-[21:34:10.216][[::1]:52850] server disconnect yastatic.net:443 (37.9.64.225:443)
-[21:34:10.305][[::1]:52850] server connect yastatic.net:443 (37.9.64.225:443)
-[21:34:15.174][[::1]:52796] server disconnect habr.com:443 (178.248.237.68:443)
-[21:34:16.277][[::1]:52843] server disconnect sentry.srv.habr.com:443 (178.248.233.33:443)
-[21:34:16.484][[::1]:52835] error establishing server connection: [WinError 121] Превышен таймаут семафора
-[21:34:16.485][[::1]:52835] client disconnect
-[21:34:46.545][[::1]:52837] server disconnect mc.yandex.ru:443 (87.250.251.119:443)
-[21:34:53.374][[::1]:52857] client connect
-[21:34:53.524][[::1]:52857] server connect update.googleapis.com:443 (64.233.164.94:443)
-[::1]:52857: POST https://update.googleapis.com/service/update2/json?cup2… HTTP/2.0
- << HTTP/2.0 200 OK 4.9k
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/00c1d… HTTP/2.0
- << peer closed connection
-[::1]:52850: GET https://yastatic.net/safeframe-bundles/0.83/host.js HTTP/2.0
- << peer closed connection
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/ef2ee… HTTP/2.0
- << peer closed connection
-[21:34:56.081][[::1]:52850] server disconnect yastatic.net:443 (37.9.64.225:443)
-[21:34:56.174][[::1]:52796] server connect habr.com:443 (178.248.237.68:443)
-[::1]:52806: GET https://assets.habr.com/habr-web/js/1918.0d27f69a.js HTTP/2.0
- << HTTP/2.0 200 OK 3.1k
-[::1]:52806: GET https://assets.habr.com/habr-web/js/1294.de1264b8.js HTTP/2.0
- << HTTP/2.0 200 OK 4.1k
-[::1]:52796: GET https://habr.com/img/px.gif?ch=2&rn=584787 HTTP/2.0
- << HTTP/2.0 200 OK 43b
-[::1]:52796: GET https://habr.com/img/px.gif?ch=1&rn=584787 HTTP/2.0
- << HTTP/2.0 200 OK 43b
-[21:34:56.818][[::1]:52838] client disconnect
-[21:34:56.819][[::1]:52838] server disconnect ads.adfox.ru:443 (77.88.21.179:443)
-[21:34:56.820][[::1]:52836] client disconnect
-[21:34:56.820][[::1]:52861] client connect
-[21:34:56.821][[::1]:52836] server disconnect avatars.mds.yandex.net:443 (87.250.247.182:443)
-[21:34:56.842][[::1]:52862] client connect
-[21:34:56.843][[::1]:52863] client connect
-[21:34:56.880][[::1]:52865] client connect
-[21:34:56.887][[::1]:52866] client connect
-[21:34:56.988][[::1]:52865] server connect effect.habr.com:443 (178.248.233.33:443)
-[21:34:56.989][[::1]:52861] server connect www.google.com:443 (172.217.18.100:443)
-[21:34:56.990][[::1]:52866] server connect www.googletagmanager.com:443 (173.194.221.97:443)
-[21:34:57.020][[::1]:52862] server connect analytics.google.com:443 (142.250.186.110:443)
-[21:34:57.021][[::1]:52863] server connect stats.g.doubleclick.net:443 (173.194.76.154:443)
-[::1]:52796: POST https://habr.com/uuid/ HTTP/2.0
- << HTTP/2.0 200 OK 118b
-[::1]:52796: GET https://habr.com/kek/v1/stories?fl=ru&hl=ru HTTP/2.0
+[::1]:56787: GET https://yandex.ru/ads/system/context.js HTTP/2.0
+ << HTTP/2.0 200 OK 107k
+[22:02:59.154][[::1]:56795] client connect
+[22:02:59.155][[::1]:56796] client connect
+[22:02:59.157][[::1]:56797] client connect
+[22:02:59.158][[::1]:56798] client connect
+[22:02:59.160][[::1]:56799] client connect
+[22:02:59.244][[::1]:56795] server connect yastatic.net:443 (37.9.64.225:443)
+[22:02:59.248][[::1]:56799] server connect yastatic.net:443 (37.9.64.225:443)
+[22:02:59.250][[::1]:56796] server connect avatars.mds.yandex.net:443 (87.250.247.181:443)
+[22:02:59.251][[::1]:56797] server connect mc.yandex.ru:443 (87.250.251.119:443)
+[22:02:59.288][[::1]:56798] server connect ads.adfox.ru:443 (77.88.21.179:443)
+[::1]:56777: GET https://habrastorage.org/r/w780/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 47.2k
+[::1]:56774: GET https://assets.habr.com/habr-web/js/page-flows.75fb39c0… HTTP/2.0
+ << HTTP/2.0 200 OK 6.4k
+[::1]:56774: GET https://assets.habr.com/habr-web/img/avatars/082.png HTTP/2.0
+ << HTTP/2.0 200 OK 6.1k
+[::1]:56774: GET https://assets.habr.com/habr-web/img/avatars/027.png HTTP/2.0
  << HTTP/2.0 200 OK 3.2k
-[::1]:52796: GET https://habr.com/kek/v2/feed/counters?fl=ru&hl=ru HTTP/2.0
- << HTTP/2.0 200 OK 58b
-[::1]:52796: GET https://habr.com/kek/v2/actual_events HTTP/2.0
- << HTTP/2.0 200 OK 5.0k
-[::1]:52796: GET https://habr.com/kek/v2/news/context?fl=ru&hl=ru&select… HTTP/2.0
- << HTTP/2.0 200 OK 3.3k
-[::1]:52815: GET https://yandex.ru/ads/adfox/406261/getBulk/v2?pr=144539… HTTP/2.0
- << HTTP/2.0 200 OK 167b
-[::1]:52796: GET https://habr.com/kek/v2/inset/questions?tags=%D1%83%D1%… HTTP/2.0
- << HTTP/2.0 200 OK 500b
-[::1]:52866: GET https://www.googletagmanager.com/static/service_worker/… HTTP/2.0
- << HTTP/2.0 200 OK 1.4k
-[::1]:52865: OPTIONS https://effect.habr.com/a HTTP/2.0
- << HTTP/2.0 200 OK 20b
-[::1]:52861: POST https://www.google.com/ccm/collect?tid=AW-16640038942&e… HTTP/2.0
- << HTTP/2.0 200 OK 0b
-[::1]:52862: POST https://analytics.google.com/g/collect?v=2&tid=G-S28W1W… HTTP/2.0
- << HTTP/2.0 204 No Content 0b
-[21:34:57.436][[::1]:52871] client connect
-[::1]:52866: GET https://www.googletagmanager.com/static/service_worker/… HTTP/2.0
- << HTTP/2.0 200 OK 6.8k
-[::1]:52865: SEARCH https://effect.habr.com/a HTTP/2.0
- << HTTP/2.0 200 OK 2.2k
-[21:34:57.550][[::1]:52873] client connect
-[21:34:57.574][[::1]:52874] client connect
-[21:34:57.604][[::1]:52871] server connect stats.habr.com:443 (178.248.233.33:443)
-[21:34:57.705][[::1]:52873] server connect td.doubleclick.net:443 (74.125.131.156:443)
-[21:34:57.713][[::1]:52874] server connect google.com:443 (64.233.162.101:443)
-[::1]:52871: POST https://stats.habr.com/page-view HTTP/2.0
- << HTTP/2.0 200 OK 36b
-[::1]:52874: GET https://google.com/ccm/form-data/16640038942?gtm=45je54… HTTP/2.0
- << HTTP/2.0 204 No Content 0b
-[21:35:00.112][[::1]:52877] client connect
-[21:35:00.214][[::1]:52877] server connect td.doubleclick.net:443 (74.125.131.156:443)
-[::1]:52874: GET https://google.com/ccm/form-data/16640038942?gtm=45je54… HTTP/2.0
- << HTTP/2.0 204 No Content 0b
-[21:35:00.886][[::1]:52821] server disconnect habrastorage.org:443 (65.109.153.168:443)
-[::1]:52862: POST https://analytics.google.com/g/collect?v=2&tid=G-S28W1W… HTTP/2.0
- << HTTP/2.0 204 No Content 0b
-[21:35:03.393][[::1]:52850] server connect yastatic.net:443 (37.9.64.225:443)
-[21:35:17.208][[::1]:52796] server disconnect habr.com:443 (178.248.237.68:443)
-[21:35:17.518][[::1]:52865] server disconnect effect.habr.com:443 (178.248.233.33:443)
-[21:35:17.924][[::1]:52871] server disconnect stats.habr.com:443 (178.248.233.33:443)
-[21:35:20.422][[::1]:52873] Server TLS handshake failed. connection closed
-[21:35:20.423][[::1]:52873] Unable to establish TLS connection with server (connection closed). Trying to establish TLS with client anyway. If you plan to redirect requests away from this server, consider setting `connection_strategy` to `lazy` to suppress early connections.
-[21:35:20.425][[::1]:52873] server disconnect td.doubleclick.net:443 (74.125.131.156:443)
-[::1]:52873: GET https://td.doubleclick.net/td/rul/16640038942?random=17… HTTP/2.0
- << connection closed
-[::1]:52873: GET https://td.doubleclick.net/td/rul/16640038942?random=17… HTTP/2.0
- << connection closed
-[21:35:21.977][[::1]:52877] Server TLS handshake failed. connection closed
-[21:35:21.977][[::1]:52877] Unable to establish TLS connection with server (connection closed). Trying to establish TLS with client anyway. If you plan to redirect requests away from this server, consider setting `connection_strategy` to `lazy` to suppress early connections.
-[21:35:21.978][[::1]:52877] server disconnect td.doubleclick.net:443 (74.125.131.156:443)
-[21:35:21.979][[::1]:52877] client disconnect
-[21:35:24.101][[::1]:52863] Server TLS handshake failed. connection closed
-[21:35:24.102][[::1]:52863] Unable to establish TLS connection with server (connection closed). Trying to establish TLS with client anyway. If you plan to redirect requests away from this server, consider setting `connection_strategy` to `lazy` to suppress early connections.
-[21:35:24.104][[::1]:52863] server disconnect stats.g.doubleclick.net:443 (173.194.76.154:443)
-[::1]:52863: POST https://stats.g.doubleclick.net/g/collect?v=2&tid=G-S28… HTTP/2.0
- << connection closed
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/98370… HTTP/2.0
- << peer closed connection
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/07f45… HTTP/2.0
- << peer closed connection
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/00c1d… HTTP/2.0
- << peer closed connection
-[21:35:33.467][[::1]:52850] server disconnect yastatic.net:443 (37.9.64.225:443)
-[21:35:33.564][[::1]:52796] server connect habr.com:443 (178.248.237.68:443)
-[::1]:52831: GET https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWf… HTTP/2.0
+[::1]:56799: GET https://yastatic.net/s3/home/fonts/ys/3/text-variable-f… HTTP/2.0
+ << HTTP/2.0 200 OK 25.4k
+[::1]:56774: GET https://assets.habr.com/habr-web/img/avatars/179.png HTTP/2.0
+ << HTTP/2.0 200 OK 5.8k
+[::1]:56774: GET https://assets.habr.com/habr-web/img/avatars/166.png HTTP/2.0
+ << HTTP/2.0 200 OK 5.9k
+[::1]:56774: GET https://assets.habr.com/habr-web/img/avatars/126.png HTTP/2.0
+ << HTTP/2.0 200 OK 5.4k
+[::1]:56774: GET https://assets.habr.com/habr-web/img/avatars/115.png HTTP/2.0
+ << HTTP/2.0 200 OK 6.6k
+[::1]:56774: GET https://assets.habr.com/habr-web/img/avatars/056.png HTTP/2.0
  << HTTP/2.0 200 OK 7.0k
-[21:35:33.669][[::1]:52850] server connect yastatic.net:443 (37.9.64.225:443)
-[::1]:52831: GET https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWf… HTTP/2.0
- << HTTP/2.0 200 OK 17.4k
-[::1]:52806: GET https://assets.habr.com/habr-web/js/624.0bfb558a.js HTTP/2.0
- << HTTP/2.0 200 OK 393b
-[21:35:33.887][[::1]:52881] client connect
-[::1]:52796: GET https://habr.com/manifest.webmanifest HTTP/2.0
- << HTTP/2.0 200 OK 1.4k
-[21:35:34.026][[::1]:52881] server connect www.google.ru:443 (142.251.1.94:443)
-[21:35:34.147][[::1]:52821] server connect habrastorage.org:443 (65.21.120.121:443)
-[::1]:52881: GET https://www.google.ru/ads/ga-audiences?v=1&t=sr&slf_rd=… HTTP/2.0
- << HTTP/2.0 200 OK 42b
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
- << HTTP/2.0 200 OK 83.3k
-[::1]:52821: GET https://habrastorage.org/getpro/habr/upload_files/679/2… HTTP/2.0
- << HTTP/2.0 200 OK 11.9k
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
- << HTTP/2.0 200 OK 116k
-[::1]:52821: GET https://habrastorage.org/getpro/habr/upload_files/c62/0… HTTP/2.0
- << HTTP/2.0 200 OK 8.1k
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
- << HTTP/2.0 200 OK 55.1k
-[::1]:52821: GET https://habrastorage.org/getpro/habr/upload_files/f8e/a… HTTP/2.0
+[::1]:56774: GET https://assets.habr.com/habr-web/img/avatars/079.png HTTP/2.0
+ << HTTP/2.0 200 OK 7.1k
+[::1]:56774: GET https://assets.habr.com/habr-web/img/avatars/077.png HTTP/2.0
  << HTTP/2.0 200 OK 4.4k
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
- << HTTP/2.0 200 OK 80.3k
-[::1]:52821: GET https://habrastorage.org/getpro/habr/upload_files/43e/6… HTTP/2.0
+[::1]:56774: GET https://assets.habr.com/habr-web/img/avatars/009.png HTTP/2.0
+ << HTTP/2.0 200 OK 6.5k
+[::1]:56774: GET https://assets.habr.com/habr-web/img/avatars/189.png HTTP/2.0
+ << HTTP/2.0 200 OK 5.4k
+[::1]:56774: GET https://assets.habr.com/habr-web/css/theme/light-v1.css HTTP/2.0
+ << HTTP/2.0 200 OK 862b
+[::1]:56777: GET https://habrastorage.org/r/w780/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 40.5k
+[::1]:56774: GET https://assets.habr.com/habr-web/js/app.58b8c457.js HTTP/2.0
+ << HTTP/2.0 200 OK 238k
+[::1]:56774: GET https://assets.habr.com/habr-web/js/chunk-vendors.978df… HTTP/2.0
+ << HTTP/2.0 200 OK 205k
+[::1]:56777: GET https://habrastorage.org/r/w48/getpro/habr/avatars/71f/… HTTP/2.0
+ << HTTP/2.0 200 OK 1.4k
+[::1]:56777: GET https://habrastorage.org/r/w48/getpro/habr/avatars/870/… HTTP/2.0
+ << HTTP/2.0 200 OK 1.5k
+[22:03:00.377][[::1]:56805] client connect
+[22:03:00.383][[::1]:56807] client connect
+[22:03:00.458][[::1]:56805] server connect sentry.srv.habr.com:443 (178.248.233.33:443)
+[22:03:00.479][[::1]:56807] server connect an.yandex.ru:443 (87.250.250.90:443)
+[::1]:56805: POST https://sentry.srv.habr.com/api/13/envelope/?sentry_key… HTTP/2.0
+ << HTTP/2.0 405 Method Not Allowed 552b
+[::1]:56777: GET https://habrastorage.org/r/w48/getpro/habr/avatars/126/… HTTP/2.0
+ << HTTP/2.0 200 OK 1.8k
+[::1]:56807: HEAD https://an.yandex.ru/system/context.js HTTP/2.0
+ << HTTP/2.0 200 OK 0b
+[::1]:56777: GET https://habrastorage.org/r/w48/getpro/habr/avatars/ed9/… HTTP/2.0
+ << HTTP/2.0 200 OK 2.3k
+[::1]:56777: GET https://habrastorage.org/r/w48/getpro/habr/avatars/ae9/… HTTP/2.0
+ << HTTP/2.0 200 OK 2.2k
+[::1]:56777: GET https://habrastorage.org/r/w48/getpro/habr/avatars/cdd/… HTTP/2.0
+ << HTTP/2.0 200 OK 2.9k
+[::1]:56777: GET https://habrastorage.org/r/w48/getpro/habr/avatars/3b2/… HTTP/2.0
+ << HTTP/2.0 200 OK 2.2k
+[::1]:56777: GET https://habrastorage.org/r/w48/getpro/habr/avatars/f8e/… HTTP/2.0
+ << HTTP/2.0 200 OK 5.2k
+[::1]:56777: GET https://habrastorage.org/r/w1560/getpro/habr/upload_fil… HTTP/2.0
+ << HTTP/2.0 200 OK 46.8k
+[::1]:56777: GET https://habrastorage.org/r/w48/getpro/habr/avatars/97a/… HTTP/2.0
+ << HTTP/2.0 200 OK 1.9k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/company/18c/bff/d8… HTTP/2.0
+ << HTTP/2.0 200 OK 8.2k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/company/d88/837/22… HTTP/2.0
+ << HTTP/2.0 200 OK 14.2k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/company/70c/a67/cc… HTTP/2.0
+ << HTTP/2.0 200 OK 1.6k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/company/7dd/ba1/4f… HTTP/2.0
+ << HTTP/2.0 200 OK 1.3k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/company/9ed/c74/6b… HTTP/2.0
  << HTTP/2.0 200 OK 7.3k
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
- << HTTP/2.0 200 OK 84.3k
-[::1]:52821: GET https://habrastorage.org/getpro/habr/upload_files/3c3/6… HTTP/2.0
- << HTTP/2.0 200 OK 6.2k
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
- << HTTP/2.0 200 OK 67.0k
-[::1]:52821: GET https://habrastorage.org/getpro/habr/upload_files/96f/e… HTTP/2.0
+[::1]:56777: GET https://habrastorage.org/getpro/habr/company/add/eb3/e9… HTTP/2.0
+ << HTTP/2.0 200 OK 2.5k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/company/b02/d9b/1d… HTTP/2.0
+ << HTTP/2.0 200 OK 3.1k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/company/a65/525/4f… HTTP/2.0
+ << HTTP/2.0 200 OK 2.3k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/company/de0/e6c/37… HTTP/2.0
+ << HTTP/2.0 200 OK 2.8k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/company/9db/3c1/ec… HTTP/2.0
+ << HTTP/2.0 200 OK 5.9k
+[::1]:56777: GET https://habrastorage.org/r/w780/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 91.9k
+[::1]:56777: GET https://habrastorage.org/r/w780/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 78.1k
+[::1]:56777: GET https://habrastorage.org/r/w1560/getpro/habr/upload_fil… HTTP/2.0
+ << HTTP/2.0 200 OK 105k
+[::1]:56777: GET https://habrastorage.org/r/w780/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 107k
+[::1]:56777: GET https://habrastorage.org/r/w780/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 88.1k
+[::1]:56777: GET https://habrastorage.org/r/w1560/getpro/habr/upload_fil… HTTP/2.0
+ << HTTP/2.0 200 OK 106k
+[::1]:56777: GET https://habrastorage.org/r/w1560/getpro/habr/upload_fil… HTTP/2.0
+ << HTTP/2.0 200 OK 221k
+[22:03:05.995][[::1]:56810] client connect
+[22:03:06.122][[::1]:56810] server connect optimizationguide-pa.googleapis.com:443 (172.217.16.202:443)
+[::1]:56810: POST https://optimizationguide-pa.googleapis.com/v1:GetModel… HTTP/2.0
+ << HTTP/2.0 200 OK 2.1k
+[::1]:56777: GET https://habrastorage.org/r/w1560/getpro/habr/upload_fil… HTTP/2.0
+ << HTTP/2.0 200 OK 513k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/upload_files/0df/3… HTTP/2.0
+ << HTTP/2.0 200 OK 531k
+[::1]:56777: GET https://habrastorage.org/getpro/habr//post_images/25a/7… HTTP/2.0
+ << HTTP/2.0 200 OK 517k
+[::1]:56777: GET https://habrastorage.org/r/w1560/getpro/habr/upload_fil… HTTP/2.0
+ << HTTP/2.0 200 OK 533k
+[::1]:56777: GET https://habrastorage.org/r/w1560/getpro/habr/upload_fil… HTTP/2.0
+ << HTTP/2.0 200 OK 607k
+[::1]:56777: GET https://habrastorage.org/r/w1560/getpro/habr/upload_fil… HTTP/2.0
+ << HTTP/2.0 200 OK 589k
+[::1]:56799: GET https://yastatic.net/partner-code-bundles/1263397/1bc71… HTTP/2.0
+ << HTTP/2.0 200 OK 7.5k
+[::1]:56799: GET https://yastatic.net/partner-code-bundles/1263397/4de92… HTTP/2.0
+ << HTTP/2.0 200 OK 10.7k
+[::1]:56797: GET https://mc.yandex.ru/metrika/tag.js HTTP/2.0
+ << HTTP/2.0 200 OK 79.8k
+[::1]:56799: GET https://yastatic.net/partner-code-bundles/1263397/078f6… HTTP/2.0
+ << HTTP/2.0 200 OK 124k
+[::1]:56799: GET https://yastatic.net/safeframe-bundles/0.83/host.js HTTP/2.0
+ << HTTP/2.0 200 OK 8.7k
+[::1]:56799: GET https://yastatic.net/partner-code-bundles/1263397/d33ae… HTTP/2.0
+ << HTTP/2.0 200 OK 24.3k
+[::1]:56764: GET https://habr.com/img/px.gif?ch=1&rn=462635 HTTP/2.0
+ << HTTP/2.0 200 OK 43b
+[::1]:56777: GET https://habrastorage.org/r/w1560/getpro/habr/upload_fil… HTTP/2.0
+ << HTTP/2.0 200 OK 799k
+[::1]:56774: GET https://assets.habr.com/habr-web/js/1918.0d27f69a.js HTTP/2.0
+ << HTTP/2.0 200 OK 3.1k
+[::1]:56764: GET https://habr.com/img/px.gif?ch=2&rn=462635 HTTP/2.0
+ << HTTP/2.0 200 OK 43b
+[::1]:56777: GET https://habrastorage.org/webt/bw/ac/ta/bwactamaq7jplct4… HTTP/2.0
+ << HTTP/2.0 200 OK 979k
+[::1]:56774: GET https://assets.habr.com/habr-web/js/1294.de1264b8.js HTTP/2.0
+ << HTTP/2.0 200 OK 4.1k
+[::1]:56774: GET https://assets.habr.com/habr-web/js/624.0bfb558a.js HTTP/2.0
+ << HTTP/2.0 200 OK 393b
+[22:03:10.232][[::1]:56813] client connect
+[22:03:10.253][[::1]:56815] client connect
+[22:03:10.254][[::1]:56816] client connect
+[22:03:10.295][[::1]:56819] client connect
+[22:03:10.302][[::1]:56820] client connect
+[22:03:10.315][[::1]:56823] client connect
+[22:03:10.333][[::1]:56813] server connect www.google.com:443 (64.233.163.147:443)
+[22:03:10.356][[::1]:56816] server connect stats.g.doubleclick.net:443 (142.250.150.155:443)
+[22:03:10.384][[::1]:56815] server connect analytics.google.com:443 (142.250.186.46:443)
+[22:03:10.393][[::1]:56819] server connect www.google.ru:443 (142.250.150.94:443)
+[22:03:10.394][[::1]:56820] server connect effect.habr.com:443 (178.248.233.33:443)
+[22:03:10.409][[::1]:56823] server connect www.googletagmanager.com:443 (74.125.205.97:443)
+[::1]:56764: POST https://habr.com/uuid/ HTTP/2.0
+ << HTTP/2.0 200 OK 118b
+[::1]:56764: GET https://habr.com/kek/v1/stories?fl=ru&hl=ru HTTP/2.0
+ << HTTP/2.0 200 OK 2.9k
+[::1]:56764: GET https://habr.com/kek/v2/inset/courses?tags=%D0%B8%D1%81… HTTP/2.0
+ << HTTP/2.0 200 OK 713b
+[::1]:56764: GET https://habr.com/kek/v2/news/context?fl=ru&hl=ru&select… HTTP/2.0
+ << HTTP/2.0 200 OK 3.7k
+[::1]:56764: GET https://habr.com/kek/v2/actual_events HTTP/2.0
+ << HTTP/2.0 200 OK 5.2k
+[::1]:56764: GET https://habr.com/kek/v2/feed/counters?fl=ru&hl=ru HTTP/2.0
+ << HTTP/2.0 200 OK 57b
+[::1]:56764: GET https://habr.com/kek/v2/articles/most-reading?fl=ru&hl=… HTTP/2.0
+ << HTTP/2.0 200 OK 8.2k
+[::1]:56787: GET https://yandex.ru/ads/adfox/406261/getBulk/v2?pr=777256… HTTP/2.0
+ << HTTP/2.0 200 OK 168b
+[::1]:56792: GET https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWf… HTTP/2.0
+ << HTTP/2.0 200 OK 7.0k
+[::1]:56813: POST https://www.google.com/ccm/collect?tid=AW-16640038942&e… HTTP/2.0
+ << HTTP/2.0 200 OK 0b
+[::1]:56816: POST https://stats.g.doubleclick.net/g/collect?v=2&tid=G-S28… HTTP/2.0
+ << HTTP/2.0 204 No Content 0b
+[::1]:56820: OPTIONS https://effect.habr.com/a HTTP/2.0
+ << HTTP/2.0 200 OK 20b
+[::1]:56823: GET https://www.googletagmanager.com/static/service_worker/… HTTP/2.0
+ << HTTP/2.0 200 OK 1.4k
+[::1]:56819: GET https://www.google.ru/ads/ga-audiences?v=1&t=sr&slf_rd=… HTTP/2.0
+ << HTTP/2.0 200 OK 42b
+[::1]:56792: GET https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWf… HTTP/2.0
+ << HTTP/2.0 200 OK 17.4k
+[::1]:56815: POST https://analytics.google.com/g/collect?v=2&tid=G-S28W1W… HTTP/2.0
+ << HTTP/2.0 204 No Content 0b
+[::1]:56777: GET https://habrastorage.org/r/w64/getpro/habr/avatars/71f/… HTTP/2.0
+ << HTTP/2.0 200 OK 1.6k
+[::1]:56764: GET https://habr.com/manifest.webmanifest HTTP/2.0
+ << HTTP/2.0 200 OK 1.4k
+[::1]:56823: GET https://www.googletagmanager.com/static/service_worker/… HTTP/2.0
+ << HTTP/2.0 200 OK 6.8k
+[::1]:56820: SEARCH https://effect.habr.com/a HTTP/2.0
+ << HTTP/2.0 200 OK 2.3k
+[::1]:56777: GET https://habrastorage.org/r/w64/getpro/habr/avatars/870/… HTTP/2.0
+ << HTTP/2.0 200 OK 1.9k
+[::1]:56777: GET https://habrastorage.org/r/w64/getpro/habr/avatars/126/… HTTP/2.0
+ << HTTP/2.0 200 OK 2.4k
+[22:03:10.924][[::1]:56825] client connect
+[::1]:56777: GET https://habrastorage.org/r/w64/getpro/habr/avatars/ed9/… HTTP/2.0
+ << HTTP/2.0 200 OK 3.1k
+[22:03:10.963][[::1]:56826] client connect
+[::1]:56777: GET https://habrastorage.org/r/w64/getpro/habr/avatars/ae9/… HTTP/2.0
+ << HTTP/2.0 200 OK 3.2k
+[::1]:56777: GET https://habrastorage.org/r/w64/getpro/habr/avatars/cdd/… HTTP/2.0
+ << HTTP/2.0 200 OK 3.8k
+[::1]:56777: GET https://habrastorage.org/r/w64/getpro/habr/avatars/3b2/… HTTP/2.0
+ << HTTP/2.0 200 OK 3.1k
+[::1]:56777: GET https://habrastorage.org/r/w64/getpro/habr/avatars/f8e/… HTTP/2.0
+ << HTTP/2.0 200 OK 8.2k
+[22:03:11.047][[::1]:56826] server connect effect.habr.com:443 (178.248.233.33:443)
+[22:03:11.065][[::1]:56825] server connect td.doubleclick.net:443 (108.177.14.157:443)
+[::1]:56777: GET https://habrastorage.org/r/w64/getpro/habr/avatars/97a/… HTTP/2.0
+ << HTTP/2.0 200 OK 2.6k
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 88.0k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/upload_files/5b8/e… HTTP/2.0
+ << HTTP/2.0 200 OK 3.7k
+[::1]:56826: GET https://effect.habr.com/a/PIsH-alX8D9fjYKkq-PpHHaqziPca… HTTP/2.0
+ << HTTP/2.0 308 Permanent Redirect 0b
+[::1]:56825: GET https://td.doubleclick.net/td/rul/16640038942?random=17… HTTP/2.0
+ << HTTP/2.0 200 OK 16b
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 83.3k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/upload_files/679/2… HTTP/2.0
+ << HTTP/2.0 200 OK 11.9k
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 116k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/upload_files/c62/0… HTTP/2.0
  << HTTP/2.0 200 OK 8.1k
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 55.1k
+[::1]:56777: GET https://habrastorage.org/getpro/effect/43e/5f5/bda/3bd/… HTTP/2.0
+ << HTTP/2.0 200 OK 7.3k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/upload_files/f8e/a… HTTP/2.0
+ << HTTP/2.0 200 OK 4.4k
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 92.2k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/upload_files/b3c/6… HTTP/2.0
+ << HTTP/2.0 200 OK 7.6k
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 80.3k
+[::1]:56777: GET https://habrastorage.org/getpro/habr/upload_files/43e/6… HTTP/2.0
+ << HTTP/2.0 200 OK 7.3k
+[::1]:56777: GET https://habrastorage.org/getpro/moikrug/uploads/educati… HTTP/2.0
+ << HTTP/2.0 200 OK 7.6k
+[::1]:56777: GET https://habrastorage.org/getpro/moikrug/uploads/educati… HTTP/2.0
+ << HTTP/2.0 200 OK 4.7k
+[::1]:56777: GET https://habrastorage.org/getpro/moikrug/uploads/educati… HTTP/2.0
+ << HTTP/2.0 200 OK 4.5k
+[::1]:56777: GET https://habrastorage.org/getpro/moikrug/uploads/educati… HTTP/2.0
+ << HTTP/2.0 200 OK 4.2k
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
  << HTTP/2.0 200 OK 60.5k
-[21:35:36.305][[::1]:52884] client connect
-[21:35:36.389][[::1]:52884] server connect effect.habr.com:443 (178.248.233.33:443)
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
- << HTTP/2.0 200 OK 103k
-[::1]:52884: GET https://effect.habr.com/a/ojjb1x0CRFx_Qm03_4dpIy7s8IdpW… HTTP/2.0
- << HTTP/2.0 308 Permanent Redirect 0b
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
- << HTTP/2.0 200 OK 31.3k
-[::1]:52821: GET https://habrastorage.org/getpro/effect/d51/992/ea9/848/… HTTP/2.0
- << HTTP/2.0 200 OK 21.2k
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
  << HTTP/2.0 200 OK 35.9k
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+[22:03:12.194][[::1]:56830] client connect
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
  << HTTP/2.0 200 OK 24.8k
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 17.5k
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 21.5k
+[::1]:56826: GET https://effect.habr.com/a/K0Lk_tnJreT-74X_F-OPhXYl0Jssp… HTTP/2.0
+ << HTTP/2.0 308 Permanent Redirect 0b
+[22:03:12.355][[::1]:56830] server connect googleads.g.doubleclick.net:443 (172.217.16.194:443)
+[::1]:56826: GET https://effect.habr.com/a/7yncnRQF0zRuR3ZYJjJDIQUtX2eaY… HTTP/2.0
+ << HTTP/2.0 308 Permanent Redirect 0b
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
  << HTTP/2.0 200 OK 101k
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+[22:03:12.400][[::1]:56832] client connect
+[::1]:56826: GET https://effect.habr.com/a/Pi0eOp8CN36vYz9xZjVuyrRUfqhML… HTTP/2.0
+ << HTTP/2.0 308 Permanent Redirect 0b
+[22:03:12.482][[::1]:56832] server connect stats.habr.com:443 (178.248.233.33:443)
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+ << HTTP/2.0 200 OK 20.0k
+[22:03:12.488][[::1]:56834] client connect
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
  << HTTP/2.0 200 OK 104k
-[::1]:52821: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
+[22:03:12.600][[::1]:56834] server connect google.com:443 (108.177.14.138:443)
+[::1]:56777: GET https://habrastorage.org/r/w390/getpro/habr/upload_file… HTTP/2.0
  << HTTP/2.0 200 OK 35.7k
-[21:35:37.616][[::1]:52886] client connect
-[::1]:52884: GET https://effect.habr.com/a/4ZSx39Pp6Fduj8pT_g7jvAaPV2zCZ… HTTP/2.0
- << HTTP/2.0 308 Permanent Redirect 0b
-[21:35:37.766][[::1]:52886] server connect googleads.g.doubleclick.net:443 (64.233.165.154:443)
-[::1]:52821: GET https://habrastorage.org/getpro/effect/b57/28f/ec1/88f/… HTTP/2.0
- << HTTP/2.0 200 OK 73.4k
-[::1]:52884: GET https://effect.habr.com/a/y3SgbWwJSeLGkwaGToCP_NozoLuQu… HTTP/2.0
- << HTTP/2.0 308 Permanent Redirect 0b
-[::1]:52821: GET https://habrastorage.org/getpro/effect/eb3/82a/369/5d0/… HTTP/2.0
- << HTTP/2.0 200 OK 67.5k
-[::1]:52884: GET https://effect.habr.com/a/FMzAamD-szhSs_1ebUMojBj4Lira9… HTTP/2.0
- << HTTP/2.0 308 Permanent Redirect 0b
-[::1]:52821: GET https://habrastorage.org/getpro/effect/52f/1e9/620/ce8/… HTTP/2.0
+[::1]:56832: POST https://stats.habr.com/page-view HTTP/2.0
+ << HTTP/2.0 200 OK 36b
+[::1]:56830: GET https://googleads.g.doubleclick.net/pagead/viewthroughc… HTTP/2.0
+ << HTTP/2.0 200 OK 2.0k
+[::1]:56813: GET https://www.google.com/pagead/1p-user-list/16640038942/… HTTP/2.0
+ << HTTP/2.0 200 OK 42b
+[::1]:56819: GET https://www.google.ru/pagead/1p-user-list/16640038942/?… HTTP/2.0
+ << HTTP/2.0 200 OK 42b
+[::1]:56834: POST https://google.com/ccm/form-data/16640038942?gtm=45je54… HTTP/2.0
+ << HTTP/2.0 204 No Content 0b
+[22:03:12.941][[::1]:56836] client connect
+[::1]:56825: GET https://td.doubleclick.net/td/rul/16640038942?random=17… HTTP/2.0
+ << HTTP/2.0 200 OK 16b
+[22:03:13.053][[::1]:56836] server connect google.com:443 (108.177.14.138:443)
+[::1]:56830: GET https://googleads.g.doubleclick.net/pagead/viewthroughc… HTTP/2.0
+ << HTTP/2.0 200 OK 2.0k
+[::1]:56813: GET https://www.google.com/pagead/1p-user-list/16640038942/… HTTP/2.0
+ << HTTP/2.0 200 OK 42b
+[::1]:56819: GET https://www.google.ru/pagead/1p-user-list/16640038942/?… HTTP/2.0
+ << HTTP/2.0 200 OK 42b
+[::1]:56836: GET https://google.com/ccm/form-data/16640038942?gtm=45je54… HTTP/2.0
+ << HTTP/2.0 204 No Content 0b
+[::1]:56777: GET https://habrastorage.org/getpro/effect/52f/1e9/620/ce8/… HTTP/2.0
  << HTTP/2.0 200 OK 120k
-[21:35:38.776][[::1]:52888] client connect
-[21:35:38.879][[::1]:52888] server connect googleads.g.doubleclick.net:443 (64.233.165.154:443)
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/ef2ee… HTTP/2.0
- << peer closed connection
-[21:35:44.757][[::1]:52850] server disconnect yastatic.net:443 (37.9.64.225:443)
-[21:35:44.844][[::1]:52850] server connect yastatic.net:443 (37.9.64.225:443)
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/98370… HTTP/2.0
- << peer closed connection
-[21:35:45.801][[::1]:52850] server disconnect yastatic.net:443 (37.9.64.225:443)
-[21:35:46.076][[::1]:52850] server connect yastatic.net:443 (37.9.64.225:443)
-[21:35:53.946][[::1]:52796] server disconnect habr.com:443 (178.248.237.68:443)
-[21:35:58.469][[::1]:52884] server disconnect effect.habr.com:443 (178.248.233.33:443)
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/07f45… HTTP/2.0
- << peer closed connection
-[21:35:58.525][[::1]:52850] server disconnect yastatic.net:443 (37.9.64.225:443)
-[21:35:59.520][[::1]:52886] Server TLS handshake failed. connection closed
-[21:35:59.521][[::1]:52886] Unable to establish TLS connection with server (connection closed). Trying to establish TLS with client anyway. If you plan to redirect requests away from this server, consider setting `connection_strategy` to `lazy` to suppress early connections.
-[21:35:59.524][[::1]:52886] server disconnect googleads.g.doubleclick.net:443 (64.233.165.154:443)
-[::1]:52886: GET https://googleads.g.doubleclick.net/pagead/viewthroughc… HTTP/2.0
- << connection closed
-[::1]:52886: GET https://googleads.g.doubleclick.net/pagead/viewthroughc… HTTP/2.0
- << connection closed
-[21:36:00.743][[::1]:52888] Server TLS handshake failed. connection closed
-[21:36:00.744][[::1]:52888] Unable to establish TLS connection with server (connection closed). Trying to establish TLS with client anyway. If you plan to redirect requests away from this server, consider setting `connection_strategy` to `lazy` to suppress early connections.
-[21:36:00.745][[::1]:52888] server disconnect googleads.g.doubleclick.net:443 (64.233.165.154:443)
-[21:36:00.746][[::1]:52888] client disconnect
-[21:36:19.579][[::1]:52850] error establishing server connection: [WinError 121] Превышен таймаут семафора
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/00c1d… HTTP/2.0
- << [WinError 121] Превышен таймаут семафора
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/ef2ee… HTTP/2.0
- << [WinError 121] Превышен таймаут семафора
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/98370… HTTP/2.0
- << [WinError 121] Превышен таймаут семафора
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/07f45… HTTP/2.0
- << [WinError 121] Превышен таймаут семафора
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/00c1d… HTTP/2.0
- << [WinError 121] Превышен таймаут семафора
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/ef2ee… HTTP/2.0
- << [WinError 121] Превышен таймаут семафора
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/fb859… HTTP/2.0
- << [WinError 121] Превышен таймаут семафора
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/fb859… HTTP/2.0
- << [WinError 121] Превышен таймаут семафора
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/fb859… HTTP/2.0
- << [WinError 121] Превышен таймаут семафора
-[::1]:52850: GET https://yastatic.net/partner-code-bundles/1261120/fb859… HTTP/2.0
- << [WinError 121] Превышен таймаут семафора
-[21:36:19.613][[::1]:52898] client connect
-[21:36:19.626][[::1]:52802] client disconnect
-[21:36:19.627][[::1]:52802] server disconnect unpkg.com:443 (104.17.247.203:443)
-[21:36:19.628][[::1]:52797] client disconnect
-[21:36:19.629][[::1]:52797] server disconnect accounts.google.com:443 (142.251.173.84:443)
-[21:36:19.630][[::1]:52796] client disconnect
-[21:36:19.632][[::1]:52796] error establishing server connection: client disconnected
-[::1]:52796: GET https://habr.com/service-worker.js HTTP/2.0
- << client disconnected
-[::1]:52806: GET https://assets.habr.com/habr-web/img/favicons/favicon-3… HTTP/2.0
- << peer closed connection
-[21:36:19.637][[::1]:52806] client disconnect
-[21:36:19.637][[::1]:52831] client disconnect
-[21:36:19.638][[::1]:52815] client disconnect
-[21:36:19.638][[::1]:52821] client disconnect
-[21:36:19.639][[::1]:52806] server disconnect assets.habr.com:443 (95.47.236.28:443)
-[21:36:19.640][[::1]:52831] server disconnect fonts.gstatic.com:443 (209.85.233.94:443)
-[21:36:19.640][[::1]:52815] server disconnect yandex.ru:443 (5.255.255.77:443)
-[21:36:19.641][[::1]:52821] server disconnect habrastorage.org:443 (65.21.120.121:443)
-[21:36:19.641][[::1]:52863] client disconnect
-[21:36:19.641][[::1]:52822] client disconnect
-[21:36:19.642][[::1]:52861] client disconnect
-[21:36:19.642][[::1]:52837] client disconnect
-[21:36:19.642][[::1]:52862] client disconnect
-[21:36:19.643][[::1]:52843] client disconnect
-[21:36:19.643][[::1]:52845] client disconnect
-[21:36:19.644][[::1]:52850] client disconnect
-[21:36:19.644][[::1]:52853] client disconnect
-[21:36:19.644][[::1]:52857] client disconnect
-[21:36:19.645][[::1]:52866] client disconnect
-[21:36:19.645][[::1]:52865] client disconnect
-[21:36:19.645][[::1]:52871] client disconnect
-[21:36:19.646][[::1]:52873] client disconnect
-[21:36:19.646][[::1]:52874] client disconnect
-[21:36:19.646][[::1]:52881] client disconnect
-[21:36:19.648][[::1]:52822] server disconnect www.googletagmanager.com:443 (173.194.221.97:443)
-[21:36:19.648][[::1]:52861] server disconnect www.google.com:443 (172.217.18.100:443)
-[21:36:19.649][[::1]:52862] server disconnect analytics.google.com:443 (142.250.186.110:443)
-[21:36:19.649][[::1]:52845] server disconnect an.yandex.ru:443 (77.88.21.90:443)
-[21:36:19.650][[::1]:52853] server disconnect optimizationguide-pa.googleapis.com:443 (142.250.184.202:443)
-[21:36:19.651][[::1]:52857] server disconnect update.googleapis.com:443 (64.233.164.94:443)
-[21:36:19.651][[::1]:52866] server disconnect www.googletagmanager.com:443 (173.194.221.97:443)
-[21:36:19.652][[::1]:52874] server disconnect google.com:443 (64.233.162.101:443)
-[21:36:19.653][[::1]:52881] server disconnect www.google.ru:443 (142.251.1.94:443)
-[21:36:19.653][[::1]:52884] client disconnect
-[21:36:19.653][[::1]:52886] client disconnect
-[21:36:19.654][[::1]:52898] client disconnect
-[21:36:19.656][[::1]:52898] error establishing server connection: client disconnected
+[::1]:56777: GET https://habrastorage.org/getpro/effect/878/a79/117/04f/… HTTP/2.0
+ << HTTP/2.0 200 OK 437k
+[::1]:56777: GET https://habrastorage.org/getpro/effect/f4b/3cd/69a/731/… HTTP/2.0
+ << HTTP/2.0 200 OK 254k
+[22:03:13.959][[::1]:56838] client connect
+[::1]:56774: GET https://assets.habr.com/habr-web/img/favicons/favicon-3… HTTP/2.0
+ << HTTP/2.0 200 OK 389b
+[22:03:14.060][[::1]:56838] server connect vk.com:443 (87.240.132.72:443)
+[::1]:56764: GET https://habr.com/service-worker.js HTTP/2.0
+ << HTTP/2.0 200 OK 12.1k
+[22:03:14.107][[::1]:56840] client connect
+[::1]:56764: GET https://habr.com/img/maskable_icon.png HTTP/2.0
+ << HTTP/2.0 200 OK 26.5k
+[22:03:14.249][[::1]:56840] server connect storage.googleapis.com:443 (74.125.205.207:443)
+[::1]:56838: GET https://vk.com/rtrg?p=VK-RTRG-421343-57vKE HTTP/2.0
+ << HTTP/2.0 200 OK 65b
+[22:03:14.421][[::1]:56795] server disconnect yastatic.net:443 (37.9.64.225:443)
+[::1]:56840: GET https://storage.googleapis.com/workbox-cdn/releases/5.1… HTTP/2.0
+ << HTTP/2.0 200 OK 735b
+[::1]:56840: GET https://storage.googleapis.com/workbox-cdn/releases/5.1… HTTP/2.0
+ << HTTP/2.0 200 OK 2.8k
+[::1]:56840: GET https://storage.googleapis.com/workbox-cdn/releases/5.1… HTTP/2.0
+ << HTTP/2.0 200 OK 2.1k
+[::1]:56840: GET https://storage.googleapis.com/workbox-cdn/releases/5.1… HTTP/2.0
+ << HTTP/2.0 200 OK 1.3k
+[::1]:56840: GET https://storage.googleapis.com/workbox-cdn/releases/5.1… HTTP/2.0
+ << HTTP/2.0 200 OK 1.0k
+[::1]:56840: GET https://storage.googleapis.com/workbox-cdn/releases/5.1… HTTP/2.0
+ << HTTP/2.0 200 OK 1.3k
+[::1]:56840: GET https://storage.googleapis.com/workbox-cdn/releases/5.1… HTTP/2.0
+ << HTTP/2.0 200 OK 352b
+[::1]:56815: POST https://analytics.google.com/g/collect?v=2&tid=G-S28W1W… HTTP/2.0
+ << HTTP/2.0 204 No Content 0b
+[22:03:17.691][[::1]:56843] client connect
+[22:03:17.825][[::1]:56843] server connect optimizationguide-pa.googleapis.com:443 (172.217.16.202:443)
+[::1]:56843: GET https://optimizationguide-pa.googleapis.com/downloads?n… HTTP/2.0
+ << HTTP/2.0 200 OK 5.0k
+[::1]:56843: GET https://optimizationguide-pa.googleapis.com/downloads?n… HTTP/2.0
+ << HTTP/2.0 200 OK 259k
+[::1]:56843: GET https://optimizationguide-pa.googleapis.com/downloads?n… HTTP/2.0
+ << HTTP/2.0 200 OK 44.1k
+[22:03:20.731][[::1]:56805] server disconnect sentry.srv.habr.com:443 (178.248.233.33:443)
+[22:03:24.598][[::1]:56799] server disconnect yastatic.net:443 (37.9.64.225:443)
+[::1]:56843: GET https://optimizationguide-pa.googleapis.com/downloads?n… HTTP/2.0
+ << HTTP/2.0 200 OK 2.6m
+[::1]:56843: GET https://optimizationguide-pa.googleapis.com/downloads?n… HTTP/2.0
+ << HTTP/2.0 200 OK 2.1m
+[::1]:56843: GET https://optimizationguide-pa.googleapis.com/downloads?n… HTTP/2.0
+ << HTTP/2.0 200 OK 4.6k
+[::1]:56843: GET https://optimizationguide-pa.googleapis.com/downloads?n… HTTP/2.0
+ << HTTP/2.0 200 OK 116k
+[22:03:30.888][[::1]:56820] server disconnect effect.habr.com:443 (178.248.233.33:443)
+[22:03:32.445][[::1]:56826] server disconnect effect.habr.com:443 (178.248.233.33:443)
+[22:03:32.752][[::1]:56832] server disconnect stats.habr.com:443 (178.248.233.33:443)
+[22:03:34.168][[::1]:56764] server disconnect habr.com:443 (178.248.237.68:443)
+[22:03:56.107][[::1]:56847] client connect
+[22:03:56.267][[::1]:56847] server connect update.googleapis.com:443 (142.250.185.99:443)
+[::1]:56847: POST https://update.googleapis.com/service/update2/json?cup2… HTTP/2.0
+ << HTTP/2.0 200 OK 5.1k
+[22:03:59.017][[::1]:56852] client connect
+[22:03:59.152][[::1]:56852] server connect clientservices.googleapis.com:443 (64.233.162.94:443)
+[::1]:56852: POST https://clientservices.googleapis.com/uma/v2 HTTP/2.0
+ << HTTP/2.0 200 OK 22b
+[22:04:18.210][[::1]:56774] server disconnect assets.habr.com:443 (95.47.236.28:443)
+[22:04:18.333][[::1]:56777] server disconnect habrastorage.org:443 (95.47.173.35:443)
+[22:06:56.956][[::1]:56765] 74.125.133.84:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:06:56.957][[::1]:56765] server disconnect accounts.google.com:443 (74.125.133.84:443)
+[22:06:57.916][[::1]:56788] 74.125.205.97:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:06:57.916][[::1]:56788] server disconnect www.googletagmanager.com:443 (74.125.205.97:443)
+[22:07:06.539][[::1]:56810] 172.217.16.202:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:06.539][[::1]:56810] server disconnect optimizationguide-pa.googleapis.com:443 (172.217.16.202:443)
+[22:07:10.669][[::1]:56816] 142.250.150.155:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:10.670][[::1]:56816] server disconnect stats.g.doubleclick.net:443 (142.250.150.155:443)
+[22:07:10.714][[::1]:56792] 64.233.164.94:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:10.715][[::1]:56792] server disconnect fonts.gstatic.com:443 (64.233.164.94:443)
+[22:07:10.908][[::1]:56823] 74.125.205.97:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:10.908][[::1]:56823] server disconnect www.googletagmanager.com:443 (74.125.205.97:443)
+[22:07:12.917][[::1]:56834] 108.177.14.138:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:12.918][[::1]:56834] server disconnect google.com:443 (108.177.14.138:443)
+[22:07:13.075][[::1]:56825] 108.177.14.157:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:13.076][[::1]:56825] server disconnect td.doubleclick.net:443 (108.177.14.157:443)
+[22:07:13.197][[::1]:56830] 172.217.16.194:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:13.198][[::1]:56830] server disconnect googleads.g.doubleclick.net:443 (172.217.16.194:443)
+[22:07:13.301][[::1]:56813] 64.233.163.147:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:13.302][[::1]:56813] server disconnect www.google.com:443 (64.233.163.147:443)
+[22:07:13.317][[::1]:56819] 142.250.150.94:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:13.318][[::1]:56819] server disconnect www.google.ru:443 (142.250.150.94:443)
+[22:07:13.400][[::1]:56836] 108.177.14.138:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:13.401][[::1]:56836] server disconnect google.com:443 (108.177.14.138:443)
+[22:07:15.815][[::1]:56840] 74.125.205.207:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:15.816][[::1]:56840] server disconnect storage.googleapis.com:443 (74.125.205.207:443)
+[22:07:16.189][[::1]:56815] 142.250.186.46:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:16.190][[::1]:56815] server disconnect analytics.google.com:443 (142.250.186.46:443)
+[22:07:30.149][[::1]:56843] 172.217.16.202:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:30.150][[::1]:56843] server disconnect optimizationguide-pa.googleapis.com:443 (172.217.16.202:443)
+[::1]:56847: POST https://update.googleapis.com/service/update2/json HTTP/2.0
+ << HTTP/2.0 200 OK 171b
+[22:07:59.679][[::1]:56852] 64.233.162.94:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:07:59.680][[::1]:56852] server disconnect clientservices.googleapis.com:443 (64.233.162.94:443)
+[::1]:56847: POST https://update.googleapis.com/service/update2/json HTTP/2.0
+ << HTTP/2.0 200 OK 171b
+[22:08:14.378][[::1]:56838] server disconnect vk.com:443 (87.240.132.72:443)
+[22:08:14.588][[::1]:56798] client disconnect
+[22:08:14.589][[::1]:56798] server disconnect ads.adfox.ru:443 (77.88.21.179:443)
+[22:08:14.590][[::1]:56796] client disconnect
+[22:08:14.591][[::1]:56795] client disconnect
+[22:08:14.591][[::1]:56906] client connect
+[22:08:14.592][[::1]:56796] server disconnect avatars.mds.yandex.net:443 (87.250.247.181:443)
+[22:08:14.759][[::1]:56906] server connect beacons.gcp.gvt2.com:443 (142.250.185.163:443)
+[::1]:56906: POST https://beacons.gcp.gvt2.com/domainreliability/upload HTTP/2.0
+ << HTTP/2.0 200 OK 0b
+[::1]:56847: POST https://update.googleapis.com/service/update2/json HTTP/2.0
+ << HTTP/2.0 200 OK 170b
+[::1]:56847: POST https://update.googleapis.com/service/update2/json HTTP/2.0
+ << HTTP/2.0 200 OK 171b
+[::1]:56847: POST https://update.googleapis.com/service/update2/json HTTP/2.0
+ << HTTP/2.0 200 OK 170b
+[::1]:56847: POST https://update.googleapis.com/service/update2/json HTTP/2.0
+ << HTTP/2.0 200 OK 170b
+[::1]:56847: POST https://update.googleapis.com/service/update2/json HTTP/2.0
+ << HTTP/2.0 200 OK 170b
+[::1]:56847: POST https://update.googleapis.com/service/update2/json HTTP/2.0
+ << HTTP/2.0 200 OK 172b
+[::1]:56847: POST https://update.googleapis.com/service/update2/json HTTP/2.0
+ << HTTP/2.0 200 OK 171b
+[22:12:15.159][[::1]:56906] 142.250.185.163:443: HTTP/2 protocol error: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED
+[22:12:15.160][[::1]:56906] server disconnect beacons.gcp.gvt2.com:443 (142.250.185.163:443)
+[22:12:43.931][[::1]:56852] client disconnect
+[22:12:43.932][[::1]:56847] client disconnect
+[22:12:43.933][[::1]:56847] server disconnect update.googleapis.com:443 (142.250.185.99:443)
+[22:12:43.935][[::1]:56764] client disconnect
+[22:12:43.935][[::1]:56765] client disconnect
+[22:12:43.935][[::1]:56792] client disconnect
+[22:12:43.937][[::1]:56770] client disconnect
+[22:12:43.937][[::1]:56777] client disconnect
+[22:12:43.937][[::1]:56774] client disconnect
+[22:12:43.939][[::1]:56770] server disconnect unpkg.com:443 (188.114.99.224:443)
+[22:12:43.940][[::1]:56906] client disconnect
+[22:12:43.940][[::1]:56813] client disconnect
+[22:12:43.940][[::1]:56838] client disconnect
+[22:12:43.941][[::1]:56816] client disconnect
+[22:12:43.941][[::1]:56823] client disconnect
+[22:12:43.941][[::1]:56805] client disconnect
+[22:12:43.942][[::1]:56922] client connect
+[22:12:43.944][[::1]:56825] client disconnect
+[22:12:43.944][[::1]:56820] client disconnect
+[22:12:43.945][[::1]:56840] client disconnect
+[22:12:43.945][[::1]:56834] client disconnect
+[22:12:43.945][[::1]:56819] client disconnect
+[22:12:43.945][[::1]:56807] client disconnect
+[22:12:43.946][[::1]:56815] client disconnect
+[22:12:43.946][[::1]:56843] client disconnect
+[22:12:43.946][[::1]:56826] client disconnect
+[22:12:43.946][[::1]:56836] client disconnect
+[22:12:43.948][[::1]:56807] server disconnect an.yandex.ru:443 (87.250.250.90:443)
+[22:12:43.949][[::1]:56830] client disconnect
+[22:12:43.949][[::1]:56832] client disconnect
+[22:12:43.950][[::1]:56810] client disconnect
+[22:12:43.950][[::1]:56797] client disconnect
+[22:12:43.950][[::1]:56799] client disconnect
+[22:12:43.950][[::1]:56787] client disconnect
+[22:12:43.951][[::1]:56788] client disconnect
+[22:12:43.953][[::1]:56797] server disconnect mc.yandex.ru:443 (87.250.251.119:443)
+[22:12:43.953][[::1]:56787] server disconnect yandex.ru:443 (77.88.55.88:443)
+[22:12:44.091][[::1]:56922] server connect update.googleapis.com:443 (209.85.233.94:443)
+[::1]:56922: POST https://update.googleapis.com/service/update2/json HTTP/2.0
+ << HTTP/2.0 200 OK 170b
+[22:13:15.166][[::1]:56925] client connect
+[22:13:15.300][[::1]:56925] server connect beacons.gcp.gvt2.com:443 (209.85.233.94:443)
+[::1]:56925: POST https://beacons.gcp.gvt2.com/domainreliability/upload HTTP/2.0
+ << HTTP/2.0 200 OK 0b
+[::1]:56922: POST https://update.googleapis.com/service/update2/json HTTP/2.0
+ << HTTP/2.0 200 OK 171b

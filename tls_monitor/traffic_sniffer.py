@@ -6,6 +6,7 @@ from tls_monitor.config import Config
 from datetime import datetime
 from tls_parser.parser import TlsRecordParser
 from tls_parser.exceptions import NotEnoughData, UnknownTypeByte
+from OpenSSL import SSL
 
 
 class TrafficSniffer:
@@ -33,6 +34,7 @@ class TrafficSniffer:
         except (NotEnoughData, UnknownTypeByte) as e:
             return f"[-] TLS parsing error: {str(e)}"
 
+    # Основная функция распределения видов TLS пакетов, тут же производятся попытки расшифровки
     def _process_packet(self, packet):
         """Обработка отдельного пакета"""
         if 'tls' in packet and (packet.ip.src == Config.TARGET_IP or packet.ip.dst == Config.TARGET_IP):
@@ -40,43 +42,57 @@ class TrafficSniffer:
             log_entry = f"====== [TLS Packet - {current_time}] ======\n"
             parsed_record = None
 
-            # Попытка парсинга TLS-записи
-            try:
-                if hasattr(packet.tls, 'record'):
-                    raw_data = bytes.fromhex(packet.tls.record.replace(':', ''))
-                    parsed_record = self._parse_tls_record(raw_data)
-            except Exception as e:
-                log_entry += f"[-] Ошибка парсинга TLS: {str(e)}\n"
+            content_type = '0'
+            opaque_type = '0'
 
-            # Обработка Handshake
-            handshake_success = False
-            if hasattr(packet.tls, 'handshake_type'):
-                try:
+            try:
+                content_type = str(packet.tls.record_content_type)
+            except AttributeError:
+                print("[DEBUG -] record_content_type отсутствует")
+
+            try:
+                opaque_type = str(packet.tls.record_opaque_type)
+            except AttributeError:
+                print("[DEBUG -] record_opaque_type отсутствует")
+
+            if content_type == '0' and opaque_type == '0':
+                log_entry += 'TLS Recognition Error:\n'
+
+
+
+            # [===] Обработка Alert
+            if hasattr(packet.tls, 'record'):
+                if content_type == "21":
+                    log_entry += "TLS Alert Detected:\n"
+
+
+            # [===] Обработка Application
+            if hasattr(packet.tls, 'record'):
+                if content_type == "23" or (opaque_type == "23" and content_type == "0"):
+                    log_entry += "TLS Application Detected:\n"
+
+
+            # [===] Обработка ChangeCipherSpec
+            if hasattr(packet.tls, 'record'):
+                if content_type == "20":
+                    log_entry += "TLS ChangeCipherSpec Detected:\n"
+
+
+            # [===] Обработка Handshake
+            if hasattr(packet.tls, 'record'):
+                if content_type == "22":
                     log_entry += "TLS Handshake Detected:\n"
-                    log_entry += f"Handshake Type: {packet.tls.handshake_type}\n"
-                    if hasattr(packet.tls, 'handshake_version'):
-                        log_entry += f"Version: {packet.tls.handshake_version}\n"
-                    if hasattr(packet.tls, 'handshake_ciphersuite'):
-                        log_entry += f"Cipher Suite: {packet.tls.handshake_ciphersuite}\n"
-                    handshake_success = True
-                except Exception as e:
-                    log_entry += f"[-] Ошибка обработки Handshake: {str(e)}\n"
+
 
             # Обработка Application Data
-            app_data_success = False
             if parsed_record and "APPLICATION" in parsed_record:
                 try:
-                    log_entry += "TLS Application Data Detected:\n"
+                    log_entry += "TLS Application Data Detected (OLD):\n"
                     log_entry += f"Parsed Data: {parsed_record}\n"
-                    app_data_success = True
                 except Exception as e:
                     log_entry += f"[-] Ошибка обработки AppData: {str(e)}\n"
 
-            # Логирование ошибок, если не удалось обработать
-            if not handshake_success and not app_data_success:
-                log_entry += "[!] Не удалось обработать TLS-запись (ни Handshake, ни AppData)\n"
-
-            # Логирование полей TLS
+            # [===] Основное логирование полей TLS, доступных для чтения
             tls_layer = packet.tls
             for field in tls_layer.field_names:
                 try:
@@ -84,12 +100,14 @@ class TrafficSniffer:
                 except AttributeError:
                     continue
 
+            # [===] IP адреса пакета
             log_entry += f"Source: {packet.ip.src} --> Destination: {packet.ip.dst}\n\n"
 
-            # Потокобезопасная запись в лог
+            # [===] Потокобезопасная запись в лог (Возможно тут иногда и происходит стопор)
             self.log_file.write(log_entry)
             self.log_file.flush()
             print(log_entry)
+
 
     def _capture_loop(self):
         """Основной цикл захвата пакетов"""
