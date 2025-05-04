@@ -49,15 +49,17 @@ def handle_connect():
 
                 # Отправляем историю по частям (чтобы не перегружать канал)
                 packets = content.split("====== [TLS Packet -")[1:]
-                for packet in packets[:100]:  # Ограничиваем историю последними 100 пакетами
+                for packet in packets[:100]:
                     full_packet = "====== [TLS Packet -" + packet
-                    parsed = parse_packet(full_packet)
-                    emit('log_update', {
-                        'raw_data': full_packet,
-                        'parsed_data': parsed,
-                        'is_handshake': parsed['is_handshake'],
-                        'is_history': True  # Флаг что это исторические данные
-                    })
+                    parsed_records = parse_packet(full_packet)
+
+                    for record in parsed_records:
+                        emit('log_update', {
+                            'raw_data': full_packet,  # или record.get('raw_snippet')
+                            'parsed_data': record,
+                            'is_handshake': record['is_handshake'],
+                            'is_history': True
+                        })
 
         # 3. Отправляем статистику
         emit('server_stats', {

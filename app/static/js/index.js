@@ -4,21 +4,35 @@ const handshakeContainer = document.getElementById('handshake-container');
 // Подключение к WebSocket серверу
 const socket = io();
 
-// Функция для создания элемента пакета
-function createPacketElement(data) {
-    const isHandshake = data.is_handshake;
-    const parsed = data.parsed_data;
+socket.on('log_update', function (data) {
+    console.log('Received data:', data.parsed_data);
+});
 
+
+
+
+
+
+
+
+
+
+
+function createPacketElement(data) {
+    const parsed = data.parsed_data;
     const packetDiv = document.createElement('div');
-    packetDiv.className = `tls-packet ${isHandshake ? 'handshake' : ''} ${parsed.errors.length ? 'error' : ''}`;
+    packetDiv.className = `tls-packet ${parsed.is_handshake ? 'handshake' : ''} ${parsed.errors.length ? 'error' : ''}`;
 
     // Заголовок пакета
     const header = document.createElement('div');
     header.className = 'packet-header';
     header.innerHTML = `
-        <strong>TLS Packet</strong>
-        <span class="timestamp">${parsed.timestamp}</span>
-        ${isHandshake ? '<span class="handshake-badge">HANDSHAKE</span>' : ''}
+        <strong>${parsed.packet_type}</strong>
+        <span class="timestamp">Frame time: ${parsed.timestamp}</span>
+        ${parsed.is_handshake ? `<img class="imgages" src="https://www.svgrepo.com/show/134487/handshake.svg"></img> <span class="handshake-badge"> HANDSHAKE (${parsed.tls_details.handshake_type}) </span>` : ''}
+        ${parsed.is_application ? '<img class="imgages" src="https://www.svgrepo.com/show/14385/computer.svg"></img> <span class="application-badge">APPLICATION</span>' : ''}
+        ${parsed.is_cipher ? '<img class="imgages" src="https://www.svgrepo.com/show/95936/security.svg"></img> <span class="cipher-badge">CIPHER</span>' : ''}
+        ${parsed.is_alert ? '<img class="imgages" src="https://www.svgrepo.com/show/95925/user.svg"></img> <span class="alert-badge">ALERT</span>' : ''}
         ${parsed.errors.length ? '<span class="error-badge">ERROR</span>' : ''}
     `;
     packetDiv.appendChild(header);
@@ -27,23 +41,68 @@ function createPacketElement(data) {
     const content = document.createElement('div');
     content.className = 'packet-content';
 
-    // Отображение атрибутов
-    if (isHandshake && parsed.attributes) {
-        const attrs = document.createElement('div');
-        attrs.className = 'attributes';
-        for (const [key, value] of Object.entries(parsed.attributes)) {
-            const row = document.createElement('div');
-            row.className = 'attribute-row';
-            row.innerHTML = `<span class="attr-key">${key}:</span> <span class="attr-value">${value}</span>`;
-            attrs.appendChild(row);
+    // Сетевая информация
+    const networkInfo = document.createElement('div');
+    networkInfo.className = 'network-info';
+    networkInfo.innerHTML = `
+    <div class="centeredBox">
+        <div class="address-box">
+            <h4>Source</h4>
+            <p>MAC: ${parsed.source.mac || 'N/A'}</p>
+            <p>IP: ${parsed.source.ip || 'N/A'}</p>
+            <p>Port: ${parsed.source.port || 'N/A'}</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="address-box">
+            <h4>Destination</h4>
+            <p>MAC: ${parsed.destination.mac || 'N/A'}</p>
+            <p>IP: ${parsed.destination.ip || 'N/A'}</p>
+            <p>Port: ${parsed.destination.port || 'N/A'}</p>
+        </div>
+    </div>
+    `;
+    content.appendChild(networkInfo);
+
+    // Детали TLS
+    if (parsed.tls_details) {
+        const tlsSection = document.createElement('div');
+        tlsSection.className = 'tls-details';
+        tlsSection.innerHTML = '<h4>TLS Details</h4>';
+
+        const tlsTable = document.createElement('table');
+        for (const [key, value] of Object.entries(parsed.tls_details)) {
+            const row = tlsTable.insertRow();
+            row.innerHTML = `<td>${key}</td><td class="table-value">${value}</td>`;
         }
-        content.appendChild(attrs);
+        tlsSection.appendChild(tlsTable);
+        content.appendChild(tlsSection);
     }
 
-    // Отображение ошибок
+    // Сертификаты
+    if (parsed.certificates.length > 0) {
+        const certsSection = document.createElement('div');
+        certsSection.className = 'certificates';
+        certsSection.innerHTML = '<h4>Certificates</h4>';
+
+        parsed.certificates.forEach((cert, index) => {
+            const certDiv = document.createElement('div');
+            certDiv.className = 'certificate';
+            certDiv.innerHTML = `
+                <details>
+                    <summary>Certificate #${index + 1} (${cert.raw.length} lines)</summary>
+                    <pre>${cert.raw.join('\n')}</pre>
+                </details>
+            `;
+            certsSection.appendChild(certDiv);
+        });
+        content.appendChild(certsSection);
+    }
+
+    // Ошибки
     if (parsed.errors.length) {
         const errors = document.createElement('div');
         errors.className = 'errors';
+        errors.innerHTML = '<h4>Errors/Warnings</h4>';
         parsed.errors.forEach(error => {
             const err = document.createElement('div');
             err.className = 'error-message';
@@ -53,18 +112,19 @@ function createPacketElement(data) {
         content.appendChild(errors);
     }
 
-    // Source/Destination
-    const networkInfo = document.createElement('div');
-    networkInfo.className = 'network-info';
-    networkInfo.innerHTML = `
-        <span class="source">${parsed.source}</span> →
-        <span class="destination">${parsed.destination}</span>
-    `;
-    content.appendChild(networkInfo);
-
     packetDiv.appendChild(content);
     return packetDiv;
 }
+
+
+
+
+
+
+
+
+
+
 
 // Функция автоскролла
 function autoScroll(element) {
@@ -73,27 +133,83 @@ function autoScroll(element) {
     }
 }
 
-// Обработка новых данных из лога
-socket.on('log_update', function (data) {
-    if (!data) return;
 
-    const isHandshake = data.is_handshake;
-    const parsed = data.parsed_data;
 
-    // Создаем элемент для основного лога
-    const packetDiv = createPacketElement(data);
-    logContainer.appendChild(packetDiv);
 
-    // Дублируем handshake-пакеты в специальный контейнер
-    if (isHandshake) {
-        const handshakePacketDiv = createPacketElement(data);
-        handshakeContainer.appendChild(handshakePacketDiv);
-    }
 
-    // Автоскролл
+
+
+
+
+
+// // Обработка новых данных из лога
+// socket.on('log_update', function (data) {
+//     if (!data) return;
+
+//     const isHandshake = data.is_handshake;
+//     const parsed = data.parsed_data;
+
+//     // Создаем элемент для основного лога
+//     const packetDiv = createPacketElement(data);
+//     logContainer.appendChild(packetDiv);
+
+//     // Дублируем handshake-пакеты в специальный контейнер
+//     if (isHandshake) {
+//         const handshakePacketDiv = createPacketElement(data);
+//         handshakeContainer.appendChild(handshakePacketDiv);
+//     }
+
+//     // Автоскролл
+//     autoScroll(logContainer);
+//     if (isHandshake) autoScroll(handshakeContainer);
+// });
+
+socket.on('log_update', function(data) {
+    if (!data || !data.parsed_data) return;
+    
+    // Обрабатываем массив записей, если он пришел
+    const records = Array.isArray(data.parsed_data) ? 
+                  data.parsed_data : [data.parsed_data];
+    
+    records.forEach(record => {
+        const packetData = {
+            raw_data: data.raw_data,
+            parsed_data: record,
+            is_handshake: record.is_handshake
+        };
+        
+        const packetDiv = createPacketElement(packetData);
+        logContainer.appendChild(packetDiv);
+        
+        if (record.is_handshake) {
+            const handshakePacketDiv = createPacketElement(packetData);
+            handshakeContainer.appendChild(handshakePacketDiv);
+        }
+    });
+    
     autoScroll(logContainer);
-    if (isHandshake) autoScroll(handshakeContainer);
+    autoScroll(handshakeContainer);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Обработка системных сообщений
 socket.on('system_message', function (data) {

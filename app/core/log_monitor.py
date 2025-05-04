@@ -41,16 +41,18 @@ class LogMonitor:
                         packets = new_content.split("====== [TLS Packet -")
                         for packet in packets[1:]:
                             full_packet = "====== [TLS Packet -" + packet
-                            parsed = parse_packet(full_packet)
-                            self.socketio.emit(
-                                "log_update",
-                                {
-                                    "raw_data": full_packet,
-                                    "parsed_data": parsed,
-                                    "is_handshake": parsed["is_handshake"],
-                                },
-                                namespace="/",
-                            )
+                            parsed_records = parse_packet(full_packet)
+
+                            for record in parsed_records:
+                                self.socketio.emit(
+                                    "log_update",
+                                    {
+                                        "raw_data": full_packet,
+                                        "parsed_data": record,
+                                        "is_handshake": record["is_handshake"],
+                                    },
+                                    namespace="/",
+                                )
                         self.last_position = f.tell()
 
             except Exception as e:
