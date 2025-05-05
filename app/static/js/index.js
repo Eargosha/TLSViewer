@@ -21,18 +21,40 @@ socket.on('log_update', function (data) {
 function createPacketElement(data) {
     const parsed = data.parsed_data;
     const packetDiv = document.createElement('div');
-    packetDiv.className = `tls-packet ${parsed.is_handshake ? 'handshake' : ''} ${parsed.errors.length ? 'error' : ''}`;
+
+    let whatTLSRecordType = ' '
+
+    if (parsed.is_handshake) {
+        whatTLSRecordType = 'handshake'
+    }
+
+    if (parsed.is_cipher) {
+        whatTLSRecordType = 'cipher'
+    }
+
+    if (parsed.is_application) {
+        whatTLSRecordType = 'application'
+    }
+
+    if (parsed.is_alert) {
+        whatTLSRecordType = 'alert'
+    }
+
+    if (parsed.is_heartbeat) {
+        whatTLSRecordType = 'heartbeat'
+    }
+    packetDiv.className = `tls-packet ${whatTLSRecordType} ${parsed.errors.length ? 'error' : ''}`;
 
     // Заголовок пакета
     const header = document.createElement('div');
     header.className = 'packet-header';
     header.innerHTML = `
-        <strong>${parsed.packet_type}</strong>
-        <span class="timestamp">Frame time: ${parsed.timestamp}</span>
+        <span class="timestamp">Frame time: ${parsed.timestamp.slice(0, -1)}</span>
         ${parsed.is_handshake ? `<img class="imgages" src="https://www.svgrepo.com/show/134487/handshake.svg"></img> <span class="handshake-badge"> HANDSHAKE (${parsed.tls_details.handshake_type}) </span>` : ''}
         ${parsed.is_application ? '<img class="imgages" src="https://www.svgrepo.com/show/14385/computer.svg"></img> <span class="application-badge">APPLICATION</span>' : ''}
         ${parsed.is_cipher ? '<img class="imgages" src="https://www.svgrepo.com/show/95936/security.svg"></img> <span class="cipher-badge">CIPHER</span>' : ''}
         ${parsed.is_alert ? '<img class="imgages" src="https://www.svgrepo.com/show/95925/user.svg"></img> <span class="alert-badge">ALERT</span>' : ''}
+        ${parsed.is_heartbeat ? '<img class="imgages" src="https://www.svgrepo.com/show/164965/strategy.svg"></img> <span class="alert-badge">HEARTBEAT</span>' : ''}
         ${parsed.errors.length ? '<span class="error-badge">ERROR</span>' : ''}
     `;
     packetDiv.appendChild(header);
@@ -164,29 +186,29 @@ function autoScroll(element) {
 //     if (isHandshake) autoScroll(handshakeContainer);
 // });
 
-socket.on('log_update', function(data) {
+socket.on('log_update', function (data) {
     if (!data || !data.parsed_data) return;
-    
+
     // Обрабатываем массив записей, если он пришел
-    const records = Array.isArray(data.parsed_data) ? 
-                  data.parsed_data : [data.parsed_data];
-    
+    const records = Array.isArray(data.parsed_data) ?
+        data.parsed_data : [data.parsed_data];
+
     records.forEach(record => {
         const packetData = {
             raw_data: data.raw_data,
             parsed_data: record,
             is_handshake: record.is_handshake
         };
-        
+
         const packetDiv = createPacketElement(packetData);
         logContainer.appendChild(packetDiv);
-        
+
         if (record.is_handshake) {
             const handshakePacketDiv = createPacketElement(packetData);
             handshakeContainer.appendChild(handshakePacketDiv);
         }
     });
-    
+
     autoScroll(logContainer);
     autoScroll(handshakeContainer);
 });

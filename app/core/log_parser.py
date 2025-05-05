@@ -3,10 +3,6 @@ def parse_packet(packet_content):
     base_packet = {
         "timestamp": None,
         "packet_type": "Unknown",
-        "is_handshake": 0,
-        "is_cipher": 0,
-        "is_application": 0,
-        "is_alert": 0,
         "layers": {},
         "errors": [],
         "source": {},
@@ -118,6 +114,7 @@ def parse_single_record(record_content, base_packet):
         "is_cipher": 0,
         "is_application": 0,
         "is_alert": 0,
+        "is_heartbeat": 0,
         "errors": base_packet["errors"].copy()
     }
 
@@ -126,6 +123,7 @@ def parse_single_record(record_content, base_packet):
         current_section = None
         cert_data = None
         is_tls_record = False
+        length_found = False  # Флаг для отслеживания первого "Length:"
 
         for line in lines:
             line = line.strip()
@@ -148,6 +146,11 @@ def parse_single_record(record_content, base_packet):
                         record_data["is_application"] = 1
                     elif "Alert" in content_type:
                         record_data["is_alert"] = 1
+                    elif "Change Cipher Spec" in content_type:
+                        record_data["is_cipher"] = 1
+                    elif "Heartbeat" in content_type:
+                        record_data["is_heartbeat"] = 1
+
 
                 if "Version:" in line:
                     record_data["tls_details"]["version"] = line.split("Version:")[1].split("(")[0].strip()
@@ -161,8 +164,10 @@ def parse_single_record(record_content, base_packet):
                 if "Server Name:" in line:
                     record_data["tls_details"]["sni"] = line.split("Server Name:")[1].strip()
 
-                if "Length:" in line:
-                    record_data["tls_details"]["length"] = line.split("Length:")[1].strip()+"Криво"
+                # Обработка "Length:" с учетом флага
+                if "Length:" in line and not length_found:
+                    record_data["tls_details"]["length"] = line.split("Length:")[1].strip()
+                    length_found = True  # Устанавливаем флаг после первого нахождения
 
                 if "Signature Algorithm:" in line:
                     algo = line.split(":")[1].split("(")[0].strip()

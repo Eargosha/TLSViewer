@@ -8,8 +8,6 @@ import pyshark
 import asyncio
 import threading
 
-from scapy.layers.inet import IP
-from scapy.layers.tls.record import TLS
 
 from tls_monitor.config import Config
 from datetime import datetime

@@ -57,10 +57,6 @@ body {
     border-left-color: #f44336;
 }
 
-.handshake {
-    border-left-color: #2196F3;
-}
-
 .packet-header {
     display: flex;
     align-items: center;
@@ -134,7 +130,7 @@ body {
     color: #333;
 }
 
-.imgages{
+.imgages {
     width: 50px;
     height: 50px;
 }
@@ -225,26 +221,6 @@ body {
     border-radius: 4px;
 }
 
-.handshake {
-    border-left: 4px solid #4CAF50;
-}
-
-.application {
-    border-left: 4px solid #818181;
-}
-
-.cipher {
-    border-left: 4px solid #351d1d;
-}
-
-.handshake-cipher {
-    border-left: 4px solid #1f351d;
-}
-
-.error {
-    border-left: 4px solid #dc3545;
-}
-
 certificates details {
     margin: 10px 0;
     padding: 10px;
@@ -264,4 +240,161 @@ certificates pre {
     /* Разрешить перенос текста */
     word-break: break-word;
     /* Переносить слова по необходимости */
+}
+
+.handshake {
+    border-left: 4px solid #2196F3;
+}
+
+.application {
+    border-left: 4px solid #818181;
+}
+
+.cipher {
+    border-left: 4px solid #351d1d;
+}
+
+.handshake-cipher {
+    border-left: 4px solid #1f351d;
+}
+
+.error {
+    border-left: 4px solid #d9dc35;
+}
+
+.heartbeat {
+    border-left: 10px solid #000000;    
+}
+
+.alert {
+    border-left: 4px solid #ff0000;
+}
+
+.heartbeat-badge {
+    background: #000000;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
+/* === Заголовки === */
+h1, h2, h3, h4 {
+    margin: 0;
+    font-family: monospace;
+    color: #333;
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+h2 {
+    font-size: 1.2em;
+}
+
+h3 {
+    font-size: 1em;
+}
+
+h4 {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+/* === Параграфы и базовый текст === */
+p {
+    margin: 0 0 5px 0;
+    font-size: 0.9em;
+    line-height: 1.4;
+    color: #333;
+}
+
+/* === Подписи и мелкий текст === */
+.timestamp,
+.sys-timestamp,
+.attr-key,
+.attr-value,
+.table-value,
+.packet-header span,
+.address-box p {
+    font-size: 0.85em;
+    color: #555;
+}
+
+.attr-key,
+.attr-value,
+.table-value {
+    font-family: monospace;
+}
+
+/* === Детали сертификатов и кода === */
+details summary {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+details pre {
+    white-space: pre-wrap; /* Переносить длинные строки */
+    word-break: break-word;
+    font-family: monospace;
+    font-size: 0.8em;
+    margin-top: 5px;
+    padding: 10px;
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* === Таблицы TLS деталей === */
+.tls-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.tls-details td {
+    padding: 6px 10px;
+    font-size: 0.85em;
+    vertical-align: top;
+    border-bottom: 1px solid #eee;
+}
+
+.tls-details .table-value {
+    font-family: monospace;
+    word-break: break-word;
+}
+
+/* === Сетевая информация === */
+.network-info .address-box h4 {
+    margin: 0 0 5px 0;
+    font-size: 0.9em;
+    color: #444;
+}
+
+.network-info .address-box p {
+    margin: 2px 0;
+}
+
+/* === Сообщения системы === */
+.system-message {
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.system-message .sys-timestamp {
+    color: #666;
+    margin-right: 10px;
+}
+
+.system-message .sys-text {
+    color: #333;
 }
