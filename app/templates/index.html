@@ -12,21 +12,37 @@
 </head>
 
 <body>
-    <div class="d-flex justify-content-start align-items-end"> 
-        <img class="mb-4" src="../static/assets/favicon.png" width="100px" height="100px"> </img>
-        <h1 class="ms-4 mb-4">TLS Packet Monitor</h1>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div class="d-flex justify-content-start align-items-end w-100">
+        <!-- Левый блок: логотип и заголовок -->
+        <div class="shadow d-flex align-items-end log-section mb-4">
+            <img src="../static/assets/favicon.png" width="100px" height="100px">
+            <h1 class="ms-4">TLS Packet Monitor</h1>
+        </div>
+
+        <!-- Счетчик пакетов -->
+        <div id="packet-counter" class="ms-auto shadow packet-counter mb-4">
+            Total packets: <span class="counter-value">0</span>
+        </div>
     </div>
     <div class="container-wrapper">
-        <div class="log-section">
+        <div class="shadow log-section">
             <h2>All Packets</h2>
             <div id="log-container"></div>
         </div>
-        <div class="log-section">
+        <div class="shadow log-section">
             <h2>Handshake Packets</h2>
             <div id="handshake-container"></div>
         </div>
     </div>
-    <div id="server-stats"></div>
+    <div class="shadow log-section mt-4">
+        <h2>TLS Version Distribution</h2>
+        <canvas id="tlsChart"></canvas>
+    </div>
+    
+    <div class="shadow log-section mt-4">
+        <div id="server-stats"></div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script src="../static/js/index.js"></script>

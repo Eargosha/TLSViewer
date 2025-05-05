@@ -124,6 +124,7 @@ def parse_single_record(record_content, base_packet):
         cert_data = None
         is_tls_record = False
         length_found = False  # Флаг для отслеживания первого "Length:"
+        tls_version = False
 
         for line in lines:
             line = line.strip()
@@ -152,8 +153,9 @@ def parse_single_record(record_content, base_packet):
                         record_data["is_heartbeat"] = 1
 
 
-                if "Version:" in line:
+                if "Version:" in line and not tls_version:
                     record_data["tls_details"]["version"] = line.split("Version:")[1].split("(")[0].strip()
+                    tls_version = True
 
                 if "Cipher Suite:" in line:
                     record_data["tls_details"]["cipher"] = line.split("Cipher Suite:")[1].split("(")[0].strip()

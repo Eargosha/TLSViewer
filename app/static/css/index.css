@@ -137,6 +137,9 @@ body {
 
 #handshake-container {
     height: 70vh;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
     overflow-y: auto;
     word-wrap: break-word;
 }
@@ -397,4 +400,35 @@ details pre {
 
 .system-message .sys-text {
     color: #333;
+}
+
+/* Обновите стили для секции с диаграммой */
+#tlsChart {
+    max-height: 300px;
+    width: 100% !important;
+    height: 300px !important;
+    margin: 0 auto;
+}
+
+.log-section h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Добавить в конец файла */
+.packet-counter {
+    background-color: #f8f9fa;
+    padding: 8px 15px;
+    font-family: monospace;
+    font-size: 1.1em;
+    border: 1px solid #dee2e6;
+}
+
+.counter-value {
+    font-weight: bold;
+    color: #4e79a7;
+}
+
+.shadow {
+    box-shadow: 0 4px 2px rgba(22, 17, 24, 0.05);
 }
