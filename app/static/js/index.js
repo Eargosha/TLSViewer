@@ -1,16 +1,43 @@
 const logContainer = document.getElementById('log-container');
-const handshakeContainer = document.getElementById('handshake-container');
+const systemMessageContainerr = document.getElementById('system-notification');
+
+// КОНСТАНТЫ, КОНТЕЙНЕРЫ
+const allFilteredPackets = [];
+
+let totalPackets = 0;
 
 // Подключение к WebSocket серверу
 const socket = io();
+
 
 socket.on('log_update', function (data) {
     console.log('Received data:', data.parsed_data);
 });
 
+// Обработка статистики сервера
+socket.on('server_stats', function (data) {
+    // Можно выводить в специальный блок в интерфейсе
+    document.getElementById('server-stats').innerHTML = ` Clients: ${data.clients_connected} | Log size: ${(data.log_size / 1024).toFixed(2)} KB | Monitoring: ${data.monitoring_active ? 'ACTIVE' : 'INACTIVE'}`;
+});
 
-// Добавить в начало файла
-let totalPackets = 0;
+// Обработка системных сообщений
+socket.on('system_message', function (data) {
+    showSystemMessage(new Date(data.timestamp).toLocaleTimeString() + "  " + data.message)
+});
+
+// Обработка ошибок соединения
+socket.on('connect_error', function (err) {
+    let textContent = `Connection error: ${err.message}`;
+    showSystemMessage(textContent)
+});
+
+// Уведомление о переподключении
+socket.on('reconnect', function (attempt) {
+    let textContent = `Reconnected after ${attempt} attempts`;
+    showSystemMessage(textContent)
+});
+
+
 
 // Функция обновления счетчика
 function updatePacketCounter() {
@@ -20,114 +47,7 @@ function updatePacketCounter() {
     }
 }
 
-// ДИАГРАММЫ
-// Добавить в начало файла
-const tlsVersionStats = {};
-let tlsChart = null;
-
-// Функция для обновления статистики версий TLS
-function updateTlsVersionStats(version) {
-    if (!version) return;
-
-    if (tlsVersionStats[version]) {
-        tlsVersionStats[version]++;
-    } else {
-        tlsVersionStats[version] = 1;
-    }
-
-    updateTlsChart();
-}
-
-// Функция для создания/обновления диаграммы
-function updateTlsChart() {
-    const ctx = document.getElementById('tlsChart').getContext('2d');
-    const versions = Object.keys(tlsVersionStats);
-    const counts = Object.values(tlsVersionStats);
-
-    // Расширенная палитра цветов для версий TLS
-    const versionColors = {
-        'TLSv1.3': '#72a5db',
-        'TLSv1.2': '#dd9a57',
-        'TLSv1.1': '#e15759',
-        'TLSv1.0': '#76b7b2',
-        'SSLv3': '#59a14f',
-        'SSLv2': '#edc948',
-        'Unknown': '#b07aa1',
-        // Добавьте возможные альтернативы:
-    };
-
-    // Создаем массив цветов, используя версию как ключ, или серый по умолчанию
-    const backgroundColors = versions.map(v => {
-        // Нормализуем название версии (может приходить с дополнительными символами)
-        const normalizedVersion = v.trim()
-            .replace(/[^a-zA-Z0-9.]/g, '') // Удаляет лишние символы
-            .replace(/^TLS(\d+)\.(?=\d)/, 'TLSv$1.'); // "TLS1.2" → "TLSv1.2"
-        console.log('Raw version:', v);
-        console.log('Normalized version:', normalizedVersion);
-        console.log('Color used:', versionColors[normalizedVersion] || '#cccccc');
-        return versionColors[normalizedVersion] || '#cccccc';
-    });
-
-    if (!tlsChart) {
-        tlsChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: versions,
-                datasets: [{
-                    data: counts,
-                    backgroundColor: backgroundColors,
-                    borderWidth: 1,
-                    borderColor: '#fff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'right',
-                        labels: {
-                            boxWidth: 20,
-                            padding: 15,
-                            font: {
-                                family: 'monospace',
-                                size: 12
-                            }
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                const label = context.label || '';
-                                const value = context.raw || 0;
-                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                const percentage = Math.round((value / total) * 100);
-                                return `${label}: ${value} (${percentage}%)`;
-                            }
-                        },
-                        bodyFont: {
-                            family: 'monospace',
-                            size: 12
-                        }
-                    }
-                },
-                cutout: '70%'
-            }
-        });
-    } else {
-        tlsChart.data.labels = versions;
-        tlsChart.data.datasets[0].data = counts;
-        tlsChart.data.datasets[0].backgroundColor = backgroundColors;
-        tlsChart.update();
-    }
-}
-
-
-
-
-
-
-
+// Создание обьекта пакета
 function createPacketElement(data) {
     const parsed = data.parsed_data;
     const packetDiv = document.createElement('div');
@@ -248,16 +168,6 @@ function createPacketElement(data) {
     return packetDiv;
 }
 
-
-
-
-
-
-
-
-
-
-
 // Функция автоскролла
 function autoScroll(element) {
     if (element.scrollTop > element.scrollHeight - element.clientHeight - 100) {
@@ -265,36 +175,6 @@ function autoScroll(element) {
     }
 }
 
-
-
-
-
-
-
-
-
-
-// // Обработка новых данных из лога
-// socket.on('log_update', function (data) {
-//     if (!data) return;
-
-//     const isHandshake = data.is_handshake;
-//     const parsed = data.parsed_data;
-
-//     // Создаем элемент для основного лога
-//     const packetDiv = createPacketElement(data);
-//     logContainer.appendChild(packetDiv);
-
-//     // Дублируем handshake-пакеты в специальный контейнер
-//     if (isHandshake) {
-//         const handshakePacketDiv = createPacketElement(data);
-//         handshakeContainer.appendChild(handshakePacketDiv);
-//     }
-
-//     // Автоскролл
-//     autoScroll(logContainer);
-//     if (isHandshake) autoScroll(handshakeContainer);
-// });
 
 // Обновить обработчик log_update для сбора статистики
 socket.on('log_update', function (data) {
@@ -312,7 +192,6 @@ socket.on('log_update', function (data) {
     records.forEach(record => {
         // Собираем статистику по версиям TLS
         if (record.tls_details && record.tls_details.version) {
-            console.log('Detected TLS version:', record.tls_details.version);
             updateTlsVersionStats(record.tls_details.version.trim());
         }
         if (record.tls_details && record.tls_details.version) {
@@ -328,67 +207,52 @@ socket.on('log_update', function (data) {
         const packetDiv = createPacketElement(packetData);
         logContainer.appendChild(packetDiv);
 
-        if (record.is_handshake) {
-            const handshakePacketDiv = createPacketElement(packetData);
-            handshakeContainer.appendChild(handshakePacketDiv);
-        }
+         // Сохраняем в "все пакеты"
+         allFilteredPackets.push({
+            type: getPacketType(record),
+            element: packetDiv
+        });
+
+        // Добавляем в фильтруемый контейнер
+        document.getElementById("filtered-packet-container").appendChild(packetDiv.cloneNode(true));
+
     });
 
     autoScroll(logContainer);
-    autoScroll(handshakeContainer);
+    autoScroll(document.getElementById("filtered-packet-container"));
 });
 
 
 
+// LOADER
+document.addEventListener("DOMContentLoaded", function () {
+    // Находим все заголовки с классом section-header
+    const headers = document.querySelectorAll(".section-header");
 
+    headers.forEach(header => {
+        // По умолчанию не сворачиваем — можно раскомментировать, если нужно
+        // toggleSection(header); // Чтобы свернуть все при загрузке
 
+        header.addEventListener("click", function () {
+            toggleSection(this);
+        });
+    });
 
+    function toggleSection(header) {
+        const content = header.nextElementSibling;
+        console.log(content)
+        console.log(headers)
+        const isCollapsed = content.classList.contains("collapsed");
 
+        if (isCollapsed) {
+            content.style.maxHeight = content.scrollHeight + "px";
+            content.classList.remove("collapsed");
+            header.classList.remove("collapsed");
+        } else {
+            content.style.maxHeight = 0;
+            content.classList.add("collapsed");
+            header.classList.add("collapsed");
+        }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-// Обработка системных сообщений
-socket.on('system_message', function (data) {
-    const sysDiv = document.createElement('div');
-    sysDiv.className = `system-message ${data.type}`;
-    sysDiv.innerHTML = `
-        <span class="sys-timestamp">${new Date(data.timestamp).toLocaleTimeString()}</span>
-        <span class="sys-text">${data.message}</span>
-    `;
-    logContainer.appendChild(sysDiv);
-    logContainer.scrollTop = logContainer.scrollHeight;
-});
-
-// Обработка статистики сервера
-socket.on('server_stats', function (data) {
-    console.log('Server stats:', data);
-    // Можно выводить в специальный блок в интерфейсе
-    document.getElementById('server-stats').innerHTML = ` Clients: ${data.clients_connected} | Log size: ${(data.log_size / 1024).toFixed(2)} KB | Monitoring: ${data.monitoring_active ? 'ACTIVE' : 'INACTIVE'}`;
-});
-
-// Обработка ошибок соединения
-socket.on('connect_error', function (err) {
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'tls-packet error';
-    errorDiv.textContent = `Connection error: ${err.message}`;
-    logContainer.appendChild(errorDiv);
-    logContainer.scrollTop = logContainer.scrollHeight;
-});
-
-// Уведомление о переподключении
-socket.on('reconnect', function (attempt) {
-    const infoDiv = document.createElement('div');
-    infoDiv.className = 'tls-packet';
-    infoDiv.textContent = `Reconnected after ${attempt} attempts`;
-    logContainer.appendChild(infoDiv);
-    logContainer.scrollTop = logContainer.scrollHeight;
 });

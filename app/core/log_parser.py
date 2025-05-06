@@ -161,7 +161,8 @@ def parse_single_record(record_content, base_packet):
                     record_data["tls_details"]["cipher"] = line.split("Cipher Suite:")[1].split("(")[0].strip()
 
                 if "Handshake Protocol:" in line:
-                    record_data["tls_details"]["handshake_type"] = line.split("Handshake Protocol:")[1].strip()
+                    handshake_type = line.split("Handshake Protocol:")[1].strip()
+                    record_data["tls_details"]["handshake_type"] = handshake_type
 
                 if "Server Name:" in line:
                     record_data["tls_details"]["sni"] = line.split("Server Name:")[1].strip()

@@ -13,39 +13,96 @@
 
 <body>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <div class="d-flex justify-content-start align-items-end w-100">
+
+    <div id="system-notification" class="notification-container"></div>
+
+    <div class="d-flex justify-content-start align-items-end w-100 mb-4">
         <!-- Левый блок: логотип и заголовок -->
-        <div class="shadow d-flex align-items-end log-section mb-4">
+        <div class="shadow d-flex align-items-end log-section">
             <img src="../static/assets/favicon.png" width="100px" height="100px">
             <h1 class="ms-4">TLS Packet Monitor</h1>
         </div>
 
         <!-- Счетчик пакетов -->
-        <div id="packet-counter" class="ms-auto shadow packet-counter mb-4">
-            Total packets: <span class="counter-value">0</span>
+        <div id="packet-counter" class="ms-auto shadow packet-counter">
+            Всего TLS пакетов: <span class="counter-value">0</span>
         </div>
     </div>
+
     <div class="container-wrapper">
         <div class="shadow log-section">
-            <h2>All Packets</h2>
-            <div id="log-container"></div>
+            <h2 class="section-header">Все TLS пакеты</h2>
+            <div class="section-content">
+                <div id="log-container"></div>
+            </div>
+        </div>
+
+        <div class="shadow log-section">
+            <h2 class="section-header">Фильтр TLS пакетов</h2>
+            <div class="section-content">
+                <select id="packet-type-filter" class="form-select w-auto me-3" onchange="filterPackets()">
+                    <option value="handshake">Handshake TLS пакеты</option>
+                    <option value="application">Application TLS пакеты</option>
+                    <option value="cipher">Cipher TLS пакеты</option>
+                </select>
+                <div id="filtered-packet-container" class="mt-2"></div>
+            </div>
+        </div>
+
+        <!-- <div class="shadow log-section">
+            <h2 class="section-header">Handshake TLS пакеты</h2>
+            <div class="section-content">
+                <div id="handshake-container"></div>
+            </div>
+        </div> -->
+    </div>
+
+    <!-- <div class="container-wrapper mt-4">
+        <div class="shadow log-section">
+            <h2 class="section-header">Application TLS пакеты</h2>
+            <div class="section-content">
+                <div id="application-container"></div>
+            </div>
         </div>
         <div class="shadow log-section">
-            <h2>Handshake Packets</h2>
-            <div id="handshake-container"></div>
+            <h2 class="section-header">Cipher TLS пакеты</h2>
+            <div class="section-content">
+                <div id="cipher-container"></div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="shadow log-section mt-4">
+        <h2 class="section-header">Распределение версий TLS</h2>
+        <div class="section-content">
+            <canvas id="tlsChart"></canvas>
         </div>
     </div>
+
+    <!-- Добавить перед закрывающим </body> -->
     <div class="shadow log-section mt-4">
-        <h2>TLS Version Distribution</h2>
-        <canvas id="tlsChart"></canvas>
+        <h2 class="section-header">Диагностика Handshake</h2>
+        <div class="section-content">
+            <div class="input-group mb-3">
+                <input type="text" id="targetIp1" class="form-control" placeholder="Введите первый IP адрес">
+                <input type="text" id="targetIp2" class="form-control" placeholder="Введите второй IP адрес">
+                <button class="btn btn-primary" onclick="requestHandshakeStatus()">Проверить статус</button>
+            </div>
+            <div id="handshake-status"></div>
+        </div>
     </div>
-    
+
     <div class="shadow log-section mt-4">
         <div id="server-stats"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script src="../static/js/index.js"></script>
+    <script src="../static/js/filter.js"></script>
+    <script src="../static/js/diagrams.js"></script>
+    <script src="../static/js/handshake.js"></script>
+    <script src="../static/js/notifications.js"></script>
+
 </body>
 
 </html>
