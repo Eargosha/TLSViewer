@@ -26,9 +26,9 @@ class Config:
     WEBSITE_URL = "https://habr.com/ru/articles/"
     TARGET_IP = "178.248.237.68"
     TSHARK_PATH = r"C:\Program Files\Wireshark\tshark.exe"
-    CHROMEDRIVER_PATH = "chromedriver.exe"
-    TLS_PACKETS_LOG = "tls_packets.log"
-    MITMPROXY_LOG = "mitmproxy.log"
+    CHROMEDRIVER_PATH = r"..\chromedriver.exe" #"chromedriver.exe"
+    TLS_PACKETS_LOG = r"..\tls_packets.log" #"tls_packets.log"
+    MITMPROXY_LOG = r"..\mitmproxy.log" #"mitmproxy.log"
 
     # --- Настройка пути для SSLKEYLOGFILE ---
     temp_dir = os.environ.get('TEMP') or os.environ.get('TMP')

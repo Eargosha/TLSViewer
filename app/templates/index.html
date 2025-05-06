@@ -29,6 +29,18 @@
         </div>
     </div>
 
+    <div class="shadow log-section mb-4">
+        <h2>Управление демоном</h2>
+        <div class="mb-3">
+            <label for="interface-select" class="form-label">Выберите сетевой интерфейс:   (диаграммой распределение процентов типов TLS пакетов, сделать выбор сайта с веба(или получать вообще всю инфу с интерфейса) ну и дешифровка - вывод app_data)</label>
+            <select id="interface-select" class="form-select"></select>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <button id="start-daemon-btn" class="btn btn-success">Запустить демон</button>
+        </div>
+        <p id="daemon-status" class="mt-2 text-muted">Статус: Не запущен</p>
+    </div>
+
     <div class="container-wrapper">
         <div class="shadow log-section">
             <h2 class="section-header">Все TLS пакеты</h2>
@@ -44,6 +56,7 @@
                     <option value="handshake">Handshake TLS пакеты</option>
                     <option value="application">Application TLS пакеты</option>
                     <option value="cipher">Cipher TLS пакеты</option>
+                    <option value="alert">Alert TLS пакеты</option>
                 </select>
                 <div id="filtered-packet-container" class="mt-2"></div>
             </div>
@@ -102,6 +115,7 @@
     <script src="../static/js/diagrams.js"></script>
     <script src="../static/js/handshake.js"></script>
     <script src="../static/js/notifications.js"></script>
+    <script src="../static/js/deamon.js"></script>
 
 </body>
 

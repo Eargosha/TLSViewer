@@ -1,5 +1,5 @@
 import time
-import threading
+import argparse
 
 from tls_monitor.config import Config
 from tls_monitor.mitm_manager import MitmProxyManager
@@ -9,26 +9,33 @@ from tls_monitor.network_utils import NetworkUtils
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Запуск TLS Monitor демона")
+    parser.add_argument("--interface", type=str, help="Выбранный сетевой интерфейс")
+    args = parser.parse_args()
+
     # Выбор интерфейса
     interfaces = NetworkUtils.get_interfaces()
     if not interfaces:
         print("Нет доступных интерфейсов!")
         return
 
-    print("Доступные интерфейсы:")
-    for idx, (_, display) in enumerate(interfaces, 1):
-        print(f"{idx}. {display}")
+    if args.interface:
+        selected_iface = args.interface
+    else:
+        print("Доступные интерфейсы:")
+        for idx, (_, display) in enumerate(interfaces, 1):
+            print(f"{idx}. {display}")
 
-    while True:
-        try:
-            choice = int(input("Введите номер интерфейса: "))
-            if 1 <= choice <= len(interfaces):
-                selected_iface = interfaces[choice - 1][0]
-                break
-        except ValueError:
-            print("Некорректный ввод!")
+        while True:
+            try:
+                choice = int(input("Введите номер интерфейса: "))
+                if 1 <= choice <= len(interfaces):
+                    selected_iface = interfaces[choice - 1][0]
+                    break
+            except ValueError:
+                print("Некорректный ввод!")
 
-    print("[+] Интерфейс выбран")
+    print(f"[+] Интерфейс выбран: {selected_iface}")
 
     open(Config.SSL_KEY_LOG_FILE, 'w')
     open(Config.TLS_PACKETS_LOG, 'w')

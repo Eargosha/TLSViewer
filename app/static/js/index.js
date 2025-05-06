@@ -39,6 +39,51 @@ socket.on('reconnect', function (attempt) {
 
 
 
+// // Управление демоном
+
+// const daemonButton = document.getElementById('toggle-daemon-btn');
+// const daemonStatus = document.getElementById('daemon-status');
+
+// let isRunning = false;
+
+// function updateDaemonUI(running, pid = null) {
+//     isRunning = running;
+//     if (running) {
+//         daemonButton.textContent = "Остановить демон";
+//         daemonButton.className = "btn btn-danger";
+//         daemonStatus.innerHTML = `Статус: Запущен <span class="badge bg-primary">PID: ${pid}</span>`;
+//     } else {
+//         daemonButton.textContent = "Запустить демон";
+//         daemonButton.className = "btn btn-success";
+//         daemonStatus.textContent = "Статус: Не запущен";
+//     }
+// }
+
+// daemonButton.addEventListener('click', function () {
+//     if (!isRunning) {
+//         socket.emit('start_daemon');
+//     } else {
+//         socket.emit('stop_daemon');
+//     }
+// });
+
+// // Обработка сообщений от сервера
+// socket.on('system_message', function (data) {
+//     if (data.type === 'info' && data.message.includes('Daemon запущен')) {
+//         const pidMatch = data.message.match(/PID: (\d+)/);
+//         if (pidMatch && pidMatch[1]) {
+//             updateDaemonUI(true, pidMatch[1]);
+//         }
+//     } else if (data.type === 'info' && data.message === 'Daemon успешно остановлен') {
+//         updateDaemonUI(false);
+//     } else if (data.type === 'info' && data.message === 'Daemon не запущен') {
+//         updateDaemonUI(false);
+//     }
+// });
+
+
+
+
 // Функция обновления счетчика
 function updatePacketCounter() {
     const counterElement = document.querySelector('.counter-value');

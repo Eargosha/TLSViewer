@@ -1,4 +1,6 @@
 import os
+import shlex
+import subprocess
 from datetime import datetime
 
 from flask import Flask, render_template
@@ -10,6 +12,7 @@ from core.handshake_analyzer import analyze_handshake, handshake_states, get_con
 from core.log_parser import parse_packet
 from core.config import Config
 from core.log_monitor import LogMonitor
+from core.network_utils import get_interfaces
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = Config.SECRET_KEY
@@ -20,6 +23,22 @@ log_monitor = LogMonitor(socketio)
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@socketio.on("get_interfaces")
+def handle_get_interfaces():
+    interfaces = get_interfaces()
+    if not interfaces:
+        emit("system_message", {
+            "type": "error",
+            "message": "Нет доступных сетевых интерфейсов!",
+            "timestamp": datetime.now().isoformat()
+        })
+        return
+
+    emit("interface_list", {
+        "interfaces": [name for name, _ in interfaces],
+        "display": [display for _, display in interfaces]
+    })
 
 
 @socketio.on("connect", namespace="/")
@@ -92,6 +111,82 @@ def handle_connect():
             'type': 'error',
             'message': f'Initialization failed: {str(e)}'
         })
+
+# Храним запущенный процесс
+daemon_process = None
+
+@socketio.on("start_daemon")
+def handle_start_daemon(data):
+    global daemon_process
+
+    if daemon_process and daemon_process.poll() is None:
+        emit("system_message", {
+            "type": "info",
+            "message": f"Daemon уже запущен (PID: {daemon_process.pid})",
+            "timestamp": datetime.now().isoformat()
+        })
+        return
+
+    try:
+        selected_iface = data.get("interface")
+        if not selected_iface:
+            emit("system_message", {
+                "type": "error",
+                "message": "Не указан интерфейс!",
+                "timestamp": datetime.now().isoformat()
+            })
+            return
+
+        # command = f"python3 daemon.py --interface {selected_iface}"
+        # args = shlex.split(command)
+        #
+        # daemon_process = subprocess.Popen(
+        #     args,
+        #     stdout=subprocess.PIPE,
+        #     stderr=subprocess.PIPE,
+        #     text=True,
+        #     cwd=os.path.dirname(__file__)
+        # )
+
+        command = f"python ../deamon.py --interface {selected_iface}"
+        daemon_process = subprocess.Popen(
+            ["cmd", "/c", "start", "cmd.exe", "/k", command],
+            creationflags=subprocess.CREATE_NEW_CONSOLE,
+            cwd=os.path.dirname(__file__)
+        )
+
+        emit("system_message", {
+            "type": "info",
+            "message": f"Daemon запущен (PID: {daemon_process.pid})",
+            "timestamp": datetime.now().isoformat()
+        })
+
+    except Exception as e:
+        emit("system_message", {
+            "type": "error",
+            "message": f"Ошибка запуска демона: {str(e)}",
+            "timestamp": datetime.now().isoformat()
+        })
+
+
+@socketio.on("stop_daemon")
+def handle_stop_daemon():
+    global daemon_process
+
+    if daemon_process:
+        os.system(f"taskkill /F /PID {daemon_process.pid}")
+        emit("system_message", {
+            "type": "info",
+            "message": "Daemon успешно остановлен",
+            "timestamp": datetime.now().isoformat()
+        })
+    else:
+        emit("system_message", {
+            "type": "info",
+            "message": "Daemon не запущен",
+            "timestamp": datetime.now().isoformat()
+        })
+
 
 @socketio.on("request_handshake_status")
 def handle_handshake_status(data):
