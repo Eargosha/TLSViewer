@@ -12,7 +12,20 @@ from tls_monitor.network_utils import NetworkUtils
 def main():
     parser = argparse.ArgumentParser(description="Запуск TLS Monitor демона")
     parser.add_argument("--interface", type=str, help="Выбранный сетевой интерфейс")
+    parser.add_argument("--url", type=str, help="Целевой URL для фильтрации")
+    parser.add_argument("--mode", choices=["all", "url"], default="all",
+                        help="Режим работы: 'all' - весь трафик, 'url' - только указанный сайт")
+
+
     args = parser.parse_args()
+
+    print(args)
+
+    # Выводим полученные значения
+    if args.mode == "url" and args.url:
+        print(f"[+] Режим: фильтрация по URL: {args.url}")
+    else:
+        print("[+] Режим: весь трафик по интерфейсу")
 
     # Выбор интерфейса
     interfaces = NetworkUtils.get_interfaces()

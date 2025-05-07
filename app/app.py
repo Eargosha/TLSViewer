@@ -130,6 +130,10 @@ def handle_start_daemon(data):
 
     try:
         selected_iface = data.get("interface")
+        print(f"{data.get("mode")} mode")
+        mode = data.get("mode", "all")  # all / url
+        url = data.get("url", "")
+
         if not selected_iface:
             emit("system_message", {
                 "type": "error",
@@ -138,19 +142,15 @@ def handle_start_daemon(data):
             })
             return
 
-        # command = f"python3 daemon.py --interface {selected_iface}"
-        # args = shlex.split(command)
-        #
-        # daemon_process = subprocess.Popen(
-        #     args,
-        #     stdout=subprocess.PIPE,
-        #     stderr=subprocess.PIPE,
-        #     text=True,
-        #     cwd=os.path.dirname(__file__)
-        # )
+        args = ["python", "../deamon.py", "--interface", selected_iface]
+
+        if mode == "url" and url:
+            args.extend(["--url", url, '--mode', mode])
+
+        print(f"Запускаем с {args}")
 
         daemon_process = subprocess.Popen(
-            ["cmd", "/c", "start", "cmd.exe", "/k", "python", "../deamon.py", "--interface", selected_iface],
+            args,
             creationflags=subprocess.CREATE_NEW_CONSOLE,
             cwd=os.path.dirname(__file__)
         )
@@ -167,6 +167,58 @@ def handle_start_daemon(data):
             "message": f"Ошибка запуска демона: {str(e)}",
             "timestamp": datetime.now().isoformat()
         })
+
+# @socketio.on("start_daemon")
+# def handle_start_daemon(data):
+#     global daemon_process
+#
+#     if daemon_process and daemon_process.poll() is None:
+#         emit("system_message", {
+#             "type": "info",
+#             "message": f"Daemon уже запущен (PID: {daemon_process.pid})",
+#             "timestamp": datetime.now().isoformat()
+#         })
+#         return
+#
+#     try:
+#         selected_iface = data.get("interface")
+#         if not selected_iface:
+#             emit("system_message", {
+#                 "type": "error",
+#                 "message": "Не указан интерфейс!",
+#                 "timestamp": datetime.now().isoformat()
+#             })
+#             return
+#
+#         # command = f"python3 daemon.py --interface {selected_iface}"
+#         # args = shlex.split(command)
+#         #
+#         # daemon_process = subprocess.Popen(
+#         #     args,
+#         #     stdout=subprocess.PIPE,
+#         #     stderr=subprocess.PIPE,
+#         #     text=True,
+#         #     cwd=os.path.dirname(__file__)
+#         # )
+#
+#         daemon_process = subprocess.Popen(
+#             ["cmd", "/c", "start", "cmd.exe", "/k", "python", "../deamon.py", "--interface", selected_iface],
+#             creationflags=subprocess.CREATE_NEW_CONSOLE,
+#             cwd=os.path.dirname(__file__)
+#         )
+#
+#         emit("system_message", {
+#             "type": "info",
+#             "message": f"Daemon запущен (PID: {daemon_process.pid})",
+#             "timestamp": datetime.now().isoformat()
+#         })
+#
+#     except Exception as e:
+#         emit("system_message", {
+#             "type": "error",
+#             "message": f"Ошибка запуска демона: {str(e)}",
+#             "timestamp": datetime.now().isoformat()
+#         })
 
 
 @socketio.on("stop_daemon")
@@ -186,6 +238,11 @@ def handle_stop_daemon():
             "message": "Daemon не запущен",
             "timestamp": datetime.now().isoformat()
         })
+
+@socketio.on("clear_log")
+def handle_stop_daemon():
+    open(Config.TLS_PACKETS_LOG, 'w')
+
 
 
 @socketio.on("request_handshake_status")

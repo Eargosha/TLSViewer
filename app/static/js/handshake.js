@@ -17,6 +17,19 @@ const handshakeStepsTLS13 = {
     'finished': ['Finished']
 };
 
+function formatTimestamp(ts) {
+    const date = new Date(ts * 1000);
+    return date.toLocaleString('ru-RU', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        fractionalSecondDigits: 3
+    });
+}
+
 function displayHandshakeStatus(data) {
     const container = document.getElementById('handshake-status');
     if (data.error) {
@@ -31,7 +44,7 @@ function displayHandshakeStatus(data) {
         '<span class="badge bg-warning">Соединяется...</span>';
 
     // Выбираем нужные шаги в зависимости от версии TLS
-    let stepsToShow = Object.keys(data.tls_version || '').includes('1.3') ? handshakeStepsTLS13 : handshakeStepsTLS12;
+    let stepsToShow = data.tls_version.includes('1.3') ? handshakeStepsTLS13 : handshakeStepsTLS12;
 
     container.innerHTML = `
         <div class="handshake-status-card">
@@ -40,7 +53,7 @@ function displayHandshakeStatus(data) {
             <p>Сервер: ${data.participants.server}</p>
             <p>Версия TLS: ${data.tls_version || 'TLS 1.2'}</p>
             <p>Стадия сейчас: ${data.current_state?.toUpperCase().replace('_', ' ') || 'Not started'}</p>
-            <p>Последняя активность: ${new Date(data.last_update).toLocaleString()}</p>
+            <p>Последняя активность: ${formatTimestamp(data.last_update)}</p>
             <h5>Последовательность Handshake:</h5>
             <div class="handshake-progress">
                 ${Object.entries(stepsToShow).map(([step, types]) => `

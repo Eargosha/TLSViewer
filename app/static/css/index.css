@@ -89,6 +89,14 @@ body {
     font-size: 0.8em;
 }
 
+.unknown-badge {
+    background: #be61be;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
 .alert-badge {
     background: #ff0000;
     color: white;
@@ -277,6 +285,10 @@ certificates pre {
 
 .cipher {
     border-left: 4px solid #351d1d;
+}
+
+.unknown {
+    border-left: 4px solid #be61be;
 }
 
 .handshake-cipher {

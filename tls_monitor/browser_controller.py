@@ -16,8 +16,8 @@ class BrowserController:
         chrome_options.add_argument(f"--ssl-key-log-file={Config.SSL_KEY_LOG_FILE}")
 
         # Контроль версии TLS:
-        # chrome_options.add_argument("--ssl-version-min=tls1.2")
-        chrome_options.add_argument("--ssl-version-min=tls1.3")
+        chrome_options.add_argument("--ssl-version-min=tls1.2")
+        chrome_options.add_argument("--ssl-version-max=tls1.3")
 
 
         service = Service(Config.CHROMEDRIVER_PATH)

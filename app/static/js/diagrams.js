@@ -2,6 +2,8 @@
 // диаграммы
 const tlsVersionStats = {};
 let tlsChart = null;
+const tlsTypeStats = {};
+let tlsTypeChart = null;
 
 // Функция для обновления статистики версий TLS
 function updateTlsVersionStats(version) {
@@ -14,6 +16,94 @@ function updateTlsVersionStats(version) {
     }
 
     updateTlsChart();
+}
+
+// Функция для обновления статистики типов пакетов
+function updateTlsTypeStats(handshakeType) {
+    if (!handshakeType) return;
+
+    // Очищаем тип от лишнего (например, "(1)")
+    const cleanType = handshakeType.split("(")[0].trim();
+
+    if (tlsTypeStats[cleanType]) {
+        tlsTypeStats[cleanType]++;
+    } else {
+        tlsTypeStats[cleanType] = 1;
+    }
+
+    updateTlsTypeChart();
+}
+
+// Функция для создания/обновления диаграммы типов
+function updateTlsTypeChart() {
+    const ctx = document.getElementById('tlsTypeChart').getContext('2d');
+    const types = Object.keys(tlsTypeStats);
+    const counts = Object.values(tlsTypeStats);
+
+    // Цвета для разных типов
+    const typeColors = {
+        'Cipher': '#351d1d',
+        'Alert': '#ff0000',
+        'Handshake': '#2196F3',
+        'Application': '#818181',
+        'Heartbeat': '#000000',
+        'UNKNOWN': '#be61be',
+    };
+
+    const backgroundColors = types.map(t => typeColors[t] || '#cccccc');
+
+    if (!tlsTypeChart) {
+        tlsTypeChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: types,
+                datasets: [{
+                    data: counts,
+                    backgroundColor: backgroundColors,
+                    borderWidth: 1,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            boxWidth: 20,
+                            padding: 15,
+                            font: {
+                                family: 'monospace',
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100);
+                                return `${label}: ${value} (${percentage}%)`;
+                            }
+                        },
+                        bodyFont: {
+                            family: 'monospace',
+                            size: 12
+                        }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    } else {
+        tlsTypeChart.data.labels = types;
+        tlsTypeChart.data.datasets[0].data = counts;
+        tlsTypeChart.data.datasets[0].backgroundColor = backgroundColors;
+        tlsTypeChart.update();
+    }
 }
 
 // Функция для создания/обновления диаграммы

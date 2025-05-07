@@ -42,19 +42,19 @@ socket.on("interface_list", function(data) {
     }
 });
 
-// Кнопка запуска/остановки
-daemonButton.addEventListener("click", function () {
-    if (!isDaemonRunning) {
-        const selectedIface = interfaceSelect.value;
-        if (!selectedIface) {
-            alert("Пожалуйста, выберите сетевой интерфейс!");
-            return;
-        }
-        socket.emit("start_daemon", { interface: selectedIface });
-    } else {
-        socket.emit("stop_daemon");
-    }
-});
+// // Кнопка запуска/остановки
+// daemonButton.addEventListener("click", function () {
+//     if (!isDaemonRunning) {
+//         const selectedIface = interfaceSelect.value;
+//         if (!selectedIface) {
+//             alert("Пожалуйста, выберите сетевой интерфейс!");
+//             return;
+//         }
+//         socket.emit("start_daemon", { interface: selectedIface });
+//     } else {
+//         socket.emit("stop_daemon");
+//     }
+// });
 
 // Обработка ответов от сервера
 socket.on("system_message", function (data) {
@@ -67,5 +67,37 @@ socket.on("system_message", function (data) {
         updateDaemonUI(false);
     } else if (data.type === 'info' && data.message === 'Daemon не запущен') {
         updateDaemonUI(false);
+    }
+});
+
+// Обработка переключателя режима
+const modeAll = document.getElementById("modeAll");
+const modeURL = document.getElementById("modeURL");
+const urlInputContainer = document.getElementById("urlInputContainer");
+const urlInput = document.getElementById("urlInput");
+
+document.querySelectorAll('input[name="analysisMode"]').forEach((radio) => {
+    radio.addEventListener("change", function () {
+        urlInputContainer.style.display = modeURL.checked ? "block" : "none";
+    });
+});
+
+// Кнопка запуска/остановки
+daemonButton.addEventListener("click", function () {
+    if (!isDaemonRunning) {
+        const selectedIface = interfaceSelect.value;
+        if (!selectedIface) {
+            alert("Пожалуйста, выберите сетевой интерфейс!");
+            return;
+        }
+
+        const mode = document.querySelector('input[name="analysisMode"]:checked').value;
+        const url = mode === "url" ? urlInput.value.trim() : "";
+
+        console.log(mode)
+
+        socket.emit("start_daemon", { interface: selectedIface, mode: mode, url: url });
+    } else {
+        socket.emit("stop_daemon");
     }
 });

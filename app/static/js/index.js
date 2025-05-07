@@ -38,58 +38,19 @@ socket.on('reconnect', function (attempt) {
 });
 
 
-
-// // Управление демоном
-
-// const daemonButton = document.getElementById('toggle-daemon-btn');
-// const daemonStatus = document.getElementById('daemon-status');
-
-// let isRunning = false;
-
-// function updateDaemonUI(running, pid = null) {
-//     isRunning = running;
-//     if (running) {
-//         daemonButton.textContent = "Остановить демон";
-//         daemonButton.className = "btn btn-danger";
-//         daemonStatus.innerHTML = `Статус: Запущен <span class="badge bg-primary">PID: ${pid}</span>`;
-//     } else {
-//         daemonButton.textContent = "Запустить демон";
-//         daemonButton.className = "btn btn-success";
-//         daemonStatus.textContent = "Статус: Не запущен";
-//     }
-// }
-
-// daemonButton.addEventListener('click', function () {
-//     if (!isRunning) {
-//         socket.emit('start_daemon');
-//     } else {
-//         socket.emit('stop_daemon');
-//     }
-// });
-
-// // Обработка сообщений от сервера
-// socket.on('system_message', function (data) {
-//     if (data.type === 'info' && data.message.includes('Daemon запущен')) {
-//         const pidMatch = data.message.match(/PID: (\d+)/);
-//         if (pidMatch && pidMatch[1]) {
-//             updateDaemonUI(true, pidMatch[1]);
-//         }
-//     } else if (data.type === 'info' && data.message === 'Daemon успешно остановлен') {
-//         updateDaemonUI(false);
-//     } else if (data.type === 'info' && data.message === 'Daemon не запущен') {
-//         updateDaemonUI(false);
-//     }
-// });
-
-
-
-
 // Функция обновления счетчика
 function updatePacketCounter() {
     const counterElement = document.querySelector('.counter-value');
     if (counterElement) {
         counterElement.textContent = totalPackets;
     }
+}
+
+function clear_log_file() {
+    // Отправляем запрос на сервер через WebSocket
+    socket.emit('clear_log');
+    // Перезагружаем страницу
+    location.reload();
 }
 
 // Создание обьекта пакета
@@ -105,6 +66,10 @@ function createPacketElement(data) {
 
     if (parsed.is_cipher) {
         whatTLSRecordType = 'cipher'
+    }
+
+    if (parsed.is_unknown) {
+        whatTLSRecordType = 'unknown'
     }
 
     if (parsed.is_application) {
@@ -128,6 +93,7 @@ function createPacketElement(data) {
         ${parsed.is_handshake ? `<img class="imgages" src="https://www.svgrepo.com/show/134487/handshake.svg"></img> <span class="handshake-badge"> HANDSHAKE (${parsed.tls_details.handshake_type}) </span>` : ''}
         ${parsed.is_application ? '<img class="imgages" src="https://www.svgrepo.com/show/14385/computer.svg"></img> <span class="application-badge">APPLICATION</span>' : ''}
         ${parsed.is_cipher ? '<img class="imgages" src="https://www.svgrepo.com/show/95936/security.svg"></img> <span class="cipher-badge">CIPHER</span>' : ''}
+        ${parsed.is_unknown ? '<img class="imgages" src="https://www.svgrepo.com/show/435670/file-unknown.svg"></img> <span class="unknown-badge">UNKNOWN</span>' : ''}
         ${parsed.is_alert ? '<img class="imgages" src="https://www.svgrepo.com/show/95925/user.svg"></img> <span class="alert-badge">ALERT</span>' : ''}
         ${parsed.is_heartbeat ? '<img class="imgages" src="https://www.svgrepo.com/show/164965/strategy.svg"></img> <span class="alert-badge">HEARTBEAT</span>' : ''}
         ${parsed.errors.length ? '<span class="error-badge">ERROR</span>' : ''}
@@ -239,8 +205,9 @@ socket.on('log_update', function (data) {
         if (record.tls_details && record.tls_details.version) {
             updateTlsVersionStats(record.tls_details.version.trim());
         }
-        if (record.tls_details && record.tls_details.version) {
-            updateTlsVersionStats(record.tls_details.version);
+
+        if (record.packet_type) {
+            updateTlsTypeStats(record.packet_type.trim());
         }
 
         const packetData = {
@@ -252,8 +219,8 @@ socket.on('log_update', function (data) {
         const packetDiv = createPacketElement(packetData);
         logContainer.appendChild(packetDiv);
 
-         // Сохраняем в "все пакеты"
-         allFilteredPackets.push({
+        // Сохраняем в "все пакеты"
+        allFilteredPackets.push({
             type: getPacketType(record),
             element: packetDiv
         });

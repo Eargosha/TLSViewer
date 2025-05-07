@@ -1,9 +1,13 @@
 import time
 
+from Scripts.unicodedata import normalize
+
 handshake_states = {}
+
 
 def get_connection_key(ip1, ip2):
     return ":".join(sorted([ip1, ip2]))
+
 
 def analyze_handshake(record):
     src_ip = record["source"]["ip"]
@@ -29,9 +33,50 @@ def analyze_handshake(record):
     state = handshake_states[ip_key]
     state["last_update"] = time.time()
 
-    # Определяем версию TLS
-    if not state["tls_version"] and tls_version:
-        state["tls_version"] = tls_version.strip()
+    # Попробуем получить negotiated_version из ServerHello или Extension
+    negotiated_version = record["tls_details"].get("negotiated_version")
+    client_versions = record["tls_details"].get("client_supported_versions", [])
+
+    candidates = []
+
+    if negotiated_version:
+        candidates.append(negotiated_version)
+
+    if client_versions:
+        candidates.extend(client_versions)
+
+    if tls_version:
+        candidates.append(tls_version)
+
+    # Выбираем самую высокую версию из доступных кандидатов
+    if candidates:
+        def version_key(v):
+            if not v:
+                return -1
+            normalized = v.replace(" ", "").lower()
+            return {
+                "tls1.3": 3,
+                "tls1.2": 2,
+                "tls1.1": 1,
+                "tls1.0": 1,
+                "ssl3.0": 0
+            }.get(normalized, -1)
+
+        # Фильтруем пустые значения и получаем уникальные версии
+        filtered_candidates = [v for v in candidates if v]
+        if filtered_candidates:
+            sorted_candidates = sorted(
+                list(set(filtered_candidates)),
+                key=lambda v: version_key(v)
+            )
+
+            highest_candidate = sorted_candidates[-1]
+            current_version_value = version_key(state["tls_version"]) if state["tls_version"] else -1
+            highest_candidate_value = version_key(highest_candidate)
+
+            # Обновляем версию только если она выше текущей или еще не установлена
+            if highest_candidate_value > current_version_value:
+                state["tls_version"] = highest_candidate
 
     # Определяем участников
     if "client hello" in handshake_type:
@@ -42,7 +87,7 @@ def analyze_handshake(record):
         state["participants"]["client"] = dst_ip
 
     # TLS 1.3 анализ
-    if state["tls_version"] and "tls 1.3" in state["tls_version"]:
+    if state["tls_version"] and "1.3" in state["tls_version"]:
         if "client hello" in handshake_type:
             state["seen_steps"].add("client_hello")
             state["current_state"] = "client_hello"
@@ -59,7 +104,7 @@ def analyze_handshake(record):
             state["seen_steps"].add("finished")
             state["current_state"] = "finished"
 
-    # TLS 1.2 анализ
+    # TLS 1.2 и ниже анализ
     else:
         if "client hello" in handshake_type:
             state["seen_steps"].add("client_hello")
