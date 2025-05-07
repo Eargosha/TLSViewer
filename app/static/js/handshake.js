@@ -1,4 +1,4 @@
-const handshakeSteps = {
+const handshakeStepsTLS12 = {
     'client_hello': ['Client Hello'],
     'server_hello': ['Server Hello'],
     'certificate': ['Certificate'],
@@ -9,6 +9,14 @@ const handshakeSteps = {
     'finished': ['Finished']
 };
 
+const handshakeStepsTLS13 = {
+    'client_hello': ['Client Hello'],
+    'server_hello': ['Server Hello'],
+    'encrypted_extensions': ['Encrypted Extensions'],
+    'certificate': ['Certificate (Optional)'],
+    'finished': ['Finished']
+};
+
 function displayHandshakeStatus(data) {
     const container = document.getElementById('handshake-status');
     if (data.error) {
@@ -16,22 +24,26 @@ function displayHandshakeStatus(data) {
         return;
     }
 
-    console.log(data)
-    
+    console.log(data);
+
     const statusBadge = data.status === 'completed' ? 
         '<span class="badge bg-success">Завершено</span>' :
         '<span class="badge bg-warning">Соединяется...</span>';
+
+    // Выбираем нужные шаги в зависимости от версии TLS
+    let stepsToShow = Object.keys(data.tls_version || '').includes('1.3') ? handshakeStepsTLS13 : handshakeStepsTLS12;
 
     container.innerHTML = `
         <div class="handshake-status-card">
             <h4>Статус для TLS соединения ${data.ip} ${statusBadge}</h4>
             <p>Клиент: ${data.participants.client}</p>
             <p>Сервер: ${data.participants.server}</p>
+            <p>Версия TLS: ${data.tls_version || 'TLS 1.2'}</p>
             <p>Стадия сейчас: ${data.current_state?.toUpperCase().replace('_', ' ') || 'Not started'}</p>
             <p>Последняя активность: ${new Date(data.last_update).toLocaleString()}</p>
             <h5>Последовательность Handshake:</h5>
             <div class="handshake-progress">
-                ${Object.entries(handshakeSteps).map(([step, types]) => `
+                ${Object.entries(stepsToShow).map(([step, types]) => `
                     <div class="step ${data.seen_steps.includes(step) ? 'completed' : ''} 
                                  ${data.current_state === step ? 'active' : ''}">
                         <div class="step-circle"></div>

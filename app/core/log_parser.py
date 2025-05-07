@@ -1,3 +1,6 @@
+import re
+
+
 def parse_packet(packet_content):
     """Парсинг содержимого пакета с разделением вложенных TLS записей"""
     base_packet = {
@@ -7,6 +10,7 @@ def parse_packet(packet_content):
         "errors": [],
         "source": {},
         "destination": {},
+        "frame_number": 987,
         "tls_details": {
             "signature_algorithms": [],
             "handshake_type": "Unknown",
@@ -47,6 +51,10 @@ def parse_packet(packet_content):
                 base_packet["is_cipher"] = 1 if "Cipher" in base_packet["packet_type"] else 0
                 base_packet["is_application"] = 1 if "Application" in base_packet["packet_type"] else 0
                 base_packet["is_alert"] = 1 if "Alert" in base_packet["packet_type"] else 0
+
+            if "Frame Number:" in line:
+                number = line.split("Frame Number:")[1].strip()
+                base_packet["frame_number"] = number
 
             # Ethernet информация
             if "Ethernet II" in line:
@@ -152,7 +160,7 @@ def parse_single_record(record_content, base_packet):
                     elif "Heartbeat" in content_type:
                         record_data["is_heartbeat"] = 1
 
-
+                # НУЖНО ИСКАТЬ ПО НАЗВАНИЮ ПАКЕТА А НЕ ПО VERSION: , ЭТО ОСТАВЛЕНО СПЕЦ ДЛЯ ЛЕГАСИ, ИЗМЕНИТЬ!
                 if "Version:" in line and not tls_version:
                     record_data["tls_details"]["version"] = line.split("Version:")[1].split("(")[0].strip()
                     tls_version = True

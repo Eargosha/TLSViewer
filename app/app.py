@@ -86,7 +86,8 @@ def handle_connect():
                                 "current_state": state["current_state"],
                                 "seen_steps": list(state["seen_steps"]),
                                 "last_update": state["last_update"],
-                                "participants": state["participants"]  # <-- Добавлено!
+                                "participants": state["participants"],
+                                "tls_version": state["tls_version"]
                             }
                             socketio.emit("handshake_status", status, namespace="/")
 
@@ -148,9 +149,8 @@ def handle_start_daemon(data):
         #     cwd=os.path.dirname(__file__)
         # )
 
-        command = f"python ../deamon.py --interface {selected_iface}"
         daemon_process = subprocess.Popen(
-            ["cmd", "/c", "start", "cmd.exe", "/k", command],
+            ["cmd", "/c", "start", "cmd.exe", "/k", "python", "../deamon.py", "--interface", selected_iface],
             creationflags=subprocess.CREATE_NEW_CONSOLE,
             cwd=os.path.dirname(__file__)
         )

@@ -17,10 +17,10 @@ class BrowserController:
 
         # Контроль версии TLS:
         # chrome_options.add_argument("--ssl-version-min=tls1.2")
-        # chrome_options.add_argument("--ssl-version-max=tls1.3")
+        chrome_options.add_argument("--ssl-version-min=tls1.3")
 
 
-        service = Service(r"C:\Users\Eargosha\Desktop\TLSViewer\chromedriver.exe")
+        service = Service(Config.CHROMEDRIVER_PATH)
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
         return self.driver
 

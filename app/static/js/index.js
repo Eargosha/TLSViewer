@@ -124,7 +124,7 @@ function createPacketElement(data) {
     const header = document.createElement('div');
     header.className = 'packet-header';
     header.innerHTML = `
-        <span class="timestamp">Frame time: ${parsed.timestamp.slice(0, -1)}</span>
+        <span class="timestamp">Frame #${parsed.frame_number}, time: ${parsed.timestamp.slice(0, -1)}</span>
         ${parsed.is_handshake ? `<img class="imgages" src="https://www.svgrepo.com/show/134487/handshake.svg"></img> <span class="handshake-badge"> HANDSHAKE (${parsed.tls_details.handshake_type}) </span>` : ''}
         ${parsed.is_application ? '<img class="imgages" src="https://www.svgrepo.com/show/14385/computer.svg"></img> <span class="application-badge">APPLICATION</span>' : ''}
         ${parsed.is_cipher ? '<img class="imgages" src="https://www.svgrepo.com/show/95936/security.svg"></img> <span class="cipher-badge">CIPHER</span>' : ''}

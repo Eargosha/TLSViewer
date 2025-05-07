@@ -23,8 +23,8 @@ import os
 
 class Config:
     MITMPROXY_PORT = 8080
-    WEBSITE_URL = "https://habr.com/ru/articles/"
-    TARGET_IP = "178.248.237.68"
+    WEBSITE_URL = "https://qrator.net/"
+    TARGET_IP = "185.104.209.3"
     TSHARK_PATH = r"C:\Program Files\Wireshark\tshark.exe"
     CHROMEDRIVER_PATH = r"..\chromedriver.exe" #"chromedriver.exe"
     TLS_PACKETS_LOG = r"..\tls_packets.log" #"tls_packets.log"
