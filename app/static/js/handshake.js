@@ -37,7 +37,7 @@ function displayHandshakeStatus(data) {
         return;
     }
 
-    console.log(data);
+    // console.log(data);
 
     const statusBadge = data.status === 'completed' ? 
         '<span class="badge bg-success">Завершено</span>' :

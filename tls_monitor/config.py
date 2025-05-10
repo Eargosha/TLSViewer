@@ -20,15 +20,27 @@
 #     MITMPROXY_LOG = "mitmproxy.log"
 import os
 
-
 class Config:
     MITMPROXY_PORT = 8080
-    WEBSITE_URL = "https://qrator.net/"
+    WEBSITE_URL = "https://qrator.net/ "
     TARGET_IP = "185.104.209.3"
     TSHARK_PATH = r"C:\Program Files\Wireshark\tshark.exe"
-    CHROMEDRIVER_PATH = r"..\chromedriver.exe" #"chromedriver.exe"
-    TLS_PACKETS_LOG = r"..\tls_packets.log" #"tls_packets.log"
-    MITMPROXY_LOG = r"..\mitmproxy.log" #"mitmproxy.log"
+    CHROMEDRIVER_PATH = r"..\chromedriver.exe"
+    TLS_PACKETS_LOG = r"..\tls_packets.log"
+    MITMPROXY_LOG = r"..\mitmproxy.log"
+    TSHARK_MODE = "url"
+
+    @classmethod
+    def update_config(cls, **kwargs):
+        """
+        Обновляет значения конфигурации динамически.
+        Пример: Config.update_config(WEBSITE_URL="https://example.com ", MITMPROXY_PORT=8081)
+        """
+        for key, value in kwargs.items():
+            if hasattr(cls, key):
+                setattr(cls, key, value)
+            else:
+                raise AttributeError(f"Класс Config не содержит атрибут '{key}'")
 
     # --- Настройка пути для SSLKEYLOGFILE ---
     temp_dir = os.environ.get('TEMP') or os.environ.get('TMP')

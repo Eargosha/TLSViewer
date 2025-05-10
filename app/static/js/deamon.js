@@ -94,9 +94,14 @@ daemonButton.addEventListener("click", function () {
         const mode = document.querySelector('input[name="analysisMode"]:checked').value;
         const url = mode === "url" ? urlInput.value.trim() : "";
 
-        console.log(mode)
-
-        socket.emit("start_daemon", { interface: selectedIface, mode: mode, url: url });
+        if (url) {
+            if (validateURL(url)) {
+                socket.emit("start_daemon", { interface: selectedIface, mode: mode, url: url });
+            }
+        }
+        else {
+            socket.emit("start_daemon", { interface: selectedIface, mode: mode, url: url });
+        }
     } else {
         socket.emit("stop_daemon");
     }

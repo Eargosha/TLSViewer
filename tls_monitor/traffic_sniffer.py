@@ -196,16 +196,38 @@ class TrafficSniffer:
         #     '-l'
         # ]
 
+        command = []
+
         # 2 var
-        command = [
-            Config.TSHARK_PATH,
-            '-i', self.interface,
-            '-f', f'ip host {Config.TARGET_IP}',
-            '-o', f'tls.keylog_file:{Config.SSL_KEY_LOG_FILE}',
-            '-Y', 'tls',  # Фильтруем только TLS-пакеты
-            '-V',  # Показываем структуру пакета
-            '-l'  # Буферизация по строкам
-        ]
+        if Config.TSHARK_MODE == "url":
+            command = [
+                Config.TSHARK_PATH,
+                '-i', self.interface,
+                '-f', f'ip host {Config.TARGET_IP}',
+                '-o', f'tls.keylog_file:{Config.SSL_KEY_LOG_FILE}',
+                '-Y', 'tls',  # Фильтруем только TLS-пакеты
+                '-V',  # Показываем структуру пакета
+                '-l'  # Буферизация по строкам
+            ]
+        else:
+            command = [
+                Config.TSHARK_PATH,
+                '-i', self.interface,
+                '-o', f'tls.keylog_file:{Config.SSL_KEY_LOG_FILE}',
+                '-Y', 'tls',  # Фильтруем только TLS-пакеты
+                '-V',  # Показываем структуру пакета
+                '-l'  # Буферизация по строкам
+            ]
+
+        # command = [
+        #     Config.TSHARK_PATH,
+        #     '-i', self.interface,
+        #     '-f', f'ip host {Config.TARGET_IP}',
+        #     '-o', f'tls.keylog_file:{Config.SSL_KEY_LOG_FILE}',
+        #     '-Y', 'tls',  # Фильтруем только TLS-пакеты
+        #     '-V',  # Показываем структуру пакета
+        #     '-l'  # Буферизация по строкам
+        # ]
 
         self._process = subprocess.Popen(
             command,

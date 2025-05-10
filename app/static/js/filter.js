@@ -3,6 +3,7 @@ function getPacketType(record) {
     if (record.is_application) return 'application';
     if (record.is_cipher) return 'cipher';
     if (record.is_alert) return 'alert';
+    if (record.is_unknown) return 'unknown'
     return 'other';
 }
 
@@ -13,14 +14,14 @@ function filterPackets() {
     // Очистка контейнера
     container.innerHTML = "";
 
-    // Фильтрация и добавление подходящих пакетов
+    // Фильтрация и создание новых элементов
     for (const item of allFilteredPackets) {
         if (item.type === filter) {
-            container.appendChild(item.element.cloneNode(true));
+            const packetElement = createPacketElement({ parsed_data: item.parsed_data });
+            container.appendChild(packetElement);
         }
     }
 
-    // Прокрутка вниз
     autoScroll(container);
 }
 
@@ -28,6 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const filterSelect = document.getElementById("packet-type-filter");
     if (filterSelect) {
         filterSelect.value = "handshake"; // начальный фильтр
-        setTimeout(filterPackets, 100);   // применить фильтр после загрузки
+        filterPackets()  // применить фильтр после загрузки
     }
 });

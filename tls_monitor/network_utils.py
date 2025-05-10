@@ -1,4 +1,5 @@
 # Работа с интерфейсами системы, пока только WINDOWS
+import socket
 
 import wmi
 
@@ -21,3 +22,13 @@ class NetworkUtils:
         except Exception as e:
             print(f"Ошибка: {str(e)}")
             return []
+
+    def get_ip_from_url(url: str) -> str:
+        # Убираем http:// или https:// и всё, что после /
+        domain = url.split("://")[-1].split("/")[0].split(":")[0]
+        # print(f"Вот че вышло {domain}")
+        try:
+            ip_address = socket.gethostbyname(domain)
+            return ip_address
+        except socket.gaierror as e:
+            raise RuntimeError(f"Не удалось разрешить домен {domain}: {e}")

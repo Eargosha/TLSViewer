@@ -4,6 +4,11 @@ const tlsVersionStats = {};
 let tlsChart = null;
 const tlsTypeStats = {};
 let tlsTypeChart = null;
+const requestTimelineStats = []; // Временные метки всех пакетов
+const packetSizeStats = [];     // Размеры пакетов
+
+let timelineChart = null;       // График по времени
+let packetSizeChart = null;    // Гистограмма размеров
 
 // Функция для обновления статистики версий TLS
 function updateTlsVersionStats(version) {
@@ -184,5 +189,154 @@ function updateTlsChart() {
         tlsChart.data.datasets[0].data = counts;
         tlsChart.data.datasets[0].backgroundColor = backgroundColors;
         tlsChart.update();
+    }
+}
+
+
+
+function updateRequestTimeline(timestamp) {
+    const now = timestamp ? new Date(timestamp) : new Date();
+    
+    // Сохраняем временную метку
+    requestTimelineStats.push(now);
+
+    // Очищаем старые данные (например, за последние 5 минут)
+    const fiveMinutesAgo = new Date();
+    fiveMinutesAgo.setMinutes(fiveMinutesAgo.getMinutes() - 5);
+    for (let i = 0; i < requestTimelineStats.length; i++) {
+        if (requestTimelineStats[i] < fiveMinutesAgo) {
+            requestTimelineStats.splice(i, 1);
+            i--;
+        }
+    }
+
+    updateTimelineChart();
+}
+
+function updateTimelineChart() {
+    const ctx = document.getElementById('timelineChart').getContext('2d');
+
+    // Группируем по секундам
+    const buckets = {};
+    requestTimelineStats.forEach(ts => {
+        // const key = ts.toISOString().substr(0, 19); // YYYY-MM-DDTHH:mm:ss
+        buckets[ts] = (buckets[ts] || 0) + 1;
+    });
+
+    const labels = Object.keys(buckets).sort();
+    const data = labels.map(label => buckets[label]);
+
+    if (!timelineChart) {
+        timelineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Запросов в секунду',
+                    data: data,
+                    borderColor: '#4CAF50',
+                    backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Время' },
+                        ticks: {
+                            maxTicksLimit: 10
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Количество запросов' }
+                    }
+                }
+            }
+        });
+    } else {
+        timelineChart.data.labels = labels;
+        timelineChart.data.datasets[0].data = data;
+        timelineChart.update();
+    }
+}
+
+function updatePacketSizeStats(length) {
+    if (length && !isNaN(parseInt(length))) {
+        packetSizeStats.push(parseInt(length));
+    }
+
+    updatePacketSizeChart();
+}
+
+function updatePacketSizeChart() {
+    const ctx = document.getElementById('packetSizeChart').getContext('2d');
+
+    // Бины (интервалы): 0–100, 100–1000, 1000–5000, >5000
+    const bins = [0, 100, 1000, 5000];
+    const binLabels = ['<100', '100–1000', '1000–5000', '>5000'];
+    const counts = new Array(binLabels.length).fill(0);
+
+    packetSizeStats.forEach(size => {
+        for (let i = 0; i < bins.length; i++) {
+            if (size <= bins[i]) {
+                counts[i]++;
+                return;
+            }
+        }
+        counts[bins.length]++; // > последнего бина
+    });
+
+    if (!packetSizeChart) {
+        packetSizeChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: binLabels,
+                datasets: [{
+                    label: 'Размер пакетов',
+                    data: counts,
+                    backgroundColor: '#2196F3'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return `${context.label}: ${context.raw} пакетов`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Размер пакета (байты)' }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Количество пакетов' },
+                        ticks: { stepSize: 1 }
+                    }
+                }
+            }
+        });
+    } else {
+        packetSizeChart.data.datasets[0].data = counts;
+        packetSizeChart.update();
     }
 }

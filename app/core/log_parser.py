@@ -1,4 +1,8 @@
+import json
 import re
+
+from lxml import etree
+
 
 def split_tls_records(lines):
     """
@@ -88,7 +92,7 @@ def parse_packet(packet_content):
         "frame_number": 987,
         "tls_details": {
             "signature_algorithms": [],
-            "handshake_type": "Unknown",
+            "handshake_type": '',
         },
         "certificates": []
     }
@@ -118,6 +122,11 @@ def parse_packet(packet_content):
             line = line.strip()
             if not line:
                 continue
+
+            if line.startswith("TLS segment data "):
+                temp_line = line.replace("TLS segment data ", "").strip()
+                value = temp_line.strip("()").split()[0]
+                base_packet["tls_details"]["segment_data"] = value
 
             # Общая информация о пакете (применяется ко всем записям) !!!!!!!!УСТАРЕЛО ВРОДЕ
             if "[TYPE:" in line:
@@ -207,7 +216,15 @@ def parse_single_record(record_content, base_packet):
     """Парсинг отдельной TLS записи"""
     record_data = {
         **base_packet,
-        "tls_details": base_packet["tls_details"].copy(),
+        "tls_details":  {
+            **base_packet["tls_details"],
+            "application_data_protocol": None,
+            # "http2": {
+            #     "stream_id": None,
+            #     "frame_type": None,
+            #     "flags": None
+            # },
+        },
         "certificates": [],
         "is_handshake": 0,
         "is_cipher": 0,
@@ -215,7 +232,13 @@ def parse_single_record(record_content, base_packet):
         "is_alert": 0,
         "is_heartbeat": 0,
         "is_unknown": 0,
-        "errors": base_packet["errors"].copy()
+        "errors": base_packet["errors"].copy(),
+        "application_data": {
+            "content_type": None,
+            "data": None,
+            "encoding": None,
+            "svg_data": {}
+        },
     }
 
     try:
@@ -231,11 +254,34 @@ def parse_single_record(record_content, base_packet):
         client_supported_versions = []
         negotiated_version = None
 
-        count = 0;
+        capture_data = False
+        current_app_data = []
+        current_content_type = None
+        current_encoding = None
+
+        capture_http2_data = False
+        http2_data_lines = []
+        http2_stream_id = None
+        http2_frame_type = None
+        http2_flags = None
+
+        capture_data = False
+        current_app_data = []
+        current_content_type = None
+        current_encoding = None
+
+        capture_svg = False
+        current_svg_data = []
+
+        if "http2_frames" not in record_data["tls_details"]:
+            record_data["tls_details"]["http2_frames"] = []
+
+        count = 0
         for line in lines:
             line = line.strip()
             if not line:
                 continue
+
 
             # Определение TLS записи
             if "Transport Layer Security" in line or "TLSv" in line:
@@ -256,7 +302,6 @@ def parse_single_record(record_content, base_packet):
                 if "Content Type:" in line:
                     content_type = line.split("Content Type:")[1].split("(")[0].strip()
                     record_data["tls_details"]["content_type"] = content_type
-                    print(lines)
 
                     if "Handshake" in content_type:
                         record_data["is_handshake"] = 1
@@ -270,6 +315,249 @@ def parse_single_record(record_content, base_packet):
                         record_data["is_heartbeat"] = 1
                     else:
                         record_data["is_unknown"] = 1
+
+                stripped_line = line.lstrip()
+                if record_data["is_unknown"] == 1:
+                    print(line)
+
+                if "[Application Data Protocol:" in stripped_line:
+                    start_idx = stripped_line.find(":") + 1
+                    end_idx = stripped_line.find("]")
+                    if end_idx != -1:
+                        protocol = stripped_line[start_idx:end_idx].strip()
+                        record_data["tls_details"]["application_data_protocol"] = protocol
+                        # print("Extracted protocol:", protocol)
+
+                # === Парсинг HyperText Transfer Protocol 2 ===
+                if "HyperText Transfer Protocol 2" in line:
+                    capture_http2_data = True
+                    http2_data_lines = []
+
+                if capture_http2_data and line.startswith("Stream:"):
+                    # Проверяем, не начинается ли строка с "Settings -", чтобы исключить внутренние поля
+                    if "Settings -" in line:
+                        continue
+
+                    stream_match = re.search(r"Stream:\s*(.+?),\s*Stream ID:\s*(\d+)", line)
+                    if stream_match:
+                        http2_frame_type = stream_match.group(1).strip()
+                        http2_stream_id = stream_match.group(2)
+
+                        # Добавляем новый фрейм как словарь
+                        record_data["tls_details"]["http2_frames"].append({
+                            "stream_id": http2_stream_id,
+                            "frame_type": http2_frame_type,
+                            "flags": None,
+                            "length": None,
+                            "settings": [],
+                            "connection_window_before": None,
+                            "connection_window_after": None,
+                        })
+
+                # === Парсинг Connection Window Size до и после ===
+                if "[Connection window size (before):" in line:
+                    # Берём всё после '[Connection window size (before):'
+                    value = line.split("[Connection window size (before):")[1]
+                    # Убираем лишние пробелы и закрывающую скобку
+                    value = value.strip().rstrip("]")
+                    last_frame = record_data["tls_details"]["http2_frames"][-1]
+                    last_frame["connection_window_before"] = value
+
+                if "[Connection window size (after):" in line:
+                    # Берём всё после '[Connection window size (after):'
+                    value = line.split("[Connection window size (after):")[1]
+                    # Убираем лишние пробелы и закрывающую скобку
+                    value = value.strip().rstrip("]")
+                    last_frame = record_data["tls_details"]["http2_frames"][-1]
+                    last_frame["connection_window_after"] = value
+
+                if "Length:" in line and current_section == "tls":
+                    match = re.search(r"Length:\s*(\d+)", line)
+                    if match:
+                        length_value = match.group(1)
+                        if record_data["tls_details"]["http2_frames"]:
+                            last_frame = record_data["tls_details"]["http2_frames"][-1]
+                            last_frame["length"] = length_value
+
+                if line.startswith("TLS segment data "):
+                    temp_line = line.replace("TLS segment data ", "").strip()
+                    value = temp_line.strip("()").split()[0]
+                    record_data["tls_details"]["segment_data"] = value
+
+                if line.startswith("Settings - "):
+                    # Извлекаем имя и значение настройки
+                    setting_line = line.replace("Settings - ", "").strip()
+                    setting_name_value = setting_line.split(":")
+                    if len(setting_name_value) >= 2:
+                        name = setting_name_value[0].strip()
+                        value = ":".join(setting_name_value[1:]).strip()
+                        # Проверяем, что есть хотя бы один фрейм
+                        if record_data.get("tls_details", {}).get("http2_frames"):
+                            last_frame = record_data["tls_details"]["http2_frames"][-1]
+                            #  Добавляем новую настройку
+                            last_frame["settings"].append({
+                                "name": name,
+                                "value": value
+                            })
+
+                if capture_http2_data and "Flags:" in line:
+                    flags_match = re.search(r"Flags:\s*(0x[0-9a-fA-F]+)", line)
+                    if flags_match:
+                        flags_value = flags_match.group(1).strip()
+                        if record_data["tls_details"]["http2_frames"]:
+                            last_frame = record_data["tls_details"]["http2_frames"][-1]
+                            last_frame["flags"] = flags_value
+
+                if "Encrypted Application Data" in line:
+                    hex_data = line.split(":")[1].strip()
+                    record_data["application_data"]["data"] = hex_data
+                    record_data["application_data"]["content_type"] = "application/octet-stream"
+
+                # === Парсинг Headers в HyperText Transfer Protocol 2 ===
+                if line.startswith("Header: "):
+                    header_line = line.replace("Header: ", "").strip()
+                    if "://" not in header_line:  # исключаем URL
+                        key_val = header_line.split(":")
+                        if len(key_val) >= 2:
+                            key = key_val[0].strip()
+                            val = ":".join(key_val[1:]).strip()
+
+                            # Сохраняем как текстовое представление
+                            if "headers_str" not in record_data["application_data"]:
+                                record_data["application_data"]["headers_str"] = []
+
+                            record_data["application_data"]["headers_str"].append(f"{key}: {val}")
+
+                if line.startswith("Header: "):
+                    header_line = line.replace("Header: ", "").strip()
+
+                    if "://" not in header_line and ":" in header_line:
+                        key_val = header_line.split(":", 1)
+                        name = key_val[0].strip()
+                        value = key_val[1].strip()
+
+                        # Инициализируем объект заголовка
+                        parsed_header = {
+                            "name": name,
+                            "value": value,
+                            "name_length": None,
+                            "value_length": None,
+                            "unescaped_value": None,
+                            "representation": None,
+                            "index": None
+                        }
+
+                        # Проверяем, есть ли следующие строки с метаданными
+                        next_line_index = lines.index(line) + 1
+                        while next_line_index < len(lines):
+                            next_line = lines[next_line_index].strip()
+
+                            # Выход, если это уже другой заголовок или не относится к текущему
+                            if next_line.startswith("Header: "):
+                                break
+
+                            print(next_line)
+                            if next_line.startswith("Name Length:"):
+                                parsed_header["name_length"] = int(next_line.split(":", 1)[1].strip())
+
+                            elif next_line.startswith("Value Length:"):
+                                print("МЫ НАШЛИ Value Length")
+                                parsed_header["value_length"] = int(next_line.split(":", 1)[1].strip())
+
+                            elif next_line.startswith("[Unescaped:"):
+                                parsed_header["unescaped_value"] = next_line.split(":", 1)[1].strip().rstrip(
+                                    "]").strip()
+
+                            elif next_line.startswith("Representation:"):
+                                parsed_header["representation"] = next_line.split(":", 1)[1].strip()
+
+                            elif next_line.startswith("Index:"):
+                                parsed_header["index"] = int(next_line.split(":", 1)[1].strip())
+
+                            next_line_index += 1
+
+                        # Добавляем заголовок в фрейм
+                        if record_data.get("tls_details", {}).get("http2_frames"):
+                            last_frame = record_data["tls_details"]["http2_frames"][-1]
+
+                            if "headers" not in last_frame:
+                                last_frame["headers"] = []
+
+                            last_frame["headers"].append(parsed_header)
+
+                # Внутри цикла for line in lines:
+                if "Content-encoded entity body" in line:
+                    # Извлекаем тип кодирования (например, gzip, br)
+                    match = re.search(r"Content-encoded entity body $br$:.*?->.*?$", line)
+                    if match:
+                        encoding_match = re.search(r"$br$:\s*(\d+)\sbytes\s->\s(\d+)\sbytes", line)
+                        if encoding_match:
+                            current_encoding = "br"
+
+                # === Поиск начала HTML ===
+                if line.startswith("<!DOCTYPE html") or line.startswith("<html"):
+                    capture_data = True
+                    current_app_data = []  # Сбрасываем предыдущие данные, если были
+
+                # === Сборка данных приложения ===
+                if capture_data:
+                    current_app_data.append(line)
+
+                # === Начало сборки SVG ===
+                if not capture_data and ("<svg" in line.lower()):
+                    capture_svg = True
+                    current_svg_data = [line]
+
+                # === Сборка SVG ===
+                if capture_svg:
+                    current_svg_data.append(line)
+
+                    # Собираем временный буфер
+                    svg_buffer = "\n".join(current_svg_data)
+
+                    # Проверяем, достаточно ли тегов
+                    if svg_buffer.count("</svg>") > svg_buffer.count("<svg"):
+                        capture_svg = False
+                        record_data["application_data"]["svg_data"] = {
+                            "content_type": "image/svg+xml",
+                            "data": svg_buffer,
+                            "encoding": current_encoding
+                        }
+                        current_svg_data = []
+
+                # === Конец блока с данными приложения ===
+                if capture_data and "</html>" in line.lower():
+                    current_app_data.append(line)
+                    capture_data = False
+
+                    cleaned_data = "\n".join(current_app_data)
+
+                    # Сохраняем данные в record_data
+                    record_data["application_data"] = {
+                        "content_type": detect_content_type(cleaned_data),
+                        "data": cleaned_data,
+                        "encoding": current_encoding
+                    }
+
+
+                # # === Конец блока с данными приложения ===
+                # if capture_data and line.startswith("</html"):
+                #     current_app_data.append(line)
+                #     capture_data = False
+                #
+                #     cleaned_data = "\n".join(current_app_data)
+                #
+                #     # Сохраняем данные в record_data
+                #     record_data["application_data"] = {
+                #         "content_type": detect_content_type(cleaned_data),
+                #         "data": cleaned_data,
+                #         "encoding": current_encoding
+                #     }
+                #     continue
+                #
+                # # === Сборка данных приложения ===
+                # if capture_data:
+                #     current_app_data.append(line)
 
                 if "Cipher Suite:" in line:
                     record_data["tls_details"]["cipher"] = line.split("Cipher Suite:")[1].split("(")[0].strip()
@@ -341,3 +629,21 @@ def parse_single_record(record_content, base_packet):
     except Exception as e:
         record_data["errors"].append(f"Error during record parsing: {str(e)}")
         return record_data
+
+def detect_content_type(data):
+    try:
+        json.loads(data)
+        return "application/json"
+    except Exception:
+        pass
+    try:
+        etree.fromstring(data)
+        # Если содержит <svg>, это SVG
+        if "<svg" in data.lower():
+            return "image/svg+xml"
+        return "application/xml"
+    except Exception:
+        pass
+    if "<html" in data.lower():
+        return "text/html"
+    return "text/plain"

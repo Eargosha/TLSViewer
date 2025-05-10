@@ -19,7 +19,21 @@ def main():
 
     args = parser.parse_args()
 
-    print(args)
+    # Динамическое обновление конфига
+    update_dict = {}
+    if args.url:
+        print(f"[+] Обновили URL {args.url}")
+        update_dict['WEBSITE_URL'] = args.url
+        update_dict['TARGET_IP'] = NetworkUtils.get_ip_from_url(args.url)
+        print(f"[+] Обновили IP {NetworkUtils.get_ip_from_url(args.url)}")
+    if args.mode:
+        print(f"[+] Мод TSHARK: {args.mode}")
+        update_dict['TSHARK_MODE'] = args.mode
+
+
+    Config.update_config(**update_dict)
+
+    # print(args)
 
     # Выводим полученные значения
     if args.mode == "url" and args.url:

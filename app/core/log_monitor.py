@@ -14,7 +14,7 @@ class LogMonitor:
 
     def monitor_log_file(self):
         """Monitor the log file for changes and emit new content"""
-        print("[+] Мониторинрг начали")
+        print("[+] Мониторинг начали")
         self.running = True
         while self.running:
             if not os.path.exists(Config.LOG_FILE):
