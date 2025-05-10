@@ -162,14 +162,6 @@ function createPacketElement(data) {
                 displayValue = formatValue(value);
             }
 
-            // // Если значение — объект, преобразуем его в читаемую строку
-            // if (typeof value === 'object' && value !== null) {
-            //     displayValue = Object.entries(value)
-            //         .filter(([_, v]) => v !== undefined && v !== null && v !== "")
-            //         .map(([k, v]) => `${k}: ${v}`)
-            //         .join(', ') || '—';
-            // }
-
             row.innerHTML = `<td>${key}</td><td class="table-value"><pre>${displayValue}</pre></td>`;
         }
         tlsSection.appendChild(tlsTable);
@@ -231,8 +223,13 @@ function createPacketElement(data) {
         popupContent.appendChild(contentPreview);
         popupOverlay.appendChild(popupContent);
 
-        // Прикрепляем обработчики
+        let iframeLoaded = false;
         appDataBtn.addEventListener('click', () => {
+            if (!iframeLoaded) {
+                const blob = new Blob([parsed.application_data.data], { type: 'text/html' });
+                contentPreview.src = URL.createObjectURL(blob);
+                iframeLoaded = true;
+            }
             popupOverlay.style.display = 'flex';
         });
 
@@ -279,34 +276,6 @@ function createPacketElement(data) {
         }
 
     }
-
-
-    // function formatValue(value) {
-    //     // Если значение — объект, рекурсивно форматируем его
-    //     if (typeof value === 'object' && value !== null) {
-    //         const entries = Object.entries(value)
-    //             .map(([k, v]) => {
-    //                 const formattedValue = formatValue(v);
-    //                 // Если значение после форматирования не пустое — возвращаем "ключ: значение"
-    //                 if (formattedValue !== '—') {
-    //                     return `${k}: ${formattedValue}`;
-    //                 }
-    //                 // Иначе возвращаем null, чтобы потом отфильтровать
-    //                 return null;
-    //             })
-    //             .filter(Boolean); // Убираем все null
-
-    //         return entries.length ? `{ ${entries.join(', ')} }` : '—';
-    //     }
-
-    //     // Для примитивов: возвращаем '—', если значение пустое
-    //     if (value === null || value === undefined || value === '') {
-    //         return '—';
-    //     }
-
-    //     return value;
-    // }
-
 
     function formatValue(value, indent = 0) {
         const INDENT_SIZE = 4;
@@ -403,60 +372,6 @@ function createPacketElement(data) {
             .join('\n\n');
     }
 
-    // // Полезная нагрузка
-    // if (parsed.is_application && parsed.application_data && parsed.application_data.data) {
-    //     const appDataBtn = document.createElement('button');
-    //     appDataBtn.className = 'btn btn-info btn-sm mt-2 mb-2';
-    //     appDataBtn.textContent = 'Показать данные';
-
-    //     // Создаем popup-элемент
-    //     const popupOverlay = document.createElement('div');
-    //     popupOverlay.className = 'popup-overlay';
-
-    //     const popupContent = document.createElement('div');
-    //     popupContent.className = 'popup-content';
-
-    //     const closeBtn = document.createElement('span');
-    //     closeBtn.className = 'popup-close';
-    //     closeBtn.innerHTML = '&times;';
-
-    //     const preformatted = document.createElement('pre');
-    //     preformatted.textContent = parsed.application_data.data;
-
-    //     const contentType = document.createElement('h5');
-    //     contentType.textContent = `Тип данных: ${parsed.application_data.content_type}`;
-
-    //     if (parsed.application_data.encoding) {
-    //         const encodingLabel = document.createElement('p');
-    //         encodingLabel.textContent = `Кодировка: ${parsed.application_data.encoding}`;
-    //         popupContent.appendChild(encodingLabel);
-    //     }
-
-    //     popupContent.appendChild(closeBtn);
-    //     popupContent.appendChild(contentType);
-    //     popupContent.appendChild(preformatted);
-    //     popupOverlay.appendChild(popupContent);
-
-    //     // Прикрепляем обработчики
-    //     appDataBtn.addEventListener('click', function() {
-    //         popupOverlay.style.display = 'flex';
-    //     });
-
-    //     closeBtn.addEventListener('click', () => {
-    //         popupOverlay.style.display = 'none';
-    //     });
-
-    //     // Закрытие кликом вне окна
-    //     popupOverlay.addEventListener('click', (e) => {
-    //         if (e.target === popupOverlay) {
-    //             popupOverlay.style.display = 'none';
-    //         }
-    //     });
-
-    //     content.appendChild(appDataBtn);
-    //     content.appendChild(popupOverlay);
-    // }
-
     // Сертификаты
     if (parsed.certificates.length > 0) {
         const certsSection = document.createElement('div');
@@ -518,22 +433,26 @@ function validateURL() {
     return true;
 }
 
+// Обновить обработчик
+// Буфер для пакетов
+let packetBuffer = [];
+let isProcessingLoadingPackets = false;
 
-// Обновить обработчик log_update для сбора статистики
-socket.on('log_update', function (data) {
-    if (!data || !data.parsed_data) return;
+// Throttle interval (раз в секунду)
+const PROCESS_INTERVAL = 500;
 
-    // Обрабатываем массив записей, если он пришел
-    const records = Array.isArray(data.parsed_data) ?
-        data.parsed_data : [data.parsed_data];
+// Запуск обработки буфера
+function processBuffer() {
+    if (isProcessingLoadingPackets || packetBuffer.length === 0) return;
+    isProcessingLoadingPackets = true;
 
+    const chunk = packetBuffer.splice(0, 150); // Обрабатываем по 50 записей за раз
+    const fragment = document.createDocumentFragment();
 
-    // Увеличиваем счетчик пакетов
-    totalPackets += records.length;
-    updatePacketCounter();
+    chunk.forEach(recordData => {
+        const { record, parsed_data } = recordData;
 
-    records.forEach(record => {
-        // Собираем статистику по версиям TLS
+        // Собираем статистику
         if (record.tls_details && record.tls_details.version) {
             updateTlsVersionStats(record.tls_details.version.trim());
         }
@@ -550,29 +469,49 @@ socket.on('log_update', function (data) {
             updateRequestTimeline(record.timestamp.slice(0, -1));
         }
 
-        const packetData = {
-            raw_data: data.raw_data,
+        // Создаем элемент пакета
+        const packetDiv = createPacketElement({
+            raw_data: record.raw_data,
             parsed_data: record,
             is_handshake: record.is_handshake
-        };
+        });
 
-        const packetDiv = createPacketElement(packetData);
-        logContainer.appendChild(packetDiv);
-        filterPackets();
+        fragment.appendChild(packetDiv);
 
         // Сохраняем в "все пакеты"
         allFilteredPackets.push({
             type: getPacketType(record),
-            parsed_data: record // сохраняем только данные
+            parsed_data: record
         });
-
-        // // Добавляем в фильтруемый контейнер
-        // document.getElementById("filtered-packet-container").appendChild(packetDiv.cloneNode(true));
-
     });
 
-    autoScroll(logContainer);
-    autoScroll(document.getElementById("filtered-packet-container"));
+    logContainer.appendChild(fragment); // Единичное обновление DOM
+    filterPackets(); // Обновляем фильтр после добавления новых пакетов
+
+    isProcessingLoadingPackets = false;
+}
+
+// Установим интервал обработки
+setInterval(processBuffer, PROCESS_INTERVAL);
+
+// WebSocket слушатель
+socket.on('log_update', function (data) {
+    if (!data || !data.parsed_data) return;
+
+    // Обрабатываем массив записей
+    const records = Array.isArray(data.parsed_data) ? data.parsed_data : [data.parsed_data];
+
+    // Увеличиваем счетчик пакетов
+    totalPackets += records.length;
+    updatePacketCounter();
+
+    // Добавляем записи в буфер
+    records.forEach(record => {
+        packetBuffer.push({
+            record,
+            parsed_data: record
+        });
+    });
 });
 
 
@@ -607,5 +546,9 @@ document.addEventListener("DOMContentLoaded", function () {
             header.classList.add("collapsed");
         }
     }
+
+    setInterval(() => {
+        socket.emit('request_all_handshakes');
+    }, 5000); // Обновление каждые 5 секунд
 
 });

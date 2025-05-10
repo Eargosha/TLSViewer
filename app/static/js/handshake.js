@@ -30,6 +30,38 @@ function formatTimestamp(ts) {
     });
 }
 
+// Запрос всех handshake при подключении
+socket.on('connect', () => {
+    socket.emit('request_all_handshakes');
+});
+
+// Обработчик ответа
+socket.on('all_handshakes', displayAllHandshakes);
+
+function displayAllHandshakes(data) {
+    const container = document.getElementById('all-handshakes');
+    container.innerHTML = ''; // Очистка контейнера
+
+    if (!data.length) {
+        container.innerHTML = '<div class="alert alert-info">Нет активных handshake-соединений</div>';
+        return;
+    }
+
+    data.forEach(handshake => {
+        const card = document.createElement('div');
+        card.className = 'handshake-status-card mb-3';
+        card.innerHTML = `
+            <h4>Соединение: ${handshake.ip}</h4>
+            <p>Статус: ${handshake.status}</p>
+            <p>Версия TLS: ${handshake.tls_version}</p>
+            <p>Последняя активность: ${formatTimestamp(handshake.last_update)}</p>
+            <button class="btn btn-sm btn-primary" onclick="requestHandshakeStatus('${handshake.ip}')">Подробнее</button>
+        `;
+        container.appendChild(card);
+    });
+}
+
+
 function displayHandshakeStatus(data) {
     const container = document.getElementById('handshake-status');
     if (data.error) {
@@ -39,13 +71,16 @@ function displayHandshakeStatus(data) {
 
     // console.log(data);
 
-    const statusBadge = data.status === 'completed' ? 
+    const statusBadge = data.status === 'completed' ?
         '<span class="badge bg-success">Завершено</span>' :
         '<span class="badge bg-warning">Соединяется...</span>';
 
     // Выбираем нужные шаги в зависимости от версии TLS
-    let stepsToShow = data.tls_version.includes('1.3') ? handshakeStepsTLS13 : handshakeStepsTLS12;
+    const tlsVersion = data.tls_version || 'TLS 1.2';
+    console.log(data)
+    let stepsToShow = tlsVersion.includes('1.3') ? handshakeStepsTLS13 : handshakeStepsTLS12;
 
+                // <p>Идентификация по имени сервера: ${data.sni}</p>
     container.innerHTML = `
         <div class="handshake-status-card">
             <h4>Статус для TLS соединения ${data.ip} ${statusBadge}</h4>
@@ -73,25 +108,18 @@ function displayHandshakeStatus(data) {
 socket.on('handshake_status', displayHandshakeStatus);
 
 
-function requestHandshakeStatus() {
-    // Получаем введенный IP-адрес из input-поля
-    const ip1 = document.getElementById('targetIp1').value.trim();
-    const ip2 = document.getElementById('targetIp2').value.trim();
-    
-    const ip = ip1 + ":" + ip2;
-
-    // Проверяем, что IP-адрес не пустой
+function requestHandshakeStatus(ip = null) {
     if (!ip) {
-        alert('Please enter a valid IP address');
-        return;
+        const ip1 = document.getElementById('targetIp1').value.trim();
+        const ip2 = document.getElementById('targetIp2').value.trim();
+        if (!ip1 || !ip2) {
+            alert('Введите оба IP-адреса');
+            return;
+        }
+        ip = `${ip1}:${ip2}`;
     }
-    
-    // Отправляем запрос на сервер через WebSocket
-    socket.emit('request_handshake_status', { 
-        ip: ip 
-    });
-    
-    // Можно добавить индикатор загрузки
+
+    socket.emit('request_handshake_status', { ip });
     const statusContainer = document.getElementById('handshake-status');
-    statusContainer.innerHTML = '<div class="text-center">Checking status...</div>';
+    statusContainer.innerHTML = '<div class="text-center">Проверка статуса...</div>';
 }

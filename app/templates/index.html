@@ -127,7 +127,7 @@
         <!-- График по времени -->
         <div class="col-md-6">
             <div class="shadow log-section">
-                <h2 class="section-header">Частота запросов (пакетов/сек)</h2>
+                <h2 class="section-header">Частота запросов (пакетов/сек)(доступно при активном мониторинге)</h2>
                 <div class="section-content">
                     <canvas id="timelineChart"></canvas>
                 </div>
@@ -155,6 +155,13 @@
                 <button class="btn btn-primary" onclick="requestHandshakeStatus()">Проверить статус</button>
             </div>
             <div id="handshake-status"></div>
+        </div>
+    </div>
+
+    <div class="shadow log-section mt-4">
+        <h2 class="section-header">Диганости всех TLS соединений, доступных на данный момент</h2>
+        <div class="section-content">
+            <div id="all-handshakes"></div>
         </div>
     </div>
 

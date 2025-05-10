@@ -50,7 +50,7 @@ def handle_connect():
         # 1. Отправляем метаданные сессии
         emit('system_message', {
             'type': 'connection',
-            'message': 'Connection established',
+            'message': 'Соединение установлено!',
             'timestamp': datetime.now().isoformat()
         })
 
@@ -63,13 +63,25 @@ def handle_connect():
                 if content.startswith("==== NEW SESSION ===="):
                     emit('system_message', {
                         'type': 'session',
-                        'message': 'New monitoring session started',
+                        'message': 'Мониторинг запущен (найдено начало сессии в логе)',
                         'timestamp': datetime.now().isoformat()
                     })
 
                 # Разбираем пакеты из истории
                 packets = content.split("====== [TLS Packet -")[1:]
-                for packet in packets[:100]:
+
+                user_know_about_history = False
+
+                for packet in packets[:Config.HOW_MANY_LOAD_FORM_HISTORY]:
+
+                    if not user_know_about_history:
+                        emit('system_message', {
+                            'type': 'connection',
+                            'message': f'Загрузка первых {Config.HOW_MANY_LOAD_FORM_HISTORY} кадров(frames) из истории',
+                            'timestamp': datetime.now().isoformat()
+                        })
+                        user_know_about_history = True
+
                     full_packet = "====== [TLS Packet -" + packet
                     parsed_records = parse_packet(full_packet)
 
@@ -110,7 +122,7 @@ def handle_connect():
         print(f"Connection error for client: {str(e)}")
         emit('system_message', {
             'type': 'error',
-            'message': f'Initialization failed: {str(e)}'
+            'message': f'Ошибка инициализации: {str(e)}'
         })
 
 # Храним запущенный процесс
@@ -146,52 +158,7 @@ def handle_start_daemon(data):
 
         if mode == "url" and url:
             args.extend(["--url", url, '--mode', mode])
-        # График
-        # частоты
-        # запросов(временная
-        # линия, показывающая
-        # количество
-        # запросов
-        # в
-        # секунду).
-        # График
-        # размера
-        # пакетов(гистограмма, показывающая
-        # распределение
-        # размеров
-        # пакетов).
-        #
-        # Геолокация
-        # IP - адресов: Используйте
-        # API(например, ipstack)
-        # для
-        # определения
-        # местоположения
-        # источника
-        # и
-        # назначения.
-        # Мониторинг
-        # HTTP / 2: Если
-        # трафик
-        # использует
-        # HTTP / 2, анализируйте
-        # заголовки
-        # и
-        # тела
-        # запросов.
-        #
-        # Экспорт
-        # данных: Реализуйте
-        # возможность
-        # экспорта
-        # данных
-        # в
-        # CSV
-        # или
-        # PDF
-        # для
-        # дальнейшего
-        # анализа.
+
         print(f"Запускаем с {args}")
 
         daemon_process = subprocess.Popen(
@@ -212,58 +179,6 @@ def handle_start_daemon(data):
             "message": f"Ошибка запуска демона: {str(e)}",
             "timestamp": datetime.now().isoformat()
         })
-
-# @socketio.on("start_daemon")
-# def handle_start_daemon(data):
-#     global daemon_process
-#
-#     if daemon_process and daemon_process.poll() is None:
-#         emit("system_message", {
-#             "type": "info",
-#             "message": f"Daemon уже запущен (PID: {daemon_process.pid})",
-#             "timestamp": datetime.now().isoformat()
-#         })
-#         return
-#
-#     try:
-#         selected_iface = data.get("interface")
-#         if not selected_iface:
-#             emit("system_message", {
-#                 "type": "error",
-#                 "message": "Не указан интерфейс!",
-#                 "timestamp": datetime.now().isoformat()
-#             })
-#             return
-#
-#         # command = f"python3 daemon.py --interface {selected_iface}"
-#         # args = shlex.split(command)
-#         #
-#         # daemon_process = subprocess.Popen(
-#         #     args,
-#         #     stdout=subprocess.PIPE,
-#         #     stderr=subprocess.PIPE,
-#         #     text=True,
-#         #     cwd=os.path.dirname(__file__)
-#         # )
-#
-#         daemon_process = subprocess.Popen(
-#             ["cmd", "/c", "start", "cmd.exe", "/k", "python", "../deamon.py", "--interface", selected_iface],
-#             creationflags=subprocess.CREATE_NEW_CONSOLE,
-#             cwd=os.path.dirname(__file__)
-#         )
-#
-#         emit("system_message", {
-#             "type": "info",
-#             "message": f"Daemon запущен (PID: {daemon_process.pid})",
-#             "timestamp": datetime.now().isoformat()
-#         })
-#
-#     except Exception as e:
-#         emit("system_message", {
-#             "type": "error",
-#             "message": f"Ошибка запуска демона: {str(e)}",
-#             "timestamp": datetime.now().isoformat()
-#         })
 
 
 @socketio.on("stop_daemon")
@@ -294,6 +209,8 @@ def handle_stop_daemon():
 def handle_handshake_status(data):
     ip = data.get("ip")
 
+    print(handshake_states)
+
     # Парсим IP как A:B или B:A
     try:
         src, dst = ip.split(":")
@@ -316,10 +233,29 @@ def handle_handshake_status(data):
         "current_state": state["current_state"],
         "seen_steps": list(state["seen_steps"]),
         "last_update": state["last_update"],
-        "participants": state["participants"]
+        "participants": state["participants"],
+        "tls_version": state["tls_version"],
+        "sni": state["sni"]
     }
 
     emit("handshake_status", response)
+
+@socketio.on("request_all_handshakes")
+def handle_get_all_handshakes():
+    all_states = []
+    for ip_key, state in handshake_states.items():
+        status = "completed" if "finished" in state["seen_steps"] else "in progress"
+        all_states.append({
+            "ip": ip_key,
+            "status": status,
+            "current_state": state["current_state"],
+            "seen_steps": list(state["seen_steps"]),
+            "last_update": state["last_update"],
+            "participants": state["participants"],
+            "tls_version": state.get("tls_version", "TLS 1.2"),
+            "sni":state.get("sni")
+        })
+    emit("all_handshakes", all_states)
 
 if __name__ == "__main__":
     monitor_thread = threading.Thread(target=log_monitor.monitor_log_file)

@@ -273,6 +273,8 @@ def parse_single_record(record_content, base_packet):
         capture_svg = False
         current_svg_data = []
 
+        negotiated_version_found = False
+
         if "http2_frames" not in record_data["tls_details"]:
             record_data["tls_details"]["http2_frames"] = []
 
@@ -317,8 +319,8 @@ def parse_single_record(record_content, base_packet):
                         record_data["is_unknown"] = 1
 
                 stripped_line = line.lstrip()
-                if record_data["is_unknown"] == 1:
-                    print(line)
+                # if record_data["is_unknown"] == 1:
+                #     # print(line)
 
                 if "[Application Data Protocol:" in stripped_line:
                     start_idx = stripped_line.find(":") + 1
@@ -456,12 +458,12 @@ def parse_single_record(record_content, base_packet):
                             if next_line.startswith("Header: "):
                                 break
 
-                            print(next_line)
+                            # print(next_line)
                             if next_line.startswith("Name Length:"):
                                 parsed_header["name_length"] = int(next_line.split(":", 1)[1].strip())
 
                             elif next_line.startswith("Value Length:"):
-                                print("МЫ НАШЛИ Value Length")
+                                # print("МЫ НАШЛИ Value Length")
                                 parsed_header["value_length"] = int(next_line.split(":", 1)[1].strip())
 
                             elif next_line.startswith("[Unescaped:"):
@@ -571,7 +573,7 @@ def parse_single_record(record_content, base_packet):
                     client_supported_versions.append("TLS 1.3")
 
                     # === ДОБАВЛЕНО: Версия, выбранная сервером ===
-                if "Supported Version:" in line:
+                if "Supported Version:" in line and not negotiated_version_found:
                     if "TLS 1.3" in line:
                         negotiated_version = "TLS 1.3"
                     elif "TLS 1.2" in line:

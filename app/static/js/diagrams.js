@@ -10,6 +10,25 @@ const packetSizeStats = [];     // Размеры пакетов
 let timelineChart = null;       // График по времени
 let packetSizeChart = null;    // Гистограмма размеров
 
+
+// Добавляем throttle для обновления графиков
+const throttleChartUpdate = (fn) => {
+    let lastCalled = 0;
+    return (...args) => {
+        const now = Date.now();
+        if (now - lastCalled > 500) { // 1 секунда
+            fn(...args);
+            lastCalled = now;
+        }
+    };
+};
+
+// Модифицируем функции обновления
+const throttledUpdateTlsChart = throttleChartUpdate(updateTlsChart);
+const throttledUpdateTlsTypeChart = throttleChartUpdate(updateTlsTypeChart);
+const throttledUpdateTimelineChart = throttleChartUpdate(updateTimelineChart);
+const throttledUpdatePacketSizeChart = throttleChartUpdate(updatePacketSizeChart);
+
 // Функция для обновления статистики версий TLS
 function updateTlsVersionStats(version) {
     if (!version) return;
@@ -20,7 +39,7 @@ function updateTlsVersionStats(version) {
         tlsVersionStats[version] = 1;
     }
 
-    updateTlsChart();
+    throttledUpdateTlsChart();
 }
 
 // Функция для обновления статистики типов пакетов
@@ -36,7 +55,7 @@ function updateTlsTypeStats(handshakeType) {
         tlsTypeStats[cleanType] = 1;
     }
 
-    updateTlsTypeChart();
+    throttledUpdateTlsTypeChart();
 }
 
 // Функция для создания/обновления диаграммы типов
@@ -210,7 +229,7 @@ function updateRequestTimeline(timestamp) {
         }
     }
 
-    updateTimelineChart();
+    throttledUpdateTimelineChart();
 }
 
 function updateTimelineChart() {
@@ -278,7 +297,7 @@ function updatePacketSizeStats(length) {
         packetSizeStats.push(parseInt(length));
     }
 
-    updatePacketSizeChart();
+    throttledUpdatePacketSizeChart();
 }
 
 function updatePacketSizeChart() {

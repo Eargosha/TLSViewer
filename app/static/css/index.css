@@ -689,3 +689,13 @@ iframe {
     height: 300px !important;
     max-height: 300px;
 }
+
+#all-handshakes {
+    border-radius: 8px;
+    height:30.5vh;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    overflow-y: auto;
+    word-wrap: break-word;
+}

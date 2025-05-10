@@ -6,7 +6,7 @@ handshake_states = {}
 
 
 def get_connection_key(ip1, ip2):
-    return ":".join(sorted([ip1, ip2]))
+    return f"{min(ip1, ip2)}:{max(ip1, ip2)}"
 
 
 def analyze_handshake(record):
@@ -27,7 +27,8 @@ def analyze_handshake(record):
                 "client": None,
                 "server": None
             },
-            "tls_version": None
+            "tls_version": None,
+            "sni": None
         }
 
     state = handshake_states[ip_key]
@@ -36,6 +37,16 @@ def analyze_handshake(record):
     # Попробуем получить negotiated_version из ServerHello или Extension
     negotiated_version = record["tls_details"].get("negotiated_version")
     client_versions = record["tls_details"].get("client_supported_versions", [])
+    if state["sni"]:
+        state["sni"] = record["tls_details"].get("sni")
+
+
+    # print(f" SNI: {record["tls_details"].get("sni")}")
+    #
+    # print(f"TLS_VERSION: {tls_version}")
+    # print(f"NEGOTIATED_VERSION: {negotiated_version}")
+    # print(f"CLIENTS_VERSION: {client_versions}")
+
 
     candidates = []
 
@@ -77,6 +88,8 @@ def analyze_handshake(record):
             # Обновляем версию только если она выше текущей или еще не установлена
             if highest_candidate_value > current_version_value:
                 state["tls_version"] = highest_candidate
+
+    # print(f"В итоге: {state["tls_version"]}")
 
     # Определяем участников
     if "client hello" in handshake_type:

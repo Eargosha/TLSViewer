@@ -22,7 +22,7 @@ function filterPackets() {
         }
     }
 
-    autoScroll(container);
+    // autoScroll(container);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
